@@ -127,7 +127,7 @@
 		real scalar Fmin, Fmax, Fe
 		
 		if (abs(coef[5])<=1e-10) {
-			Fe = .
+			Fe = 8e+307
 		}
 		else {
 			Fe = -coef[4]/(4*coef[5])
@@ -137,7 +137,7 @@
 		Fmax = abs( 2*coef[3] + 6*max(X)*coef[4] + 12*max(X)*coef[5])
 		
 		if ( min(X)<Fe & max(X)>Fe ) {
-			M = max(abs( 2*coef[3] + 6*Fe*coef[4] + 12*Fe*coef[5]), max((Fmin,Fmax)))
+			M = max( ( abs( 2*coef[3] + 6*Fe*coef[4] + 12*Fe*coef[5] ) , max((Fmin,Fmax)) ) )
 		}
 		else {
 			M = max((Fmin,Fmax))
