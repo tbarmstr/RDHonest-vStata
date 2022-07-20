@@ -2,10 +2,11 @@
 
 program define rdhonest, eclass
 	version 14.2
-	syntax varlist(min=1) [if] [in], m(real) ///
-	 [c(real 0) hp(real 0) kernel(string) hm(real 0) opt_criterion(string) ///
+	syntax varlist(min=1) [if] [in] ///
+	 [,m(real) c(real 0) hp(real 0) kernel(string) hm(real 0) opt_criterion(string) ///
 	 bw_equal(integer 1) alpha(real 0.05) beta(real 0.8) se_method(string) ///
          j(integer 3) sclass(string) order(integer 1) se_initial(string)]
+  * SZ: set m() as optional as well, and MROT as default 
 
   marksample touse
   preserve
