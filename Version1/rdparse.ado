@@ -50,19 +50,19 @@ program rdparse, sclass
 			if "`runvar`n''" != "" {
 				fvunab runvar`n' : `runvar`n''
 				// * unnote the following lines if we want to limit the number of running variables to 1
-				//if `:list sizeof runvar`n'' > 1 {
-				//capture noi error 198
-				//di as error `"syntax is "(one running variable = one treatment variable)""'
-				//di as error `"only one running variable allowed"'
-				//}
+				if `:list sizeof runvar`n'' > 1 {
+				capture noi error 198
+				di as error `"syntax is "(one running variable = one treatment variable)""'
+				di as error `"only one running variable allowed"'
+				}
 			}
 			fvunab covar`n' : `lhs'
 			// * unnote the following lines if we want to limit the number of treatment variables to 1
-			//if `:list sizeof covar`n'' > 1 {
-			//capture noi error 198
-			//di as error `"syntax is "(one running variable = one treatment variable)""'
-			//di as error `"only one treatment variable allowed"'
-			//}
+			if `:list sizeof covar`n'' > 1 {
+			capture noi error 198
+			di as error `"syntax is "(one running variable = one treatment variable)""'
+			di as error `"only one treatment variable allowed"'
+			}
 		}
 		else {
 			local covar `covar' `lhs'
