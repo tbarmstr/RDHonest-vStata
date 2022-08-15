@@ -1,0 +1,903 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/admin/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current version/rdhonest_test.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}15 Aug 2022, 13:09:31
+{txt}
+{com}. 
+. ********************************************************************************
+. //  1. Lee08
+. qui: use `"${c -(}datadir{c )-}/lee08.dta"', clear
+{txt}
+{com}. 
+. // 1.1 uni kernel
+. rdhonest voteshare margin, m(0.1) kernel("uni") h(10) 
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}6.05677353 {col 16}1.72376825 {col 34}1.19052699 {col 50}2.37473029 {col 67} 9.73881678
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.37476265 {txt}, Inf), (-Inf, {res} 9.73878442{txt})
+{col 2}Bandwidth: {res}10         
+{col 2}{txt}Number of effective observations: {res}1209       
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.003703381 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. 
+. // 1.1.1 uni kernel + optimal h 
+. rdhonest voteshare margin, m(0.1) kernel("uni") 
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}5.97398151 {col 16}.850259518 {col 34}1.43299882 {col 50}2.73601889 {col 67} 9.21194414
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.76664868 {txt}, Inf), (-Inf, {res} 9.18131434{txt})
+{col 2}Bandwidth (optimized): {res}6.91475868 
+{col 2}{txt}Number of effective observations: {res}843        
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.005503345 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. rdhonest voteshare margin, m(0.1) kernel("uni") opt_criterion("OCI")
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}4.88998924 {col 16}.572475838 {col 34}1.55210007 {col 50}1.65199641 {col 67} 8.12798208
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}1.76453597 {txt}, Inf), (-Inf, {res} 8.01544252{txt})
+{col 2}Bandwidth (optimized): {res}5.77180088 
+{col 2}{txt}Number of effective observations: {res}701        
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}OCI{txt}, with beta {res}.8         
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.007011609 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. rdhonest voteshare margin, m(0.1) kernel("uni") opt_criterion("FLCI") 
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}5.57055475 {col 16}.890553506 {col 34}1.4221318  {col 50}2.31590621 {col 67} 8.82520329
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.34080259 {txt}, Inf), (-Inf, {res} 8.80030691{txt})
+{col 2}Bandwidth (optimized): {res}7.10620284 
+{col 2}{txt}Number of effective observations: {res}863        
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}FLCI
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.005349821 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. 
+. // 1.1.2 uni kernel + optimal h + without M + est_w saved as wgt 
+. rdhonest voteshare margin, kernel("uni") savew("wgt")
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}4.79816988 {col 16}.891210516 {col 34}1.57140644 {col 50}1.2829887  {col 67} 8.31335106
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}1.32222577 {txt}, Inf), (-Inf, {res} 8.27411398{txt})
+{col 2}Bandwidth (optimized): {res}6.01199567 
+{col 2}{txt}Number of effective observations: {res}728        
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.006421319 
+{col 2}{txt}Smootheness constant M (estimated): {res}.142810807 
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+
+{col 2}{txt}{it:Generated variables}:
+{col 2}     Estimated weight: {res}wgt
+{txt}
+{com}. 
+. // 1.2 tri kernel 
+. rdhonest voteshare margin, m(0.1) kernel("tri") h(10) 
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}5.93672596 {col 16}1.05606425 {col 34}1.23301022 {col 50}2.84789393 {col 67} 9.02555799
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.85254037 {txt}, Inf), (-Inf, {res} 9.02091154{txt})
+{col 2}Bandwidth: {res}10         
+{col 2}{txt}Number of effective observations: {res}1003.37472 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.007243217 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. 
+. // 1.2.1 tri kernel + optimal h 
+. rdhonest voteshare margin, m(0.1) kernel("tri") 
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}5.93665377 {col 16}.832266594 {col 34}1.29441808 {col 50}2.95483117 {col 67} 8.91847638
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.9752589  {txt}, Inf), (-Inf, {res} 8.89804865{txt})
+{col 2}Bandwidth (optimized): {res}8.84855171 
+{col 2}{txt}Number of effective observations: {res}889.051245 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.008236342 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. rdhonest voteshare margin, m(0.1) kernel("tri") opt_criterion("OCI")
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}5.82265043 {col 16}.575826613 {col 34}1.38202457 {col 50}2.89467975 {col 67} 8.75062111
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.9735957  {txt}, Inf), (-Inf, {res} 8.67170516{txt})
+{col 2}Bandwidth (optimized): {res}7.42934716 
+{col 2}{txt}Number of effective observations: {res}737.592837 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}OCI{txt}, with beta {res}.8         
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.009973466 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. rdhonest voteshare margin, m(0.1) kernel("tri") opt_criterion("FLCI") 
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}5.95445705 {col 16}.883482126 {col 34}1.27874983 {col 50}2.95272674 {col 67} 8.95618736
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.96761863 {txt}, Inf), (-Inf, {res} 8.94129547{txt})
+{col 2}Bandwidth (optimized): {res}9.11159306 
+{col 2}{txt}Number of effective observations: {res}917.823736 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}FLCI
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.007988219 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. 
+. cap drop wgt /*for the dofile to run*/
+{txt}
+{com}. // 1.2.2 tri kernel + optimal h + without M + est_w saved as wgt 
+. rdhonest voteshare margin, kernel("tri") savew("wgt")
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}5.84973224 {col 16}.88800705  {col 34}1.36588331 {col 50}2.69443541 {col 67} 9.00502906
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.71504707 {txt}, Inf), (-Inf, {res} 8.98441741{txt})
+{col 2}Bandwidth (optimized): {res}7.71506984 
+{col 2}{txt}Number of effective observations: {res}764.559585 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.009560868 
+{col 2}{txt}Smootheness constant M (estimated): {res}.142810807 
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+
+{col 2}{txt}{it:Generated variables}:
+{col 2}     Estimated weight: {res}wgt
+{txt}
+{com}. 
+. // 1.3 display option tests and by option tests
+. // 1.3.1 by option (psuedo categories)
+. qui{c -(}
+{txt}
+{com}. bys bygrp: rdhonest voteshare margin, m(0.1) kernel("uni") h(10)
+
+{txt}{hline}
+-> bygrp = 0
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}5.27567752 {col 16}1.71837784 {col 34}1.63811092 {col 50}.861406093 {col 67} 9.68994895
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}.862846988 {txt}, Inf), (-Inf, {res} 9.68850806{txt})
+{col 2}Bandwidth: {res}10         
+{col 2}{txt}Number of effective observations: {res}604        
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.007626798 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+
+{txt}{hline}
+-> bygrp = 1
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}6.80020499 {col 16}1.72728041 {col 34}1.77634908 {col 50}2.14825205 {col 67} 11.4521579
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.15109035 {txt}, Inf), (-Inf, {res} 11.4493196{txt})
+{col 2}Bandwidth: {res}10         
+{col 2}{txt}Number of effective observations: {res}605        
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.00719001  
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. bys bygrp: rdhonest voteshare margin, m(0.1) kernel("uni") h(10) savew("wgt")
+
+{txt}{hline}
+-> bygrp = 0
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}5.27567752 {col 16}1.71837784 {col 34}1.63811092 {col 50}.861406093 {col 67} 9.68994895
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}.862846988 {txt}, Inf), (-Inf, {res} 9.68850806{txt})
+{col 2}Bandwidth: {res}10         
+{col 2}{txt}Number of effective observations: {res}604        
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.007626798 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+
+{col 2}{txt}{it:Generated variables}:
+{col 2}     Estimated weight: {res}wgt
+
+{txt}{hline}
+-> bygrp = 1
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}6.80020499 {col 16}1.72728041 {col 34}1.77634908 {col 50}2.14825205 {col 67} 11.4521579
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.15109035 {txt}, Inf), (-Inf, {res} 11.4493196{txt})
+{col 2}Bandwidth: {res}10         
+{col 2}{txt}Number of effective observations: {res}605        
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.00719001  
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+
+{col 2}{txt}{it:Generated variables}:
+{col 2}     Estimated weight: {res}wgt
+{txt}
+{com}. 
+. // 1.3.2 hide parameters
+. rdhonest voteshare margin, m(0.1) kernel("uni") h(10) noparam
+{res}
+{col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}6.05677353 {col 16}1.72376825 {col 34}1.19052699 {col 50}2.37473029 {col 67} 9.73881678
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.37476265 {txt}, Inf), (-Inf, {res} 9.73878442{txt})
+{col 2}Bandwidth: {res}10         
+{col 2}{txt}Number of effective observations: {res}1209       
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. 
+. // 1.3.3 show iteration log
+. rdhonest voteshare margin, m(0.1) kernel("tri") iterl
+{res}{txt}Iteration 0:{space 3}f(p) = {res: 3.2843434}  
+Iteration 1:{space 3}f(p) = {res: 3.2545513}  
+Iteration 2:{space 3}f(p) = {res: 3.2537915}  
+Iteration 3:{space 3}f(p) = {res: 3.2537877}  
+Iteration 4:{space 3}f(p) = {res: 3.2537877}  
+
+{col 1}Honest inference: {res:SHARP} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}5.93665377 {col 16}.832266594 {col 34}1.29441808 {col 50}2.95483117 {col 67} 8.91847638
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}2.9752589  {txt}, Inf), (-Inf, {res} 8.89804865{txt})
+{col 2}Bandwidth (optimized): {res}8.84855171 
+{col 2}{txt}Number of effective observations: {res}889.051245 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.008236342 
+{col 2}{txt}Smootheness constant M: {res}.1         
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
+{col 2}   {txt}Running variable: {col 22}{res}margin                                  
+{txt}
+{com}. 
+. ********************************************************************************
+. // 2. rcp
+. qui: use `"${c -(}datadir{c )-}/rcp.dta"', clear 
+{txt}
+{com}. 
+. // 2.1 uni kernel
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") h(3) 
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-6081.32789{col 16}24908.345  {col 34}3330.31152 {col 50}-36467.5479{col 67} 24304.8921
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-36467.5479{txt}, Inf), (-Inf, {res} 24304.8921{txt})
+{col 2}First-stage estimate: {res}.330652239 
+{col 2}{txt}Bandwidth: {res}3          
+{col 2}{txt}Number of effective observations: {res}2859       
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.001148573 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. 
+. // 2.1.1 uni kernel + optimal h 
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") t0(0)
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-3041.98487{col 16}119639.281 {col 34}721.142172 {col 50}-123867.44 {col 67}  117783.47
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-123867.44 {txt}, Inf), (-Inf, {res}  117783.47{txt})
+{col 2}First-stage estimate: {res}.501984619 
+{col 2}{txt}Bandwidth (optimized): {res}15         
+{col 2}{txt}Number of effective observations: {res}16531      
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000272655 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") t0(0) opt_criterion("OCI")
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-2372.75338{col 16}82919.9153 {col 34}792.503945 {col 50}-86596.2216{col 67} 81850.7149
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-86596.2216{txt}, Inf), (-Inf, {res} 81850.7149{txt})
+{col 2}First-stage estimate: {res}.479008759 
+{col 2}{txt}Bandwidth (optimized): {res}14         
+{col 2}{txt}Number of effective observations: {res}14923      
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}OCI{txt}, with beta {res}.8         
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000308509 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") t0(0) opt_criterion("FLCI") 
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-3273.64811{col 16}141925.173 {col 34}702.843267 {col 50}-146354.895{col 67} 139807.599
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-146354.895{txt}, Inf), (-Inf, {res} 139807.599{txt})
+{col 2}First-stage estimate: {res}.500478044 
+{col 2}{txt}Bandwidth (optimized): {res}16         
+{col 2}{txt}Number of effective observations: {res}17524      
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}FLCI
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000260008 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. 
+. // 2.1.2 uni kernel + optimal h + without M + est_w saved as wgt 
+. rdhonest cn (retired=elig_year), kernel("uni") t0(0) savew("wgt")
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-4101.28302{col 16}2305.5557  {col 34}2288.74466 {col 50}-10174.2817{col 67} 1971.71564
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-10171.4887{txt}, Inf), (-Inf, {res} 1968.92264{txt})
+{col 2}First-stage estimate: {res}.323809965 
+{col 2}{txt}Bandwidth (optimized): {res}5          
+{col 2}{txt}Number of effective observations: {res}5018       
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000763565 
+{col 2}{txt}Smootheness constant M (first-stage, estimated): {res}.008178929 
+{col 2}{txt}Smootheness constant M (reduced-form, estimated): {res}67.2320533 
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+
+{col 2}{txt}{it:Generated variables}:
+{col 2}     Estimated weight: {res}wgt
+{txt}
+{com}. 
+. // 2.2 tri kernel 
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") h(3) 
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-4623.87045{col 16}12711.5674 {col 34}5692.37704 {col 50}-26698.5649{col 67}  17450.824
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-26698.5649{txt}, Inf), (-Inf, {res}  17450.824{txt})
+{col 2}First-stage estimate: {res}.291631727 
+{col 2}{txt}Bandwidth: {res}3          
+{col 2}{txt}Number of effective observations: {res}1867       
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.001285804 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. 
+. // 2.2.1 tri kernel + optimal h 
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") t0(0)
+{res}{txt}numerical derivatives are approximate
+flat or discontinuous region encountered
+
+{col 1}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-3265.39147{col 16}135893.838 {col 34}738.635501 {col 50}-140374.176{col 67} 133843.393
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-140374.176{txt}, Inf), (-Inf, {res} 133843.393{txt})
+{col 2}First-stage estimate: {res}.472339715 
+{col 2}{txt}Bandwidth (optimized): {res}20.0998119 
+{col 2}{txt}Number of effective observations: {res}17348.0832 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000390641 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") opt_criterion("OCI") t0(0)
+{res}{txt}numerical derivatives are approximate
+flat or discontinuous region encountered
+
+{col 1}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-2669.3215 {col 16}90025.9302 {col 34}822.041871 {col 50}-94047.3902{col 67} 88708.7472
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-94047.3902{txt}, Inf), (-Inf, {res} 88708.7472{txt})
+{col 2}First-stage estimate: {res}.459890906 
+{col 2}{txt}Bandwidth (optimized): {res}17.4729304 
+{col 2}{txt}Number of effective observations: {res}15268.1575 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}OCI{txt}, with beta {res}.8         
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000451407 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") opt_criterion("FLCI") t0(0)
+{res}{txt}numerical derivatives are approximate
+flat or discontinuous region encountered
+
+{col 1}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-3477.08743{col 16}154166.552 {col 34}718.005915 {col 50}-158824.655{col 67}  151870.48
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-158824.655{txt}, Inf), (-Inf, {res}  151870.48{txt})
+{col 2}First-stage estimate: {res}.474804285 
+{col 2}{txt}Bandwidth (optimized): {res}20.8511249 
+{col 2}{txt}Number of effective observations: {res}18110.5938 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}FLCI
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000374772 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. 
+. cap drop wgt /*for the dofile to run*/
+{txt}
+{com}. // 2.2.1 tri kernel + optimal h + without M + est_w saved as wgt 
+. rdhonest cn (retired=elig_year), kernel("tri") t0(0) savew("wgt")
+{res}{txt}numerical derivatives are approximate
+flat or discontinuous region encountered
+
+{col 1}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-4006.29653{col 16}2166.60935 {col 34}2298.52397 {col 50}-9958.24344{col 67} 1945.65038
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-9953.64136{txt}, Inf), (-Inf, {res}  1941.0483{txt})
+{col 2}First-stage estimate: {res}.31992201  
+{col 2}{txt}Bandwidth (optimized): {res}6.52830259 
+{col 2}{txt}Number of effective observations: {res}4968.84142 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.001077215 
+{col 2}{txt}Smootheness constant M (first-stage, estimated): {res}.008178929 
+{col 2}{txt}Smootheness constant M (reduced-form, estimated): {res}67.2320533 
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+
+{col 2}{txt}{it:Generated variables}:
+{col 2}     Estimated weight: {res}wgt
+{txt}
+{com}. 
+. // 2.3 display option tests and by option tests
+. // 2.3.1 by option (psuedo categories)
+. qui{c -(}
+{txt}
+{com}. bys bygrp: rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") h(3)
+
+{txt}{hline}
+-> bygrp = 0
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-4491.91001{col 16}16079.1055 {col 34}4215.82584 {col 50}-27505.4319{col 67} 18521.6119
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-27505.4319{txt}, Inf), (-Inf, {res} 18521.6119{txt})
+{col 2}First-stage estimate: {res}.377016964 
+{col 2}{txt}Bandwidth: {res}3          
+{col 2}{txt}Number of effective observations: {res}1486       
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.001944326 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+
+{txt}{hline}
+-> bygrp = 1
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-8403.37021{col 16}42323.5418 {col 34}5684.21055 {col 50}-60076.6063{col 67} 43269.8659
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-60076.6063{txt}, Inf), (-Inf, {res} 43269.8659{txt})
+{col 2}First-stage estimate: {res}.270350791 
+{col 2}{txt}Bandwidth: {res}3          
+{col 2}{txt}Number of effective observations: {res}1373       
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.002761653 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. bys bygrp: rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") h(3) savew("wgt")
+
+{txt}{hline}
+-> bygrp = 0
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-4491.91001{col 16}16079.1055 {col 34}4215.82584 {col 50}-27505.4319{col 67} 18521.6119
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-27505.4319{txt}, Inf), (-Inf, {res} 18521.6119{txt})
+{col 2}First-stage estimate: {res}.377016964 
+{col 2}{txt}Bandwidth: {res}3          
+{col 2}{txt}Number of effective observations: {res}1486       
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.001944326 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+
+{col 2}{txt}{it:Generated variables}:
+{col 2}     Estimated weight: {res}wgt
+
+{txt}{hline}
+-> bygrp = 1
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-8403.37021{col 16}42323.5418 {col 34}5684.21055 {col 50}-60076.6063{col 67} 43269.8659
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-60076.6063{txt}, Inf), (-Inf, {res} 43269.8659{txt})
+{col 2}First-stage estimate: {res}.270350791 
+{col 2}{txt}Bandwidth: {res}3          
+{col 2}{txt}Number of effective observations: {res}1373       
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:uni}form
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.002761653 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+
+{col 2}{txt}{it:Generated variables}:
+{col 2}     Estimated weight: {res}wgt
+{txt}
+{com}. 
+. // 2.3.2 hide parameters
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") h(3) noparam
+{res}
+{col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-6081.32789{col 16}24908.345  {col 34}3330.31152 {col 50}-36467.5479{col 67} 24304.8921
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-36467.5479{txt}, Inf), (-Inf, {res} 24304.8921{txt})
+{col 2}First-stage estimate: {res}.330652239 
+{col 2}{txt}Bandwidth: {res}3          
+{col 2}{txt}Number of effective observations: {res}2859       
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. 
+. // 2.3.3 show iteration log
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") t0(0) iterl
+{res}{txt}numerical derivatives are approximate
+flat or discontinuous region encountered
+Iteration 0:{space 3}f(p) = {res: 2481787.2}  
+Iteration 1:{space 3}f(p) = {res: 484315.37}  
+Iteration 2:{space 3}f(p) = {res: 484315.37}  (backed up)
+Iteration 3:{space 3}f(p) = {res: 484315.37}  (backed up)
+Iteration 4:{space 3}f(p) = {res: 165964.77}  
+Iteration 5:{space 3}f(p) = {res:    157556}  
+Iteration 6:{space 3}f(p) = {res: 157372.99}  
+Iteration 7:{space 3}f(p) = {res: 157372.99}  
+Iteration 8:{space 3}f(p) = {res: 157372.99}  
+
+{col 1}Honest inference: {res:FUZZY} Regression Discontinuity
+{hline 78}
+{col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
+{hline 78}
+{col 2}{res}-3265.39179{col 16}135893.864 {col 34}738.635469 {col 50}-140374.203{col 67} 133843.419
+{hline 78}
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-140374.203{txt}, Inf), (-Inf, {res} 133843.419{txt})
+{col 2}First-stage estimate: {res}.472339718 
+{col 2}{txt}Bandwidth (optimized): {res}20.0998129 
+{col 2}{txt}Number of effective observations: {res}17348.0844 
+
+{col 2}{txt}{it:Parameters}:
+{col 2}Cutoff: {res}0          
+{col 2}{txt}Kernel: {res}{ul:tri}angular
+{col 2}{txt}Optimization criterion: {res}MSE
+{col 2}{txt}Standard error estimation method: {res}NN
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000390641 
+{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
+{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{hline 78}
+{col 2} {txt}Dependent variable: {col 22}{res}cn                                      
+{col 2}   {txt}Running variable: {col 22}{res}elig_year                               
+{col 2} {txt}Treatment variable: {col 22}{res}retired                                 
+{txt}
+{com}. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/admin/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current version/rdhonest_test.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}15 Aug 2022, 13:13:22
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
