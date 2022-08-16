@@ -96,7 +96,7 @@ For fuzzy RD estimation: {p_end}
 {opt c(#)} sets the regression discontinuity cutoff. The default value for the cutoff is {cmd:0}.
 
 {phang}
-{opt m(#)} sets bound on the second derivative of the conditional mean function. If not specified, a global quartic regression is used for an estimation.
+{opt m(#)} sets bound on the second derivative of the conditional mean function. If not specified, a global quartic regression is used for a rule-of-thumb estimation, following Armstrong and Kolesar (2020).
 
 {pmore}
 For fuzzy RD, {cmd:m(#1 #2)} sets the bound for both the first-stage ({cmd:#1}) and the reduced-form regression ({cmd:#2}).
