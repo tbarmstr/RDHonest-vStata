@@ -52,7 +52,7 @@ For fuzzy RD estimation: {p_end}
 {synoptline}
 {syntab:Main}
 {synopt:{opt c(#)}}set regression discontinuity cutoff; default is {cmd:c(0)}{p_end}
-{p2coldent:* {opt m(#)}}set bound on the second derivative of the conditional mean function; if not specified, optimal bound is used{p_end}
+{p2coldent:* {opt m(#)}}set bound on the second derivative of the conditional mean function; if not specified, use Armstrong and Kolesar (2020) rule of thumb to calculate smoothness bound{p_end}
 {synopt:{opt kernel(string)}}set kernel function used in the local regression; default is {cmd:{ul:tri}angular}; other options are {cmd:{ul:epa}nechnikov} and {cmd:{ul:uni}form}{p_end}
 {synopt:{opt opt_criterion(string)}}set the optimality criterion that bandwidth is designed to optimize; default is {cmd:MSE}; other options are {cmd:OCI} and {cmd:FLCI}{p_end}
 {synopt:{opt h(#)}}set the bandwidth; if not specified, optimal bandwidth computed according to {cmd:opt_criterion()} is used{p_end}
@@ -168,7 +168,7 @@ If {opt pvar:iance(varlist)} is specified, any input for {opt se_method()} will 
 {dlgtab:Reporting}
 
 {phang}
-{opt savew:gtest(newvar)} saves the estimated weights as a new variable named {help newvar}; when combined with {helpb by}, only the estimated weights for the last by-group are saved, 0 will be saved for other by-groups.{p_end}
+{opt savew:gtest(newvar)} saves the estimation weights as a new variable named {help newvar}; when combined with {helpb by}, only the estimation weights for the last by-group are saved, 0 will be saved for other by-groups.{p_end}
 
 {phang}
 {opt noparam:eter} specifies that the parameters used for estimation are not displayed.{p_end}
@@ -189,7 +189,7 @@ If {opt pvar:iance(varlist)} is specified, any input for {opt se_method()} will 
 {phang3}{cmd:. rdhonest voteshare margin, m(0.1) kernel("uni") }{p_end}
 
 {phang2}Bandwidth optimized, smoothness bound estimated, with triangular kernel; estimated weights saved as {it:wgt}{p_end}
-{phang3}{cmd:. rdhonest voteshare margin, kernel("tri") savew("wgt")}{p_end}
+{phang3}{cmd:. rdhonest voteshare margin, kernel("tri") savew(wgt)}{p_end}
 
 {phang2}Bandwidth optimized, with triangular kernel; display iteration log, not display parameters used{p_end}
 {phang3}{cmd:. rdhonest voteshare margin, m(0.1) kernel("tri") noparam iterl}{p_end}
@@ -202,8 +202,8 @@ If {opt pvar:iance(varlist)} is specified, any input for {opt se_method()} will 
 {phang2}Bandwidth optimized, with uniform kernel{p_end}
 {phang3}{cmd:. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") t0(0)}{p_end}
 
-{phang2}Bandwidth optimized, smoothness bound estimated, with triangular kernel; estimated weights saved as {it:wgt}{p_end}
-{phang3}{cmd:. rdhonest cn (retired=elig_year), kernel("tri") t0(0) savew("wgt")}{p_end}
+{phang2}Bandwidth optimized, smoothness bound estimated, with triangular kernel; estimation weights saved as {it:wgt}{p_end}
+{phang3}{cmd:. rdhonest cn (retired=elig_year), kernel("tri") t0(0) savew(wgt)}{p_end}
 
 {phang2}Bandwidth optimized, with triangular kernel; display iteration log, not display parameters used{p_end}
 {phang3}{cmd:. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") t0(0) noparam iterl}{p_end}
