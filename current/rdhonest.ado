@@ -1154,7 +1154,8 @@ mata:
 			optimize_init_argument(S,5,hmax)
 			optimize_init_evaluator(S,&RDOptBWEval())
 			optimize_init_params(S,h0)
-			optimize_init_technique(S,"bfgs")
+			//optimize_init_technique(S,"bfgs")
+			optimize_init_technique(S,"bfgs 10 nr 30") 
 			h_opt = optimize(S)
 			h = h_opt
 		}
@@ -1297,7 +1298,7 @@ mata:
 			/* put wgt into kw */
 			tempID = J(1,1,1..rows(kw))'
 			kw = ((kw:>0),tempID,kw)
-			kw = sort(kw,(1,2))
+			kw = sort(kw,(-1,2))
 			kw[1..rows(wgt),3] = wgt
 			kw = sort(kw,2)
 			kw = kw[.,3]
