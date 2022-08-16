@@ -275,7 +275,7 @@ Imbens, G., & Kalyanaraman, K. (2012). Optimal bandwidth choice for the regressi
 
 {marker KR2018}{...}
 {phang}
-Kolesár, M., & Rothe, C. (2018). Inference in regression discontinuity designs with a discrete running variable. {it:American Economic Review}, 108, 2277–2304. {browse "https://www.aeaweb.org/articles?id=10.1257/aer.20160945":doi:10.1257/aer.20160945}{p_end}
+Kolesár, M., & Rothe, C. (2018). Inference in regression discontinuity designs with a discrete running variable. {it:American Economic Review}, 108, 2277–2304. {browse "https://doi.org/10.1257/aer.20160945":doi:10.1257/aer.20160945}{p_end}
 
 
 {marker citation}
