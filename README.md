@@ -8,7 +8,7 @@ This Stata package calculates honest and nearly-optimal one- and two-sided confi
   - codes: [`rdhonest.ado`](current/rdhonest.ado)
   - help file: [`rdhonest.sthlp`](current/rdhonest.sthlp)
   - test-run documentations:
-    - do file [`rdhonest_test.do`](current/rdhonest_test.do) 
+    - do file [`rdhonest_test.do`](current/rdhonest_test.do)
     - log file [`rdhonest_test.pdf`](current/rdhonest_test.pdf) and [`rdhonest_test.pdf`](current/rdhonest_test.smcl)
 
 - subfolder [`data`](data) contains 5 exemplary data sets, including
@@ -18,7 +18,7 @@ This Stata package calculates honest and nearly-optimal one- and two-sided confi
   - [`rcp.dta`](data/rcp.dta): from Battistin, Brugiavini, Rettore and Weber (2009)
   - [`rebp.dta`](data/rebp.dta): from Lalive (2008)
 
-- folder `archive` contains all previous versions.
+- folder [`archive`](archive) contains all previous versions.
 
 ## Example
 
@@ -26,7 +26,7 @@ All the illustrative data sets used below can be found in the [`data`](data) dir
 
 ### Sharp RD
 
-Using data from [Battistin, Brugiavini, Rettore, and Weber (2009)](https://www.aeaweb.org/articles?id=10.1257/aer.99.5.2209), run the following sharp RD analysis
+Using data from [Lee (2008)](https://doi.org/10.1016/j.jeconom.2007.05.004), run the following sharp RD analysis
 
 ```stata
 use "data/lee08.dta", clear
@@ -40,7 +40,7 @@ rdhonest voteshare margin, kernel("uni") savew("wgt")
 
 ### Fuzzy RD
 
-Using data from [Lee (2008)](https://doi.org/10.1016/j.jeconom.2007.05.004), run the following fuzzy RD analysis
+Using data from [Battistin, Brugiavini, Rettore, and Weber (2009)](https://www.aeaweb.org/articles?id=10.1257/aer.99.5.2209), run the following fuzzy RD analysis
 
 ```stata
 use "data/rcp.dta", clear
@@ -101,3 +101,4 @@ Please open issues and leave feedback, use click on the [`Issues`](https://githu
   - [`lee08.dta`](data/lee08.dta): Lee, D. S. (2008). Randomized experiments from non-random selection in US House elections. *Journal of Econometrics*, 142(2), 675-697. [doi:10.1016/j.jeconom.2007.05.004](https://doi.org/10.1016/j.jeconom.2007.05.004)
   - [`rcp.dta`](data/rcp.dta): Battistin, E., Brugiavini, A., Rettore, E., & Weber, G. (2009). The retirement consumption puzzle: evidence from a regression discontinuity approach. *American Economic Review*, 99(5), 2209-26. [doi:10.1257/aer.99.5.2209](https://www.aeaweb.org/articles?id=10.1257/aer.99.5.2209)
   - [`rebp.dta`](data/rebp.dta): Lalive, R. (2008). How do extended benefits affect unemployment duration? A regression discontinuity approach. *Journal of econometrics*, 142(2), 785-806. [doi:10.1016/j.jeconom.2007.05.013](https://doi.org/10.1016/j.jeconom.2007.05.013)
+  
