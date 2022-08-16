@@ -540,25 +540,25 @@ program Display
 		}
 		
 		if (`fRD') {
-			di `C1' as text "Smootheness constant M (first-stage" _continue
+			di `C1' as text "Smoothness constant M (first-stage" _continue
 			if (`opt_m'){
-				di as text ", estimated): " as res %-11.0g e(M_fs)
+				di as text ", rule of thumb): " as res %-11.0g e(M_fs)
 			}
 			else {
 				di as text "): " as res %-11.0g e(M_fs)
 			}
-			di `C1' as text "Smootheness constant M (reduced-form" _continue
+			di `C1' as text "Smoothness constant M (reduced-form" _continue
 			if (`opt_m'){
-				di as text ", estimated): " as res %-11.0g e(M)
+				di as text ", rule of thumb): " as res %-11.0g e(M)
 			}
 			else {
 				di as text "): " as res %-11.0g e(M)
 			}
 		}
 		else{
-			di `C1' as text "Smootheness constant M" _continue
+			di `C1' as text "Smoothness constant M" _continue
 			if (`opt_m'){
-				di as text " (estimated): " as res %-11.0g e(M)
+				di as text " (rule of thumb): " as res %-11.0g e(M)
 			}
 			else {
 				di as text ": "  as res %-11.0g e(M)
@@ -581,7 +581,7 @@ program Display
 	if ("`e(savewgtest)'"!="NA"){
 		di
 		di `C1' as text "{it:Generated variables}:"
-		di `C1' as text %21s "Estimated weight" _continue
+		di `C1' as text %21s "Estimation weight" _continue
 		if _by() {
 			di as text " (only for the last by-group): " as res "`e(savewgtest)'"
 		}
@@ -1257,7 +1257,7 @@ mata:
 
 		/* smoothing class constant */
 		if(max(opt.m) < 0) {
-		//printf("Smoothing class constant M missing or invalid. Running MROT_fit \n")
+		printf("Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M \n")
 		opt.m = MROT_fit(df.X,df.Y)	
 		}    
 
