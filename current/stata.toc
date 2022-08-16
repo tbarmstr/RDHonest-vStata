@@ -1,0 +1,6 @@
+v 2.0.3
+d Timothy Armstrong. University of Southern California
+d Michal Kolesar. Princeton University
+d Yugen Chen. University of Southern California
+d Sai Zhang. University of Southern California
+p rdhonest - honest confidence intervals in RD designs based on local linear regression

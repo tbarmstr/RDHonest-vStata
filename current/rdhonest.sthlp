@@ -84,7 +84,7 @@ For fuzzy RD estimation: {p_end}
 {title:Description}
 
 {pstd}
-{cmd:rdhonest} calculates honests and nearly-optimal one- and two-sided confidence intervals in fuzzy and sharp regression discontinuity designs based on local linear regression. 
+{cmd:rdhonest} calculates honest and nearly-optimal one- and two-sided confidence intervals in fuzzy and sharp regression discontinuity designs based on local linear regression. 
 
 
 {marker options}{...}

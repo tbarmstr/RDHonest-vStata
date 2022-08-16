@@ -1,7 +1,7 @@
 clear all
 
-global datadir = "~/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current version/data"
-global logdir = "~/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current version"
+global datadir = "~/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/data"
+global logdir = "~/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current"
 
 set seed 2022
 

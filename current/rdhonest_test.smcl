@@ -1,9 +1,9 @@
 {smcl}
 {com}{sf}{ul off}{txt}{.-}
       name:  {res}<unnamed>
-       {txt}log:  {res}/Users/admin/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current version/rdhonest_test.smcl
+       {txt}log:  {res}/Users/admin/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current/rdhonest_test.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}15 Aug 2022, 13:09:31
+ {txt}opened on:  {res}15 Aug 2022, 23:38:30
 {txt}
 {com}. 
 . ********************************************************************************
@@ -600,19 +600,19 @@ flat or discontinuous region encountered
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
 {hline 78}
-{col 2}{res}-3265.39147{col 16}135893.838 {col 34}738.635501 {col 50}-140374.176{col 67} 133843.393
+{col 2}{res}-3265.40486{col 16}135894.954 {col 34}738.634152 {col 50}-140375.304{col 67} 133844.494
 {hline 78}
-{col 2}{txt}95% One-sided Conf. intervals: ({res}-140374.176{txt}, Inf), (-Inf, {res} 133843.393{txt})
-{col 2}First-stage estimate: {res}.472339715 
-{col 2}{txt}Bandwidth (optimized): {res}20.0998119 
-{col 2}{txt}Number of effective observations: {res}17348.0832 
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-140375.304{txt}, Inf), (-Inf, {res} 133844.494{txt})
+{col 2}First-stage estimate: {res}.472339873 
+{col 2}{txt}Bandwidth (optimized): {res}20.0998523 
+{col 2}{txt}Number of effective observations: {res}17348.1317 
 
 {col 2}{txt}{it:Parameters}:
 {col 2}Cutoff: {res}0          
 {col 2}{txt}Kernel: {res}{ul:tri}angular
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
-{col 2}{txt}Maximum leverage for estimated parameter: {res}.000390641 
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.00039064  
 {col 2}{txt}Smootheness constant M (first-stage): {res}.4         
 {col 2}{txt}Smootheness constant M (reduced-form): {res}4          
 {hline 78}
@@ -628,19 +628,19 @@ flat or discontinuous region encountered
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
 {hline 78}
-{col 2}{res}-2669.3215 {col 16}90025.9302 {col 34}822.041871 {col 50}-94047.3902{col 67} 88708.7472
+{col 2}{res}-2669.29654{col 16}90024.1378 {col 34}822.046921 {col 50}-94045.5812{col 67} 88706.9881
 {hline 78}
-{col 2}{txt}95% One-sided Conf. intervals: ({res}-94047.3902{txt}, Inf), (-Inf, {res} 88708.7472{txt})
-{col 2}First-stage estimate: {res}.459890906 
-{col 2}{txt}Bandwidth (optimized): {res}17.4729304 
-{col 2}{txt}Number of effective observations: {res}15268.1575 
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-94045.5812{txt}, Inf), (-Inf, {res} 88706.9881{txt})
+{col 2}First-stage estimate: {res}.459890039 
+{col 2}{txt}Bandwidth (optimized): {res}17.472809  
+{col 2}{txt}Number of effective observations: {res}15268.0335 
 
 {col 2}{txt}{it:Parameters}:
 {col 2}Cutoff: {res}0          
 {col 2}{txt}Kernel: {res}{ul:tri}angular
 {col 2}{txt}Optimization criterion: {res}OCI{txt}, with beta {res}.8         
 {col 2}{txt}Standard error estimation method: {res}NN
-{col 2}{txt}Maximum leverage for estimated parameter: {res}.000451407 
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000451411 
 {col 2}{txt}Smootheness constant M (first-stage): {res}.4         
 {col 2}{txt}Smootheness constant M (reduced-form): {res}4          
 {hline 78}
@@ -656,19 +656,19 @@ flat or discontinuous region encountered
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
 {hline 78}
-{col 2}{res}-3477.08743{col 16}154166.552 {col 34}718.005915 {col 50}-158824.655{col 67}  151870.48
+{col 2}{res}-3477.16991{col 16}154173.916 {col 34}717.998154 {col 50}-158832.087{col 67} 151877.748
 {hline 78}
-{col 2}{txt}95% One-sided Conf. intervals: ({res}-158824.655{txt}, Inf), (-Inf, {res}  151870.48{txt})
-{col 2}First-stage estimate: {res}.474804285 
-{col 2}{txt}Bandwidth (optimized): {res}20.8511249 
-{col 2}{txt}Number of effective observations: {res}18110.5938 
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-158832.087{txt}, Inf), (-Inf, {res} 151877.748{txt})
+{col 2}First-stage estimate: {res}.474805228 
+{col 2}{txt}Bandwidth (optimized): {res}20.851468  
+{col 2}{txt}Number of effective observations: {res}18110.8884 
 
 {col 2}{txt}{it:Parameters}:
 {col 2}Cutoff: {res}0          
 {col 2}{txt}Kernel: {res}{ul:tri}angular
 {col 2}{txt}Optimization criterion: {res}FLCI
 {col 2}{txt}Standard error estimation method: {res}NN
-{col 2}{txt}Maximum leverage for estimated parameter: {res}.000374772 
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000374766 
 {col 2}{txt}Smootheness constant M (first-stage): {res}.4         
 {col 2}{txt}Smootheness constant M (reduced-form): {res}4          
 {hline 78}
@@ -688,12 +688,12 @@ flat or discontinuous region encountered
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
 {hline 78}
-{col 2}{res}-4006.29653{col 16}2166.60935 {col 34}2298.52397 {col 50}-9958.24344{col 67} 1945.65038
+{col 2}{res}-4006.29648{col 16}2166.60936 {col 34}2298.52396 {col 50}-9958.24339{col 67} 1945.65042
 {hline 78}
-{col 2}{txt}95% One-sided Conf. intervals: ({res}-9953.64136{txt}, Inf), (-Inf, {res}  1941.0483{txt})
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-9953.64131{txt}, Inf), (-Inf, {res} 1941.04834{txt})
 {col 2}First-stage estimate: {res}.31992201  
-{col 2}{txt}Bandwidth (optimized): {res}6.52830259 
-{col 2}{txt}Number of effective observations: {res}4968.84142 
+{col 2}{txt}Bandwidth (optimized): {res}6.52830264 
+{col 2}{txt}Number of effective observations: {res}4968.84146 
 
 {col 2}{txt}{it:Parameters}:
 {col 2}Cutoff: {res}0          
@@ -862,8 +862,8 @@ Iteration 0:{space 3}f(p) = {res: 2481787.2}
 Iteration 1:{space 3}f(p) = {res: 484315.37}  
 Iteration 2:{space 3}f(p) = {res: 484315.37}  (backed up)
 Iteration 3:{space 3}f(p) = {res: 484315.37}  (backed up)
-Iteration 4:{space 3}f(p) = {res: 165964.77}  
-Iteration 5:{space 3}f(p) = {res:    157556}  
+Iteration 4:{space 3}f(p) = {res: 165964.76}  
+Iteration 5:{space 3}f(p) = {res: 157556.01}  
 Iteration 6:{space 3}f(p) = {res: 157372.99}  
 Iteration 7:{space 3}f(p) = {res: 157372.99}  
 Iteration 8:{space 3}f(p) = {res: 157372.99}  
@@ -872,12 +872,12 @@ Iteration 8:{space 3}f(p) = {res: 157372.99}
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
 {hline 78}
-{col 2}{res}-3265.39179{col 16}135893.864 {col 34}738.635469 {col 50}-140374.203{col 67} 133843.419
+{col 2}{res}-3265.39171{col 16}135893.857 {col 34}738.635477 {col 50}-140374.196{col 67} 133843.413
 {hline 78}
-{col 2}{txt}95% One-sided Conf. intervals: ({res}-140374.203{txt}, Inf), (-Inf, {res} 133843.419{txt})
-{col 2}First-stage estimate: {res}.472339718 
-{col 2}{txt}Bandwidth (optimized): {res}20.0998129 
-{col 2}{txt}Number of effective observations: {res}17348.0844 
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-140374.196{txt}, Inf), (-Inf, {res} 133843.413{txt})
+{col 2}First-stage estimate: {res}.472339717 
+{col 2}{txt}Bandwidth (optimized): {res}20.0998126 
+{col 2}{txt}Number of effective observations: {res}17348.0841 
 
 {col 2}{txt}{it:Parameters}:
 {col 2}Cutoff: {res}0          
@@ -895,9 +895,9 @@ Iteration 8:{space 3}f(p) = {res: 157372.99}
 {com}. 
 . log close
       {txt}name:  {res}<unnamed>
-       {txt}log:  {res}/Users/admin/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current version/rdhonest_test.smcl
+       {txt}log:  {res}/Users/admin/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current/rdhonest_test.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}15 Aug 2022, 13:13:22
+ {txt}closed on:  {res}15 Aug 2022, 23:43:01
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

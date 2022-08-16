@@ -1,0 +1,28 @@
+v 2.0.3
+
+d RDHONEST: Honest and nearly optimal confidence intervals in RD designs based on local linear regression
+d
+d Authors:
+d - Timothy Armstrong. University of Southern California
+d - Michal Kolesar. Princeton University
+d - Yugen Chen. University of Southern California
+d - Sai Zhang. University of Southern California
+d
+d Support:
+d - https://github.com/SaiChrisZHANG/RDHonest-vStata/issues
+d
+d For R version of this package, see :
+d https://github.com/kolesarm/RDHonest
+d
+d KW: regression discontinuity
+d KW: nonparametric inference
+d KW: ﬁnite-sample inference
+d KW: efﬁciency bounds
+d
+d Requires: Stata version 14
+d
+d Distribution-Date: 20220815
+d
+
+f rdhonest.ado
+f rdhonest.sthlp
