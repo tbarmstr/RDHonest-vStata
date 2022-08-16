@@ -3,7 +3,7 @@
       name:  {res}<unnamed>
        {txt}log:  {res}/Users/admin/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current/rdhonest_test.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}15 Aug 2022, 23:38:30
+ {txt}opened on:  {res}16 Aug 2022, 10:33:58
 {txt}
 {com}. 
 . ********************************************************************************
@@ -30,7 +30,7 @@
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.003703381 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
@@ -55,7 +55,7 @@
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.005503345 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
@@ -78,7 +78,7 @@
 {col 2}{txt}Optimization criterion: {res}OCI{txt}, with beta {res}.8         
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.007011609 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
@@ -101,15 +101,16 @@
 {col 2}{txt}Optimization criterion: {res}FLCI
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.005349821 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
 {txt}
 {com}. 
 . // 1.1.2 uni kernel + optimal h + without M + est_w saved as wgt 
-. rdhonest voteshare margin, kernel("uni") savew("wgt")
-{res}
+. rdhonest voteshare margin, kernel("uni") savew(wgt)
+{res}Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
 {col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
@@ -126,13 +127,13 @@
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.006421319 
-{col 2}{txt}Smootheness constant M (estimated): {res}.142810807 
+{col 2}{txt}Smoothness constant M (rule of thumb): {res}.142810807 
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
 
 {col 2}{txt}{it:Generated variables}:
-{col 2}     Estimated weight: {res}wgt
+{col 2}    Estimation weight: {res}wgt
 {txt}
 {com}. 
 . // 1.2 tri kernel 
@@ -154,7 +155,7 @@
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.007243217 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
@@ -179,7 +180,7 @@
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.008236342 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
@@ -202,7 +203,7 @@
 {col 2}{txt}Optimization criterion: {res}OCI{txt}, with beta {res}.8         
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.009973466 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
@@ -225,7 +226,7 @@
 {col 2}{txt}Optimization criterion: {res}FLCI
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.007988219 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
@@ -234,8 +235,9 @@
 . cap drop wgt /*for the dofile to run*/
 {txt}
 {com}. // 1.2.2 tri kernel + optimal h + without M + est_w saved as wgt 
-. rdhonest voteshare margin, kernel("tri") savew("wgt")
-{res}
+. rdhonest voteshare margin, kernel("tri") savew(wgt)
+{res}Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
 {col 1}{txt}Honest inference: {res:SHARP} Regression Discontinuity
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
@@ -252,13 +254,13 @@
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.009560868 
-{col 2}{txt}Smootheness constant M (estimated): {res}.142810807 
+{col 2}{txt}Smoothness constant M (rule of thumb): {res}.142810807 
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
 
 {col 2}{txt}{it:Generated variables}:
-{col 2}     Estimated weight: {res}wgt
+{col 2}    Estimation weight: {res}wgt
 {txt}
 {com}. 
 . // 1.3 display option tests and by option tests
@@ -286,7 +288,7 @@
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.007626798 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
@@ -310,12 +312,12 @@
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.00719001  
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
 {txt}
-{com}. bys bygrp: rdhonest voteshare margin, m(0.1) kernel("uni") h(10) savew("wgt")
+{com}. bys bygrp: rdhonest voteshare margin, m(0.1) kernel("uni") h(10) savew(wgt)
 
 {txt}{hline}
 -> bygrp = 0
@@ -336,13 +338,13 @@
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.007626798 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
 
 {col 2}{txt}{it:Generated variables}:
-{col 2}     Estimated weight: {res}wgt
+{col 2}    Estimation weight: {res}wgt
 
 {txt}{hline}
 -> bygrp = 1
@@ -363,13 +365,13 @@
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.00719001  
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
 
 {col 2}{txt}{it:Generated variables}:
-{col 2}     Estimated weight: {res}wgt
+{col 2}    Estimation weight: {res}wgt
 {txt}
 {com}. 
 . // 1.3.2 hide parameters
@@ -413,7 +415,7 @@ Iteration 4:{space 3}f(p) = {res: 3.2537877}
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.008236342 
-{col 2}{txt}Smootheness constant M: {res}.1         
+{col 2}{txt}Smoothness constant M: {res}.1         
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}voteshare                               
 {col 2}   {txt}Running variable: {col 22}{res}margin                                  
@@ -444,8 +446,8 @@ Iteration 4:{space 3}f(p) = {res: 3.2537877}
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.001148573 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
@@ -472,8 +474,8 @@ Iteration 4:{space 3}f(p) = {res: 3.2537877}
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.000272655 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
@@ -498,8 +500,8 @@ Iteration 4:{space 3}f(p) = {res: 3.2537877}
 {col 2}{txt}Optimization criterion: {res}OCI{txt}, with beta {res}.8         
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.000308509 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
@@ -524,8 +526,8 @@ Iteration 4:{space 3}f(p) = {res: 3.2537877}
 {col 2}{txt}Optimization criterion: {res}FLCI
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.000260008 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
@@ -533,8 +535,9 @@ Iteration 4:{space 3}f(p) = {res: 3.2537877}
 {txt}
 {com}. 
 . // 2.1.2 uni kernel + optimal h + without M + est_w saved as wgt 
-. rdhonest cn (retired=elig_year), kernel("uni") t0(0) savew("wgt")
-{res}
+. rdhonest cn (retired=elig_year), kernel("uni") t0(0) savew(wgt)
+{res}Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
 {col 1}{txt}Honest inference: {res:FUZZY} Regression Discontinuity
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
@@ -552,15 +555,15 @@ Iteration 4:{space 3}f(p) = {res: 3.2537877}
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.000763565 
-{col 2}{txt}Smootheness constant M (first-stage, estimated): {res}.008178929 
-{col 2}{txt}Smootheness constant M (reduced-form, estimated): {res}67.2320533 
+{col 2}{txt}Smoothness constant M (first-stage, rule of thumb): {res}.008178929 
+{col 2}{txt}Smoothness constant M (reduced-form, rule of thumb): {res}67.2320533 
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
 {col 2} {txt}Treatment variable: {col 22}{res}retired                                 
 
 {col 2}{txt}{it:Generated variables}:
-{col 2}     Estimated weight: {res}wgt
+{col 2}    Estimation weight: {res}wgt
 {txt}
 {com}. 
 . // 2.2 tri kernel 
@@ -583,8 +586,8 @@ Iteration 4:{space 3}f(p) = {res: 3.2537877}
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.001285804 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
@@ -600,21 +603,21 @@ flat or discontinuous region encountered
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
 {hline 78}
-{col 2}{res}-3265.40486{col 16}135894.954 {col 34}738.634152 {col 50}-140375.304{col 67} 133844.494
+{col 2}{res}-3265.39123{col 16}135893.817 {col 34}738.635525 {col 50}-140374.156{col 67} 133843.373
 {hline 78}
-{col 2}{txt}95% One-sided Conf. intervals: ({res}-140375.304{txt}, Inf), (-Inf, {res} 133844.494{txt})
-{col 2}First-stage estimate: {res}.472339873 
-{col 2}{txt}Bandwidth (optimized): {res}20.0998523 
-{col 2}{txt}Number of effective observations: {res}17348.1317 
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-140374.156{txt}, Inf), (-Inf, {res} 133843.373{txt})
+{col 2}First-stage estimate: {res}.472339712 
+{col 2}{txt}Bandwidth (optimized): {res}20.0998112 
+{col 2}{txt}Number of effective observations: {res}17348.0823 
 
 {col 2}{txt}{it:Parameters}:
 {col 2}Cutoff: {res}0          
 {col 2}{txt}Kernel: {res}{ul:tri}angular
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
-{col 2}{txt}Maximum leverage for estimated parameter: {res}.00039064  
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.000390641 
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
@@ -628,21 +631,21 @@ flat or discontinuous region encountered
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
 {hline 78}
-{col 2}{res}-2669.29654{col 16}90024.1378 {col 34}822.046921 {col 50}-94045.5812{col 67} 88706.9881
+{col 2}{res}-2669.30504{col 16}90024.7481 {col 34}822.045201 {col 50}-94046.1972{col 67} 88707.5871
 {hline 78}
-{col 2}{txt}95% One-sided Conf. intervals: ({res}-94045.5812{txt}, Inf), (-Inf, {res} 88706.9881{txt})
-{col 2}First-stage estimate: {res}.459890039 
-{col 2}{txt}Bandwidth (optimized): {res}17.472809  
-{col 2}{txt}Number of effective observations: {res}15268.0335 
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-94046.1972{txt}, Inf), (-Inf, {res} 88707.5871{txt})
+{col 2}First-stage estimate: {res}.459890334 
+{col 2}{txt}Bandwidth (optimized): {res}17.4728504 
+{col 2}{txt}Number of effective observations: {res}15268.0757 
 
 {col 2}{txt}{it:Parameters}:
 {col 2}Cutoff: {res}0          
 {col 2}{txt}Kernel: {res}{ul:tri}angular
 {col 2}{txt}Optimization criterion: {res}OCI{txt}, with beta {res}.8         
 {col 2}{txt}Standard error estimation method: {res}NN
-{col 2}{txt}Maximum leverage for estimated parameter: {res}.000451411 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.00045141  
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
@@ -656,12 +659,12 @@ flat or discontinuous region encountered
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
 {hline 78}
-{col 2}{res}-3477.16991{col 16}154173.916 {col 34}717.998154 {col 50}-158832.087{col 67} 151877.748
+{col 2}{res}-3477.16989{col 16}154173.914 {col 34}717.998156 {col 50}-158832.085{col 67} 151877.746
 {hline 78}
-{col 2}{txt}95% One-sided Conf. intervals: ({res}-158832.087{txt}, Inf), (-Inf, {res} 151877.748{txt})
-{col 2}First-stage estimate: {res}.474805228 
-{col 2}{txt}Bandwidth (optimized): {res}20.851468  
-{col 2}{txt}Number of effective observations: {res}18110.8884 
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-158832.085{txt}, Inf), (-Inf, {res} 151877.746{txt})
+{col 2}First-stage estimate: {res}.474805227 
+{col 2}{txt}Bandwidth (optimized): {res}20.8514679 
+{col 2}{txt}Number of effective observations: {res}18110.8883 
 
 {col 2}{txt}{it:Parameters}:
 {col 2}Cutoff: {res}0          
@@ -669,8 +672,8 @@ flat or discontinuous region encountered
 {col 2}{txt}Optimization criterion: {res}FLCI
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.000374766 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
@@ -680,20 +683,21 @@ flat or discontinuous region encountered
 . cap drop wgt /*for the dofile to run*/
 {txt}
 {com}. // 2.2.1 tri kernel + optimal h + without M + est_w saved as wgt 
-. rdhonest cn (retired=elig_year), kernel("tri") t0(0) savew("wgt")
-{res}{txt}numerical derivatives are approximate
+. rdhonest cn (retired=elig_year), kernel("tri") t0(0) savew(wgt)
+{res}Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+{txt}numerical derivatives are approximate
 flat or discontinuous region encountered
 
 {col 1}Honest inference: {res:FUZZY} Regression Discontinuity
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
 {hline 78}
-{col 2}{res}-4006.29648{col 16}2166.60936 {col 34}2298.52396 {col 50}-9958.24339{col 67} 1945.65042
+{col 2}{res}-4006.29622{col 16}2166.60942 {col 34}2298.5239  {col 50}-9958.24309{col 67} 1945.65065
 {hline 78}
-{col 2}{txt}95% One-sided Conf. intervals: ({res}-9953.64131{txt}, Inf), (-Inf, {res} 1941.04834{txt})
-{col 2}First-stage estimate: {res}.31992201  
-{col 2}{txt}Bandwidth (optimized): {res}6.52830264 
-{col 2}{txt}Number of effective observations: {res}4968.84146 
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-9953.64101{txt}, Inf), (-Inf, {res} 1941.04857{txt})
+{col 2}First-stage estimate: {res}.319922011 
+{col 2}{txt}Bandwidth (optimized): {res}6.52830295 
+{col 2}{txt}Number of effective observations: {res}4968.84169 
 
 {col 2}{txt}{it:Parameters}:
 {col 2}Cutoff: {res}0          
@@ -701,15 +705,15 @@ flat or discontinuous region encountered
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.001077215 
-{col 2}{txt}Smootheness constant M (first-stage, estimated): {res}.008178929 
-{col 2}{txt}Smootheness constant M (reduced-form, estimated): {res}67.2320533 
+{col 2}{txt}Smoothness constant M (first-stage, rule of thumb): {res}.008178929 
+{col 2}{txt}Smoothness constant M (reduced-form, rule of thumb): {res}67.2320533 
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
 {col 2} {txt}Treatment variable: {col 22}{res}retired                                 
 
 {col 2}{txt}{it:Generated variables}:
-{col 2}     Estimated weight: {res}wgt
+{col 2}    Estimation weight: {res}wgt
 {txt}
 {com}. 
 . // 2.3 display option tests and by option tests
@@ -738,8 +742,8 @@ flat or discontinuous region encountered
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.001944326 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
@@ -765,14 +769,14 @@ flat or discontinuous region encountered
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.002761653 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
 {col 2} {txt}Treatment variable: {col 22}{res}retired                                 
 {txt}
-{com}. bys bygrp: rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") h(3) savew("wgt")
+{com}. bys bygrp: rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") h(3) savew(wgt)
 
 {txt}{hline}
 -> bygrp = 0
@@ -794,15 +798,15 @@ flat or discontinuous region encountered
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.001944326 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
 {col 2} {txt}Treatment variable: {col 22}{res}retired                                 
 
 {col 2}{txt}{it:Generated variables}:
-{col 2}     Estimated weight: {res}wgt
+{col 2}    Estimation weight: {res}wgt
 
 {txt}{hline}
 -> bygrp = 1
@@ -824,15 +828,15 @@ flat or discontinuous region encountered
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
 {col 2}{txt}Maximum leverage for estimated parameter: {res}.002761653 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
 {col 2} {txt}Treatment variable: {col 22}{res}retired                                 
 
 {col 2}{txt}{it:Generated variables}:
-{col 2}     Estimated weight: {res}wgt
+{col 2}    Estimation weight: {res}wgt
 {txt}
 {com}. 
 . // 2.3.2 hide parameters
@@ -861,32 +865,36 @@ flat or discontinuous region encountered
 Iteration 0:{space 3}f(p) = {res: 2481787.2}  
 Iteration 1:{space 3}f(p) = {res: 484315.37}  
 Iteration 2:{space 3}f(p) = {res: 484315.37}  (backed up)
+BFGS stepping has contracted, resetting BFGS Hessian
 Iteration 3:{space 3}f(p) = {res: 484315.37}  (backed up)
-Iteration 4:{space 3}f(p) = {res: 165964.76}  
-Iteration 5:{space 3}f(p) = {res: 157556.01}  
-Iteration 6:{space 3}f(p) = {res: 157372.99}  
-Iteration 7:{space 3}f(p) = {res: 157372.99}  
-Iteration 8:{space 3}f(p) = {res: 157372.99}  
+Iteration 4:{space 3}f(p) = {res: 405857.09}  
+Iteration 5:{space 3}f(p) = {res: 178973.08}  
+Iteration 6:{space 3}f(p) = {res: 171687.87}  
+Iteration 7:{space 3}f(p) = {res:  158529.6}  
+Iteration 8:{space 3}f(p) = {res: 157387.12}  
+Iteration 9:{space 3}f(p) = {res: 157373.97}  
+Iteration 10:{space 2}f(p) = {res: 157372.99}  
+Iteration 11:{space 2}f(p) = {res: 157372.99}  
 
 {col 1}Honest inference: {res:FUZZY} Regression Discontinuity
 {hline 78}
 {col 2}Estimate      {col 16}Maximum Bias  {col 34}Std. Error    {col 50}[ 95% Conf.{col 67}intervals ]
 {hline 78}
-{col 2}{res}-3265.39171{col 16}135893.857 {col 34}738.635477 {col 50}-140374.196{col 67} 133843.413
+{col 2}{res}-3265.40486{col 16}135894.953 {col 34}738.634152 {col 50}-140375.303{col 67} 133844.494
 {hline 78}
-{col 2}{txt}95% One-sided Conf. intervals: ({res}-140374.196{txt}, Inf), (-Inf, {res} 133843.413{txt})
-{col 2}First-stage estimate: {res}.472339717 
-{col 2}{txt}Bandwidth (optimized): {res}20.0998126 
-{col 2}{txt}Number of effective observations: {res}17348.0841 
+{col 2}{txt}95% One-sided Conf. intervals: ({res}-140375.303{txt}, Inf), (-Inf, {res} 133844.494{txt})
+{col 2}First-stage estimate: {res}.472339873 
+{col 2}{txt}Bandwidth (optimized): {res}20.0998523 
+{col 2}{txt}Number of effective observations: {res}17348.1317 
 
 {col 2}{txt}{it:Parameters}:
 {col 2}Cutoff: {res}0          
 {col 2}{txt}Kernel: {res}{ul:tri}angular
 {col 2}{txt}Optimization criterion: {res}MSE
 {col 2}{txt}Standard error estimation method: {res}NN
-{col 2}{txt}Maximum leverage for estimated parameter: {res}.000390641 
-{col 2}{txt}Smootheness constant M (first-stage): {res}.4         
-{col 2}{txt}Smootheness constant M (reduced-form): {res}4          
+{col 2}{txt}Maximum leverage for estimated parameter: {res}.00039064  
+{col 2}{txt}Smoothness constant M (first-stage): {res}.4         
+{col 2}{txt}Smoothness constant M (reduced-form): {res}4          
 {hline 78}
 {col 2} {txt}Dependent variable: {col 22}{res}cn                                      
 {col 2}   {txt}Running variable: {col 22}{res}elig_year                               
@@ -897,7 +905,7 @@ Iteration 8:{space 3}f(p) = {res: 157372.99}
       {txt}name:  {res}<unnamed>
        {txt}log:  {res}/Users/admin/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current/rdhonest_test.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}15 Aug 2022, 23:43:01
+ {txt}closed on:  {res}16 Aug 2022, 10:38:04
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}
