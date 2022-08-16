@@ -83,6 +83,15 @@ Please open issues and leave feedback, use click on the [`Issues`](https://githu
 
 ## Special remarks
 
+Two common error messages are
+
+```
+cannot compute an improvement -- flat region encountered
+cannot compute an improvement -- discontinuous region encountered
+```
+
+both due to the optimization algorithm of Stata. When such error messages occur, consider rerun the command, restart the Stata session, or change the specification.
+
 ## References
 
 - Main references:
