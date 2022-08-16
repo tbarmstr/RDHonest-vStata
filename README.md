@@ -60,7 +60,7 @@ rdhonest cn (retired=elig_year), kernel("tri") t0(0) savew("wgt")
 
 ```stata
 // Remove program if it existed previously
-capture ado uninstall ebreg
+capture ado uninstall rdhonest
 // Install most up-to-date version
 net install rdhonest, from("https://raw.githubusercontent.com/SaiChrisZHANG/RDHonest-vStata/master/current/")
 ```
