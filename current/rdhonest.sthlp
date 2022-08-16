@@ -305,7 +305,7 @@ Citation for rdhonest, the Stata package.{p_end}
 {title:Also see}
 
 {p 4 14 2}
-Development version: net install rdhonest, from(){p_end}
+Development version: net install rdhonest, from("https://raw.githubusercontent.com/SaiChrisZHANG/RDHonest-vStata/master/current/"){p_end}
 
 {p 4 14 2}
 Article: potential stata journal {p_end}
