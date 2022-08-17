@@ -31,11 +31,11 @@ Using data from [Lee (2008)](https://doi.org/10.1016/j.jeconom.2007.05.004), run
 ```stata
 use "data/lee08.dta", clear
 
-* uniform kernel + optimal h 
-rdhonest voteshare margin, m(0.1) kernel("uni") 
+* default options: triangular kernel + Armstrong and Kolesár (2020) rule of thumb for M + MSE optimal bandwidth
+rdhonest voteshare margin
 
-* uniform kernel + optimal h + without M + est_w saved as wgt 
-rdhonest voteshare margin, kernel("uni") savew("wgt")
+* specify some options: user specified M=0.1 + uniform kernel + save estimation weights
+rdhonest voteshare margin, m(0.1) kernel("uni") savew("wgt")
 ```
 
 ### Fuzzy RD
@@ -45,11 +45,15 @@ Using data from [Battistin, Brugiavini, Rettore, and Weber (2009)](https://www.a
 ```stata
 use "data/rcp.dta", clear
 
-* uniform kernel + optimal h 
-rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") t0(0)
+* default options: triangular kernel + Armstrong and Kolesár (2020) rule of thumb for M + bandwidth optimal for MSE when fuzzy RD parameter is zero
+rdhonest cn (retired=elig_year)
 
-* triangular kernel + optimal h + without M + est_w saved as wgt 
-rdhonest cn (retired=elig_year), kernel("tri") t0(0) savew("wgt")
+* save parameter estimate from previous command and use it to compute optimal bandwidth
+local param_est = e(est)
+rdhonest cn (retired=elig_year), t0(`param_est')
+
+* specify some options: user specified M for reduced form and first-stage + uniform kernel
+rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni")
 ```
 
 ## Installation
@@ -59,10 +63,10 @@ rdhonest cn (retired=elig_year), kernel("tri") t0(0) savew("wgt")
 - install development version via github:
 
 ```stata
-// Remove program if it existed previously
+* Remove program if it existed previously
 capture ado uninstall rdhonest
-// Install most up-to-date version
-net install rdhonest, from("https://raw.githubusercontent.com/SaiChrisZHANG/RDHonest-vStata/master/current/")
+* Install most up-to-date version
+net install rdhonest, from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/current/")
 ```
 
 - manually install: to download the development version of these packages from GitHub, download the files
@@ -79,18 +83,8 @@ For more information on how to use personal ado files, please refer to [Stata Of
 
 ## Bug reporting and Questions
 
-Please open issues and leave feedback, use click on the [`Issues`](https://github.com/SaiChrisZHANG/RDHonest-vStata/issues) tab.
+Please open issues and leave feedback, use click on the [`Issues`](https://github.com/tbarmstr/RDHonest-vStata/issues) tab.
 
-## Special remarks
-
-Two common error messages are
-
-```
-cannot compute an improvement -- flat region encountered
-cannot compute an improvement -- discontinuous region encountered
-```
-
-both due to the optimization algorithm of Stata. When such error messages occur, consider rerun the command, restart the Stata session, or change the specification.
 
 ## References
 
