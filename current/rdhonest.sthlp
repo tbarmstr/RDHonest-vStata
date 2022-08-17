@@ -300,6 +300,9 @@ Citation for rdhonest, the Stata package.{p_end}
 {pstd}Sai Zhang{p_end}
 {pstd}University of Southern California{p_end}
 
+{pstd}Kwok-Hao Lee{p_end}
+{pstd}Princeton University{p_end}
+
 
 {marker also_see}{...}
 {title:Also see}
