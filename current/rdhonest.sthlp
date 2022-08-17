@@ -1,7 +1,7 @@
 {smcl}
 {cmd:help rdhonest}{right: ({browse "https://github.com/SaiChrisZHANG/RDHonest-vStata":Stata Journal No.})}
 {hline}
-{* *! version 2.0.3 SZhang 13Aug2022}{...}
+{* *! version 0.2 SZhang 13Aug2022}{...}
 
 {viewerjumpto "Syntax" "examplehelpfile##syntax"}{...}
 {viewerjumpto "Description" "examplehelpfile##description"}{...}

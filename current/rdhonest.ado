@@ -1,5 +1,5 @@
-*! rdhonest v1.0.0 by KHLee MAY-27-2019
-*! rdhonest v2.0.3 by YGChen and SZhang, Aug 2022
+*! rdhonest v0.1 by KHLee MAY-27-2019
+*! rdhonest v0.2 by YGChen and SZhang, Aug 2022
 
 program define rdhonest, eclass byable(onecall)
 	if _caller() >= 11 {
