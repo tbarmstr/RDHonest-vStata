@@ -58,9 +58,13 @@ rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni")
 
 ## Installation
 
-- install via SSC: The released version of `rdhonest` is coming soon.
+### Install via SSC
 
-- install development version via github:
+The released version of `rdhonest` is coming soon.
+
+### Install development version via github
+
+To install the package
 
 ```stata
 * Remove program if it existed previously
