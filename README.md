@@ -18,8 +18,6 @@ This Stata package calculates honest and nearly-optimal one- and two-sided confi
   - [`rcp.dta`](data/rcp.dta): from Battistin, Brugiavini, Rettore and Weber (2009)
   - [`rebp.dta`](data/rebp.dta): from Lalive (2008)
 
-- folder [`archive`](archive) contains all previous versions.
-
 ## Example
 
 All the illustrative data sets used below can be found in the [`data`](data) directory; [`rdhonest_test.do`](current/rdhonest_test.do) contains more examples.
