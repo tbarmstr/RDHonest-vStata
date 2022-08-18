@@ -4,12 +4,14 @@ This Stata package calculates honest and nearly-optimal one- and two-sided confi
 
 ## Structure
 
-- folder [`current version`](current) contains the up-to-date version of the Stata package, including
-  - codes: [`rdhonest.ado`](current/rdhonest.ado)
-  - help file: [`rdhonest.sthlp`](current/rdhonest.sthlp)
-  - test-run documentations:
-    - do file [`rdhonest_test.do`](current/rdhonest_test.do)
-    - log file [`rdhonest_test.pdf`](current/rdhonest_test.pdf) and [`rdhonest_test.pdf`](current/rdhonest_test.smcl)
+- the master folder contains the up-to-date version of the Stata package, including
+  - codes: [`rdhonest.ado`](rdhonest.ado)
+  - help file: [`rdhonest.sthlp`](rdhonest.sthlp)
+  - Stata installation files: [`rdhonest.pkg`](rdhonest.pkg) and [`stata.toc`](stata.toc)
+
+- subfolder [`tests`](tests) contains testing documentations:
+  - testing script: [`rdhonest_test.do`](tests/rdhonest_test.do)
+  - log file [`rdhonest_test.pdf`](tests/rdhonest_test.log)
 
 - subfolder [`data`](data) contains 5 exemplary data sets, including
   - [`cghs.dta`](data/cghs.dta): from Oreopoulos (2006)
@@ -20,7 +22,7 @@ This Stata package calculates honest and nearly-optimal one- and two-sided confi
 
 ## Example
 
-All the illustrative data sets used below can be found in the [`data`](data) directory; [`rdhonest_test.do`](current/rdhonest_test.do) contains more examples.
+All the illustrative data sets used below can be found in the [`data`](data) directory; [`rdhonest_test.do`](tests/rdhonest_test.do) contains more examples.
 
 ### Sharp RD
 
@@ -73,13 +75,13 @@ To install example data sets for testing purposes, use
 net install rdhonest, all from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/")
 ```
 
-All 5 data sets listed in the [`data`](data) folder will be installed in the **current working directory**. You can use
+All 5 data sets listed in the [`data`](data) folder will be installed in the **current working directory**. One can use
 
 ```stata
 net set other dirname
 ```
 
-before `net install` to specify the location where ancillary data will be installed.
+before `net install` to specify the location where ancillary data will be installed. For more information, refer to the Stata users' manual of the command [`net`](https://www.stata.com/manuals/rnet.pdf).
 
 Alternatively, one can use
 
@@ -89,6 +91,8 @@ webuse set "https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/da
 * Load data into Stata
 webuse dataname
 ```
+
+to access data directly from this repository.
 
 - manually install: to download the development version of these packages from GitHub, download the files
 [`rdhonest.ado`](rdhonest.ado), [`rdhonest.sthlp`](reg_ss.sthlp)
