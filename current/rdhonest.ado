@@ -759,9 +759,16 @@ mata:
 		
 		if(h == 0| det(Gamma)==0) {
 			printf("{red}Error: bandwidth too small or singular matrix.\n")
-			exit(error(3352))
+			output.theta = J(1,cols(Y),0)
+			output.sigma2 = J(rows(Y),cols(Y)^2,0)
+			output.var = J(1,cols(Y)^2,0)
+			output.w = w
+			output.eo = 0
+			output.wgt = J(rows(X),1,0)
+			output.p = p
+			output.m = m
 		}
-		
+		else{
 		wgt = ((invsym(Gamma) * (w :* R)')[1,.])'
 		/* To compute effective observations, rescale against uniform kernel*/
 		/* use weight rather than kernel + weight */
@@ -801,6 +808,8 @@ mata:
 		output.wgt = wgt
 		output.p = p
 		output.m = m
+		}
+		
 		//printf("var is %9.4f ",output.var)
 		return(output)
 	}
@@ -1117,6 +1126,7 @@ mata:
 
 		transmorphic S /* to optimize function */
 		real scalar h0, hmin, hmax, h /* ROT guess, minimal and maximal h */
+		real scalar errorcode
 		real vector h_opt, supp
 		real matrix X
 
@@ -1154,10 +1164,21 @@ mata:
 			optimize_init_argument(S,5,hmax)
 			optimize_init_evaluator(S,&RDOptBWEval())
 			optimize_init_params(S,h0)
-			//optimize_init_technique(S,"bfgs")
 			optimize_init_technique(S,"bfgs 10 nr 30") 
-			h_opt = optimize(S)
-			h = h_opt
+			optimize_init_verbose(S, 0)
+			errorcode = _optimize(S)
+			
+			if (errorcode == 0){
+			   // no error occurs
+			   h_opt = optimize_result_params(S) 
+			   h = h_opt
+			}
+			else {
+			  // error occurs then call grid search the optimal bandwidth 
+			   printf("{red}Grid search optimizer is called \n")
+			   supp = sort(uniqrows(df.X),1)
+			   h = gs(&RDOptBWGss(), select(supp,supp :>= hmin), df, opt, kernC)	
+			}
 		}
 		return(h)
 	}
@@ -1565,6 +1586,25 @@ mata:
 		return(supp[i_opt])
 	}
 	  
+	 /* grid search optimizer to use with mata objective functions */ 
+	real scalar gs(pointer scalar f, real vector xs, class RDData scalar df,
+		class RDOptions scalar opt, real matrix kernC) {
+
+		real scalar  i, h_opt, i_opt, val
+		real vector supp
+		
+		h_opt = 1.0X+4e
+
+		// iteratively apply f to support points to find optimal bandwidth
+		for (i=1; i<=length(xs); i++) {
+			val = (*f)(xs[i],df,opt,kernC)
+			if (val <= h_opt) {
+				h_opt = val
+				i_opt = i
+			}
+		}
+		return(xs[i_opt])
+	}
 	 
 	/* implement CVb with noncentral chi-squared distribution */
 	real scalar CVb(real scalar B,| real scalar alpha) {
