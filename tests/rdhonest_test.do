@@ -1,12 +1,14 @@
+// Run from main directory
+
 clear all
 
-global datadir = "~/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/data"
-global logdir = "~/Dropbox/RDHonest_TimArmstrong/RDHonest-vStata/current"
+global datadir = "data"
+global logdir = "tests"
 
 set seed 2022
 
 cap log close 
-log using `"${logdir}/rdhonest_test.smcl"', replace
+log using `"${logdir}/rdhonest_test.log"', replace
 
 ********************************************************************************
 //  1. Lee08

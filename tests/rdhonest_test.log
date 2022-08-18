@@ -1,0 +1,916 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /home/kolesarm/research/R-packages/RDHonest-vStata/tests/rdhonest_t
+> est.log
+  log type:  text
+ opened on:  18 Aug 2022, 10:43:37
+
+. 
+. ******************************************************************************
+> **
+. //  1. Lee08
+. qui: use `"${datadir}/lee08.dta"', clear
+
+. 
+. // 1.1 uni kernel
+. rdhonest voteshare margin, m(0.1) kernel("uni") h(10) 
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 6.05677353    1.72376825        1.19052699      2.37473029        9.73881678
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.37476265 , Inf), (-Inf,  9.73878442)
+ Bandwidth: 10         
+ Number of effective observations: 1209       
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .003703381 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. 
+. // 1.1.1 uni kernel + optimal h 
+. rdhonest voteshare margin, m(0.1) kernel("uni") 
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 5.97398151    .850259518        1.43299882      2.73601889        9.21194414
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.76664868 , Inf), (-Inf,  9.18131434)
+ Bandwidth (optimized): 6.91475868 
+ Number of effective observations: 843        
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .005503345 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. rdhonest voteshare margin, m(0.1) kernel("uni") opt_criterion("OCI")
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 4.88998924    .572475838        1.55210007      1.65199641        8.12798208
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (1.76453597 , Inf), (-Inf,  8.01544252)
+ Bandwidth (optimized): 5.77180088 
+ Number of effective observations: 701        
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: OCI, with beta .8         
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .007011609 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. rdhonest voteshare margin, m(0.1) kernel("uni") opt_criterion("FLCI") 
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 5.57055475    .890553506        1.4221318       2.31590621        8.82520329
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.34080259 , Inf), (-Inf,  8.80030691)
+ Bandwidth (optimized): 7.10620284 
+ Number of effective observations: 863        
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: FLCI
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .005349821 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. 
+. // 1.1.2 uni kernel + optimal h + without M + est_w saved as wgt 
+. rdhonest voteshare margin, kernel("uni") savew(wgt)
+Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 4.79816988    .891210516        1.57140644      1.2829887         8.31335106
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (1.32222577 , Inf), (-Inf,  8.27411398)
+ Bandwidth (optimized): 6.01199567 
+ Number of effective observations: 728        
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .006421319 
+ Smoothness constant M (rule of thumb): .142810807 
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+ Generated variables:
+     Estimation weight: wgt
+
+. 
+. // 1.2 tri kernel 
+. rdhonest voteshare margin, m(0.1) kernel("tri") h(10) 
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 5.93672596    1.05606425        1.23301022      2.84789393        9.02555799
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.85254037 , Inf), (-Inf,  9.02091154)
+ Bandwidth: 10         
+ Number of effective observations: 1003.37472 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .007243217 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. 
+. // 1.2.1 tri kernel + optimal h 
+. rdhonest voteshare margin, m(0.1) kernel("tri") 
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 5.93665377    .832266594        1.29441808      2.95483117        8.91847638
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.9752589  , Inf), (-Inf,  8.89804865)
+ Bandwidth (optimized): 8.84855171 
+ Number of effective observations: 889.051245 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .008236342 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. rdhonest voteshare margin, m(0.1) kernel("tri") opt_criterion("OCI")
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 5.82265043    .575826613        1.38202457      2.89467975        8.75062111
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.9735957  , Inf), (-Inf,  8.67170516)
+ Bandwidth (optimized): 7.42934716 
+ Number of effective observations: 737.592837 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: OCI, with beta .8         
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .009973466 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. rdhonest voteshare margin, m(0.1) kernel("tri") opt_criterion("FLCI") 
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 5.95445705    .883482126        1.27874983      2.95272674        8.95618736
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.96761863 , Inf), (-Inf,  8.94129547)
+ Bandwidth (optimized): 9.11159306 
+ Number of effective observations: 917.823736 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: FLCI
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .007988219 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. 
+. cap drop wgt /*for the dofile to run*/
+
+. // 1.2.2 tri kernel + optimal h + without M + est_w saved as wgt 
+. rdhonest voteshare margin, kernel("tri") savew(wgt)
+Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 5.84973224    .88800705         1.36588331      2.69443541        9.00502906
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.71504707 , Inf), (-Inf,  8.98441741)
+ Bandwidth (optimized): 7.71506984 
+ Number of effective observations: 764.559585 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .009560868 
+ Smoothness constant M (rule of thumb): .142810807 
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+ Generated variables:
+     Estimation weight: wgt
+
+. 
+. // 1.3 display option tests and by option tests
+. // 1.3.1 by option (psuedo categories)
+. qui{
+
+. bys bygrp: rdhonest voteshare margin, m(0.1) kernel("uni") h(10)
+
+--------------------------------------------------------------------------------
+-> bygrp = 0
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 5.27567752    1.71837784        1.63811092      .861406093        9.68994895
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (.862846988 , Inf), (-Inf,  9.68850806)
+ Bandwidth: 10         
+ Number of effective observations: 604        
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .007626798 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+--------------------------------------------------------------------------------
+-> bygrp = 1
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 6.80020499    1.72728041        1.77634908      2.14825205        11.4521579
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.15109035 , Inf), (-Inf,  11.4493196)
+ Bandwidth: 10         
+ Number of effective observations: 605        
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .00719001  
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. bys bygrp: rdhonest voteshare margin, m(0.1) kernel("uni") h(10) savew(wgt)
+
+--------------------------------------------------------------------------------
+-> bygrp = 0
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 5.27567752    1.71837784        1.63811092      .861406093        9.68994895
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (.862846988 , Inf), (-Inf,  9.68850806)
+ Bandwidth: 10         
+ Number of effective observations: 604        
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .007626798 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+ Generated variables:
+     Estimation weight: wgt
+
+--------------------------------------------------------------------------------
+-> bygrp = 1
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 6.80020499    1.72728041        1.77634908      2.14825205        11.4521579
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.15109035 , Inf), (-Inf,  11.4493196)
+ Bandwidth: 10         
+ Number of effective observations: 605        
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .00719001  
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+ Generated variables:
+     Estimation weight: wgt
+
+. 
+. // 1.3.2 hide parameters
+. rdhonest voteshare margin, m(0.1) kernel("uni") h(10) noparam
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 6.05677353    1.72376825        1.19052699      2.37473029        9.73881678
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.37476265 , Inf), (-Inf,  9.73878442)
+ Bandwidth: 10         
+ Number of effective observations: 1209       
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. 
+. // 1.3.3 show iteration log
+. rdhonest voteshare margin, m(0.1) kernel("tri") iterl
+(setting technique to bfgs)
+Iteration 0:   f(p) =  3.2843434  
+Iteration 1:   f(p) =  3.2545513  
+Iteration 2:   f(p) =  3.2537915  
+Iteration 3:   f(p) =  3.2537877  
+Iteration 4:   f(p) =  3.2537877  
+
+Honest inference: SHARP Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ 5.93665377    .832266594        1.29441808      2.95483117        8.91847638
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (2.9752589  , Inf), (-Inf,  8.89804865)
+ Bandwidth (optimized): 8.84855171 
+ Number of effective observations: 889.051246 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .008236342 
+ Smoothness constant M: .1         
+------------------------------------------------------------------------------
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+
+. 
+. ******************************************************************************
+> **
+. // 2. rcp
+. qui: use `"${datadir}/rcp.dta"', clear 
+
+. 
+. // 2.1 uni kernel
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") h(3) 
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -6081.32789   24908.345         3330.31152      -36467.5479       24304.8921
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-36467.5479, Inf), (-Inf,  24304.8921)
+ First-stage estimate: .330652239 
+ Bandwidth: 3          
+ Number of effective observations: 2859       
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .001148573 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. 
+. // 2.1.1 uni kernel + optimal h 
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") t0(0)
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -3041.98487   119639.281        721.142172      -123867.44         117783.47
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-123867.44 , Inf), (-Inf,   117783.47)
+ First-stage estimate: .501984619 
+ Bandwidth (optimized): 15         
+ Number of effective observations: 16531      
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .000272655 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") t0(0) opt_criterion("O
+> CI")
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -2372.75338   82919.9153        792.503945      -86596.2216       81850.7149
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-86596.2216, Inf), (-Inf,  81850.7149)
+ First-stage estimate: .479008759 
+ Bandwidth (optimized): 14         
+ Number of effective observations: 14923      
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: OCI, with beta .8         
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .000308509 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") t0(0) opt_criterion("F
+> LCI") 
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -3273.64811   141925.173        702.843267      -146354.895       139807.599
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-146354.895, Inf), (-Inf,  139807.599)
+ First-stage estimate: .500478044 
+ Bandwidth (optimized): 16         
+ Number of effective observations: 17524      
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: FLCI
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .000260008 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. 
+. // 2.1.2 uni kernel + optimal h + without M + est_w saved as wgt 
+. rdhonest cn (retired=elig_year), kernel("uni") t0(0) savew(wgt)
+Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -4101.28302   2305.5557         2288.74466      -10174.2817       1971.71564
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-10171.4887, Inf), (-Inf,  1968.92264)
+ First-stage estimate: .323809965 
+ Bandwidth (optimized): 5          
+ Number of effective observations: 5018       
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .000763565 
+ Smoothness constant M (first-stage, rule of thumb): .008178929 
+ Smoothness constant M (reduced-form, rule of thumb): 67.2320533 
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+ Generated variables:
+     Estimation weight: wgt
+
+. 
+. // 2.2 tri kernel 
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") h(3) 
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -4623.87045   12711.5674        5692.37704      -26698.5649        17450.824
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-26698.5649, Inf), (-Inf,   17450.824)
+ First-stage estimate: .291631727 
+ Bandwidth: 3          
+ Number of effective observations: 1867       
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .001285804 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. 
+. // 2.2.1 tri kernel + optimal h 
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") t0(0)
+numerical derivatives are approximate
+flat or discontinuous region encountered
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -3265.38991   135893.707        738.635659      -140374.044       133843.265
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-140374.044, Inf), (-Inf,  133843.265)
+ First-stage estimate: .472339696 
+ Bandwidth (optimized): 20.0998072 
+ Number of effective observations: 17348.0775 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .000390641 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") opt_criterion("OCI") t
+> 0(0)
+numerical derivatives are approximate
+flat or discontinuous region encountered
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -2669.26358   90021.7707        822.05359       -94043.1921       88704.6649
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-94043.1921, Inf), (-Inf,  88704.6649)
+ First-stage estimate: .459888893 
+ Bandwidth (optimized): 17.4726487 
+ Number of effective observations: 15267.8697 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: OCI, with beta .8         
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .000451415 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") opt_criterion("FLCI") 
+> t0(0)
+numerical derivatives are approximate
+flat or discontinuous region encountered
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -3477.06548   154164.594        718.007979      -158822.677       151868.546
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-158822.677, Inf), (-Inf,  151868.546)
+ First-stage estimate: .474804034 
+ Bandwidth (optimized): 20.8510336 
+ Number of effective observations: 18110.5155 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: FLCI
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .000374774 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. 
+. cap drop wgt /*for the dofile to run*/
+
+. // 2.2.1 tri kernel + optimal h + without M + est_w saved as wgt 
+. rdhonest cn (retired=elig_year), kernel("tri") t0(0) savew(wgt)
+Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+numerical derivatives are approximate
+flat or discontinuous region encountered
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -4006.29605   2166.60946        2298.52386      -9958.2429        1945.65079
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-9953.64082, Inf), (-Inf,  1941.04872)
+ First-stage estimate: .319922011 
+ Bandwidth (optimized): 6.52830315 
+ Number of effective observations: 4968.84184 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .001077215 
+ Smoothness constant M (first-stage, rule of thumb): .008178929 
+ Smoothness constant M (reduced-form, rule of thumb): 67.2320533 
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+ Generated variables:
+     Estimation weight: wgt
+
+. 
+. // 2.3 display option tests and by option tests
+. // 2.3.1 by option (psuedo categories)
+. qui{
+
+. bys bygrp: rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") h(3)
+
+--------------------------------------------------------------------------------
+-> bygrp = 0
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -4491.91001   16079.1055        4215.82584      -27505.4319       18521.6119
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-27505.4319, Inf), (-Inf,  18521.6119)
+ First-stage estimate: .377016964 
+ Bandwidth: 3          
+ Number of effective observations: 1486       
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .001944326 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+--------------------------------------------------------------------------------
+-> bygrp = 1
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -8403.37021   42323.5418        5684.21055      -60076.6063       43269.8659
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-60076.6063, Inf), (-Inf,  43269.8659)
+ First-stage estimate: .270350791 
+ Bandwidth: 3          
+ Number of effective observations: 1373       
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .002761653 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. bys bygrp: rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") h(3) savew(
+> wgt)
+
+--------------------------------------------------------------------------------
+-> bygrp = 0
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -4491.91001   16079.1055        4215.82584      -27505.4319       18521.6119
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-27505.4319, Inf), (-Inf,  18521.6119)
+ First-stage estimate: .377016964 
+ Bandwidth: 3          
+ Number of effective observations: 1486       
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .001944326 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+ Generated variables:
+     Estimation weight: wgt
+
+--------------------------------------------------------------------------------
+-> bygrp = 1
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -8403.37021   42323.5418        5684.21055      -60076.6063       43269.8659
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-60076.6063, Inf), (-Inf,  43269.8659)
+ First-stage estimate: .270350791 
+ Bandwidth: 3          
+ Number of effective observations: 1373       
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .002761653 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+ Generated variables:
+     Estimation weight: wgt
+
+. 
+. // 2.3.2 hide parameters
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni") h(3) noparam
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -6081.32789   24908.345         3330.31152      -36467.5479       24304.8921
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-36467.5479, Inf), (-Inf,  24304.8921)
+ First-stage estimate: .330652239 
+ Bandwidth: 3          
+ Number of effective observations: 2859       
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. 
+. // 2.3.3 show iteration log
+. rdhonest cn (retired=elig_year), m(4 0.4) kernel("tri") t0(0) iterl
+numerical derivatives are approximate
+flat or discontinuous region encountered
+(setting technique to bfgs)
+Iteration 0:   f(p) =  2481787.2  
+Iteration 1:   f(p) =  484315.37  
+Iteration 2:   f(p) =  484315.37  (backed up)
+Iteration 3:   f(p) =  484315.37  (backed up)
+Iteration 4:   f(p) =  164833.06  
+Iteration 5:   f(p) =  157428.37  
+Iteration 6:   f(p) =  157375.61  
+Iteration 7:   f(p) =  157373.71  
+Iteration 8:   f(p) =  157372.99  
+Iteration 9:   f(p) =  157372.99  
+
+Honest inference: FUZZY Regression Discontinuity
+------------------------------------------------------------------------------
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+------------------------------------------------------------------------------
+ -3265.38805   135893.552        738.635846      -140373.888       133843.112
+------------------------------------------------------------------------------
+ 95% One-sided Conf. intervals: (-140373.888, Inf), (-Inf,  133843.112)
+ First-stage estimate: .472339674 
+ Bandwidth (optimized): 20.0998016 
+ Number of effective observations: 17348.0708 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .000390641 
+ Smoothness constant M (first-stage): .4         
+ Smoothness constant M (reduced-form): 4          
+------------------------------------------------------------------------------
+  Dependent variable: cn                                      
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /home/kolesarm/research/R-packages/RDHonest-vStata/tests/rdhonest_t
+> est.log
+  log type:  text
+ closed on:  18 Aug 2022, 10:47:18
+--------------------------------------------------------------------------------
