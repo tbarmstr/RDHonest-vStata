@@ -7,6 +7,7 @@ d - Timothy Armstrong. University of Southern California
 d - Michal Kolesar. Princeton University
 d - Yugen Chen. University of Southern California
 d - Sai Zhang. University of Southern California
+d - Kwok-Hao Lee. Princeton University
 d
 d Support:
 d - https://github.com/SaiChrisZHANG/RDHonest-vStata/issues
@@ -16,8 +17,8 @@ d https://github.com/kolesarm/RDHonest
 d
 d KW: regression discontinuity
 d KW: nonparametric inference
-d KW: ﬁnite-sample inference
-d KW: efﬁciency bounds
+d KW: finite-sample inference
+d KW: efficiency bounds
 d
 d Requires: Stata version 14
 d
