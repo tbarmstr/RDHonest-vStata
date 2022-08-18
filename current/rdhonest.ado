@@ -758,7 +758,7 @@ mata:
 		Gamma = quadcross(R,w :* R)
 		
 		if(h == 0| det(Gamma)==0) {
-			printf("{red}Error: bandwidth too small or singular matrix.\n")
+			//printf("{red}Error: bandwidth too small or singular matrix.\n")
 			output.theta = J(1,cols(Y),0)
 			output.sigma2 = J(rows(Y),cols(Y)^2,0)
 			output.var = J(1,cols(Y)^2,0)
