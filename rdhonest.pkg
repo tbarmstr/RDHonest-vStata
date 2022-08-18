@@ -27,8 +27,4 @@ d
 
 f rdhonest.ado
 f rdhonest.sthlp
-f data/cghs.dta
-f data/headst.dta
-f data/lee08.dta
 f data/rcp.dta
-f data/rebp.dta
