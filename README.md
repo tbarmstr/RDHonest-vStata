@@ -73,13 +73,13 @@ capture ado uninstall rdhonest
 net install rdhonest, from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/")
 ```
 
-To install example data sets for testing purposes, use
+To intall [`rcp.dta`](data/rcp.dta) for testing purposes at the same time, use
 
 ```stata
 net install rdhonest, all from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/")
 ```
 
-All 5 data sets listed in the [`data`](data) folder will be installed in the **current working directory**. One can use
+the data set will be installed in the **current working directory**. One can use
 
 ```stata
 net set other dirname
@@ -96,7 +96,7 @@ webuse set "https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/da
 webuse dataname
 ```
 
-to access data directly from this repository.
+to access all five of the listed data sets in [`data`](data) directly from this repository.
 
 - manually install: to download the development version of these packages from GitHub, download the files
 [`rdhonest.ado`](rdhonest.ado), [`rdhonest.sthlp`](reg_ss.sthlp)
