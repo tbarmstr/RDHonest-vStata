@@ -64,7 +64,7 @@ rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni")
 * Remove program if it existed previously
 capture ado uninstall rdhonest
 * Install most up-to-date version
-net install rdhonest, from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/current/")
+net install rdhonest, from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/")
 ```
 
 - manually install: to download the development version of these packages from GitHub, download the files
