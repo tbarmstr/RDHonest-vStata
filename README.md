@@ -67,8 +67,31 @@ capture ado uninstall rdhonest
 net install rdhonest, from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/")
 ```
 
+To install example data sets for testing purposes, use
+
+```stata
+net install rdhonest, all from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/")
+```
+
+All 5 data sets listed in the [`data`](data) folder will be installed in the **current working directory**. You can use
+
+```stata
+net set other dirname
+```
+
+before `net install` to specify the location where ancillary data will be installed.
+
+Alternatively, one can use
+
+```stata
+* Set data directory
+webuse set "https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/data"
+* Load data into Stata
+webuse dataname
+```
+
 - manually install: to download the development version of these packages from GitHub, download the files
-[`rdhonest.ado`](current/rdhonest.ado), [`rdhonest.sthlp`](current/reg_ss.sthlp)
+[`rdhonest.ado`](rdhonest.ado), [`rdhonest.sthlp`](reg_ss.sthlp)
 from the `current` directory, and put them into Stata's personal `ado` directory,
 typically
   - `c:\ado\personal` on Windows
