@@ -99,8 +99,7 @@ webuse dataname
 to access all five of the listed data sets in [`data`](data) directly from this repository.
 
 - manually install: to download the development version of these packages from GitHub, download the files
-[`rdhonest.ado`](rdhonest.ado), [`rdhonest.sthlp`](reg_ss.sthlp)
-from the `current` directory, and put them into Stata's personal `ado` directory,
+[`rdhonest.ado`](rdhonest.ado), [`rdhonest.sthlp`](reg_ss.sthlp), and put them into Stata's personal `ado` directory,
 typically
   - `c:\ado\personal` on Windows
   - `~/Documents/Stata/ado` on a Mac
