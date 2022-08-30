@@ -4,27 +4,6 @@ This Stata package calculates honest and nearly-optimal one- and two-sided confi
 
 See the [vignette](https://htmlpreview.github.io/?https://github.com/tbarmstr/RDHonest-vStata/blob/main/vignette/rdhonest_stata_vignette.html) for a description of the package, and the package manual available through `help rdhonest` once the package is installed.
 
-## Structure
-
-- the master folder contains the up-to-date version of the Stata package, including
-  - codes: [`rdhonest.ado`](rdhonest.ado)
-  - help file: [`rdhonest.sthlp`](rdhonest.sthlp)
-  - Stata installation files: [`rdhonest.pkg`](rdhonest.pkg) and [`stata.toc`](stata.toc)
-
-- subfolder [`tests`](tests) contains testing documentations:
-  - testing script: [`rdhonest_test.do`](tests/rdhonest_test.do)
-  - log file [`rdhonest_test.pdf`](tests/rdhonest_test.log)
-
-- subfolder [`data`](data) contains 5 exemplary data sets, including
-  - [`cghs.dta`](data/cghs.dta): from Oreopoulos (2006)
-  - [`headst.dta`](data/headst.dta): from Ludwig and Miller (2007)
-  - [`lee08.dta`](data/lee08.dta): from Lee (2008)
-  - [`rcp.dta`](data/rcp.dta): from Battistin, Brugiavini, Rettore and Weber (2009)
-  - [`rebp.dta`](data/rebp.dta): from Lalive (2008)
-  
-- subfolder [`vignette`](vignette) contains the vignette
-
-
 ## Installation
 
 ### Install via SSC
@@ -54,6 +33,27 @@ typically
   Or run `sysdir` in Stata to find out local directories.
 
 For more information on how to use personal ado files, please refer to [Stata Official FAQ](https://www.stata.com/support/faqs/programming/personal-ado-directory/).
+
+## Structure
+
+- the master folder contains the up-to-date version of the Stata package, including
+  - codes: [`rdhonest.ado`](rdhonest.ado)
+  - help file: [`rdhonest.sthlp`](rdhonest.sthlp)
+  - Stata installation files: [`rdhonest.pkg`](rdhonest.pkg) and [`stata.toc`](stata.toc)
+
+- subfolder [`tests`](tests) contains testing documentations:
+  - testing script: [`rdhonest_test.do`](tests/rdhonest_test.do)
+  - log file [`rdhonest_test.pdf`](tests/rdhonest_test.log)
+
+- subfolder [`data`](data) contains 5 exemplary data sets, including
+  - [`cghs.dta`](data/cghs.dta): from Oreopoulos (2006)
+  - [`headst.dta`](data/headst.dta): from Ludwig and Miller (2007)
+  - [`lee08.dta`](data/lee08.dta): from Lee (2008)
+  - [`rcp.dta`](data/rcp.dta): from Battistin, Brugiavini, Rettore and Weber (2009)
+  - [`rebp.dta`](data/rebp.dta): from Lalive (2008)
+  
+- subfolder [`vignette`](vignette) contains the vignette
+
 
 ## Bug reporting and Questions
 
