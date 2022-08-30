@@ -2,6 +2,8 @@
 
 This Stata package calculates honest and nearly-optimal one- and two-sided confidence intervals in fuzzy and sharp regression discontinuity designs based on local linear regression, see [RDHonest](https://github.com/kolesarm/RDHonest) package for an R version.
 
+See the [vignette](https://github.com/tbarmstr/RDHonest-vStata/blob/main/vignette/rdhonest_stata_vignette.html) for a description of the package, and the package manual available through `help rdhonest` once the package is installed.
+
 ## Structure
 
 - the master folder contains the up-to-date version of the Stata package, including
