@@ -75,7 +75,7 @@ For fuzzy RD estimation: {p_end}
 {synopt:{opt iterl:og}}display the iteration log{p_end}
 {synoptline}
 {p2colreset}{...}
-{p 4 6 2}{cmd:m(#)} requires two scalar inputs for Fuzzy RD estimation, {cmd:m(#1 #2)}, where {cmd:#1} is for the first-stage regression and {cmd:#2} is for the reduced-form regression.{p_end}
+{p 4 6 2}{cmd:m(#)} requires two scalar inputs for Fuzzy RD estimation, {cmd:m(#1 #2)}, where {cmd:#1} is for the reduced-form outcome regression and {cmd:#2} is for the first-stage regression.{p_end}
 {p 4 6 2}{cmd:t0(#)} is only relevant for Fuzzy RD estimations.{p_end}
 {p 4 6 2}{cmd:by} is allowed; see {helpb by} for details.{p_end}
 
@@ -99,7 +99,7 @@ For fuzzy RD estimation: {p_end}
 {opt m(#)} sets bound on the second derivative of the conditional mean function. If not specified, a global quartic regression is used for a rule-of-thumb estimation, following Armstrong and Kolesar (2020).
 
 {pmore}
-For fuzzy RD, {cmd:m(#1 #2)} sets the bound for both the first-stage ({cmd:#1}) and the reduced-form regression ({cmd:#2}).
+For fuzzy RD, {cmd:m(#1 #2)} sets the bound for both the reduced-form outcome regression ({cmd:#1}) and the first-stage regression regression ({cmd:#2}).
 
 {phang}
 {opt kernel(string)} sets the kernel for the local regression (in the context of standard sharp RD). The following options are allowed:
@@ -222,7 +222,7 @@ If {opt pvar:iance(varlist)} is specified, any input for {opt se_method()} will 
 {synopt:{cmd:e(bandwidth)}}bandwidth, supplied or optimized{p_end}
 {synopt:{cmd:e(alpha)}}confidence level{p_end}
 {synopt:{cmd:e(beta)}}quantile of excess length for evaluating minimax efficiency of one-sided CIs{p_end}
-{synopt:{cmd:e(est)}}sharp RD point estimation, or fuzzy RD reduced-form point estimation{p_end}
+{synopt:{cmd:e(est)}}point estimate of RD parameter{p_end}
 {synopt:{cmd:e(est_fs)}}fuzzy RD first-stage point estimation{p_end}
 {synopt:{cmd:e(se)}}standard errors of {cmd:e(est)}{p_end}
 {synopt:{cmd:e(bias)}}maximum bias of {cmd:e(est)}{p_end}
@@ -308,12 +308,15 @@ Citation for rdhonest, the Stata package.{p_end}
 {title:Also see}
 
 {p 4 14 2}
-Development version: net install rdhonest, from("https://raw.githubusercontent.com/SaiChrisZHANG/RDHonest-vStata/master/current/"){p_end}
+Development version: net install rdhonest, from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/current/"){p_end}
 
 {p 4 14 2}
-Article: potential stata journal {p_end}
+{browse "https://github.com/tbarmstr/RDHonest-vStata/vignette/rdhonest_stata_vignette.html":vignette}{p_end}
 
 {p 4 14 2}
-{browse "https://github.com/kolesarm/RDHonest":Github page} of RDHonest {p_end}
+{browse "https://github.com/tbarmstr/RDHonest-vStata":Github page}{p_end}
+
+{p 4 14 2}
+{browse "https://github.com/kolesarm/RDHonest":R version of RDHonest} {p_end}
 
 {title:End}

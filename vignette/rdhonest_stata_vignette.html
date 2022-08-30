@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Tim Armstrong" />
+  <title>RDHonest Stata Vignette</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 1in;
+      padding-right: 1in;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">RDHonest Stata Vignette</h1>
+<p class="author">Tim Armstrong</p>
+<p class="date">30 Aug 2022</p>
+</header>
+<h1 id="introduction">Introduction</h1>
+<p>The <code>RDHonest-vStata</code> package implements estimates and
+confidence intervals (CIs) from <span class="citation"
+data-cites="ArKo18optimal">Armstrong and Kolesár (2018)</span> and <span
+class="citation" data-cites="armstrong_simple_2020">Armstrong and
+Kolesár (2020)</span> for regression discontinuity (RD) in Stata. This
+vignette describes some of the functionality.</p>
+<h1 id="sharp-rd">Sharp RD</h1>
+<p>To begin, we’ll illustrate using elections data from <span
+class="citation" data-cites="lee08">Lee (2008)</span>.</p>
+<pre class='stata'>. clear all
+
+. macro drop _all
+
+. webuse set "https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/data"
+(prefix now "https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/data")
+
+. webuse lee08
+(Lee, D. S. (2008))
+</pre>
+<p>The running variable <code>margin</code> is margin of victory of the
+Democratic candidate in the previous election in percentage points. The
+outcome variable <code>voteshare</code> is the Democratic candidate’s
+share of the vote in the next election, in percentage points. The cutoff
+is 0.</p>
+<h2 id="estimate-and-ci">Estimate and CI</h2>
+<p>The <code>rdhonest</code> command implements honest CIs based on
+local linear estimates. For illustration, let’s start with the uniform
+kernel.</p>
+<pre class='stata'>. * uniform kernel, defaults for other options:
+. *   Armstrong and Kolesár (2020) rule of thumb for M + MSE optimal bandwidth
+. rdhonest voteshare margin, kernel("uni")
+Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
+Honest inference: SHARP Regression Discontinuity
+──────────────────────────────────────────────────────────────────────────────
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+──────────────────────────────────────────────────────────────────────────────
+ 4.79816988    .891210516        1.57140644      1.2829887         8.31335106
+──────────────────────────────────────────────────────────────────────────────
+ 95% One-sided Conf. intervals: (1.32222577 , Inf), (-Inf,  8.27411398)
+ Bandwidth (optimized): 6.01199567 
+ Number of effective observations: 728        
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .006421319 
+ Smoothness constant M (rule of thumb): .142810807 
+──────────────────────────────────────────────────────────────────────────────
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+</pre>
+<p>When we use the uniform kernel, the point estimate is simply obtained
+by running a linear regression using a “discontinuity sample” of
+observations within a certain distance of the cutoff (note that the
+cutoff is 0 in this example, which is the default for the
+<code>rdhonest</code> command; we can specify a different cutoff using
+the option <code>c()</code>). The distance that determines the
+discontinuity sample is called the bandwidth. It is given in the output
+above, and can be obtained using the postestimation
+<code>e(bandwidth)</code>:</p>
+<pre class='stata'>. display e(bandwidth)
+6.0119957
+</pre>
+<p>So, in this case, we are running a linear regression using
+observations where the running variable is within 6.0119957 units of the
+cutoff point 0. We can check that the point estimates match using
+Stata’s built-in commands:</p>
+<pre class='stata'>. scalar bw = e(bandwidth)
+
+. gen treat = (margin>0)
+
+. gen treatxmargin = treat*margin
+
+. reg voteshare treat margin treatxmargin if abs(margin)&lt;=bw, robust
+
+Linear regression                               Number of obs     =        728
+                                                F(3, 724)         =      53.20
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1832
+                                                Root MSE          =     11.495
+
+─────────────┬────────────────────────────────────────────────────────────────
+             │               Robust
+   voteshare │      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+─────────────┼────────────────────────────────────────────────────────────────
+       treat │    4.79817   1.614018     2.97   0.003     1.629456    7.966884
+      margin │   .9246502   .3048005     3.03   0.003     .3262519    1.523049
+treatxmargin │  -.0081335   .4760755    -0.02   0.986    -.9427869    .9265199
+       _cons │   46.99352   1.061989    44.25   0.000     44.90857    49.07847
+─────────────┴────────────────────────────────────────────────────────────────
+</pre>
+<p>Note that, while the point estimates match, the standard errors are
+slightly different. This is due to the <code>rdhonest</code> command
+defaulting to a nearest-neighbor (NN) standard error, rather than the
+usual EHW standard error. The NN standard error can be less conservative
+in certain settings, but here the two methods yield similar results.</p>
+<p>A more striking difference is the 95% CI computed by the built-in
+regression command, which is slightly shorter than the one reported by
+<code>rdhonest</code>. The <code>rdhonest</code> command computes a
+<em>bias-aware</em> CI that explicitly takes into account the largest
+possible bias in a <em>smoothness class</em> determined by a
+<em>smoothness constant</em> <span class="math inline">\(M\)</span>. In
+particular, rather than assuming the specification in the above
+regression holds exactly, we assume that it holds only up to
+approximation error:</p>
+<p><span class="math display">\[
+\text{voteshare}_i =
+\tau \cdot \text{treat}_i
++ \beta_1 + \beta_2 \text{margin}_i + \beta_3 \text{treat}_i\cdot
+\text{margin}_i + \text{rem}(\text{margin}_i) + u_i
+\]</span></p>
+<p>where <span
+class="math inline">\(\text{treat}_i=I(\text{margin}_i&gt;0)\)</span>
+and <span class="math inline">\(\text{rem}(\text{margin}_i)\)</span> is
+the remainder term from a first order Taylor approximation of the
+conditional expectation function of voteshare given margin by the linear
+specification on either side of the cutoff point. We assume that this
+remainder term comes from a Taylor approximation where this conditional
+expectation function is twice differentiable, with second derivative
+bounded by <span class="math inline">\(M\)</span>. The
+<code>rdhonest</code> command allows <span
+class="math inline">\(M\)</span> to be specified throught the
+<code>m()</code> option. If this option is not specified (as in the
+example above), it uses a rule-of-thumb from <span class="citation"
+data-cites="armstrong_simple_2020">Armstrong and Kolesár (2020)</span>
+that calibrates <span class="math inline">\(M\)</span> based on a global
+fourth order polynomial on either side of the cutoff. The maximum bias
+and smoothness constant are displayed in the output for
+<code>rdhonest</code>. It can be obtained in postestimation with
+<code>e(bias)</code> and <code>e(M)</code>.</p>
+<p>The two-sided CI reported by <code>rdhonest</code> uses the critical
+value <span class="math inline">\(\text{cv}_{\alpha}(t)\)</span>,
+computed as the <span class="math inline">\(1-\alpha\)</span> quantile
+of the <span class="math inline">\(|N(0,t)|\)</span> distribution, with
+<span class="math inline">\(t=\frac{\text{max.
+bias}}{\text{se}}\)</span>:</p>
+<p><span class="math display">\[
+\text{estimate} \pm \text{cv}_{\alpha}\left(\frac{\text{max.
+bias}}{\text{se}}\right)\cdot \text{se}
+\]</span></p>
+<p>By taking into account the maximum possible bias, this critical value
+ensures that the coverage of the CI is at least <span
+class="math inline">\(1-\alpha\)</span>. The level <span
+class="math inline">\(\alpha\)</span> is set using the option
+<code>alpha()</code> and defaults to <span
+class="math inline">\(.05\)</span>. We refer to this as a
+<em>fixed-length</em> CI, since it depends only on the standard error
+and the smoothness constant <span class="math inline">\(M\)</span>. Note
+that one could also add and subtract <span
+class="math inline">\(\text{max. bias} + z_{1-\alpha/2}\cdot
+\text{se}\)</span> to form the CI. Indeed, the one-sided CIs reported by
+<code>rdhonest</code> take this form: the lower endpoint of the lower
+one-sided CI is <span class="math display">\[
+\text{estimate} - \text{max. bias} - z_{1-\alpha}\cdot \text{se}
+\]</span> where <span class="math inline">\(z_{1-\alpha}\)</span> is the
+<span class="math inline">\(1-\alpha\)</span> quantile of the <span
+class="math inline">\(N(0,1)\)</span> distribution. However, in the
+two-sided case, the above construction is less conservative.</p>
+<h2
+id="interpreting-the-smoothness-assumption-and-honesty-requirement">Interpreting
+the Smoothness Assumption and Honesty Requirement</h2>
+<p>The identifying assumption in sharp RD is that the latent conditional
+expectation functions for treated and untreated outcomes are smooth. The
+smoothness class described above formalizes this in a way that allows
+for valid inference and guarantees on estimation error. The CIs reported
+by <code>rdhonest</code> are <em>honest</em> in the sense that coverage
+is close to the nominal level or better for all functions in this class
+once the sample size is large enough. In addition, since these CIs use
+finite-sample bounds on bias, the only thing needed for good
+finite-sample coverage is accuracy of the normal approximation. In
+particular, they are valid with discrete covariates.</p>
+<p>Some users may be more familiar with
+“pointwise-in-the-underlying-distribution” formulations of smoothness.
+These are used, for example, in the optimal bandwidth calculations of
+<span class="citation" data-cites="ik12restud">Imbens and Kalyanaraman
+(2012)</span>. For many practical purposes, the two formulations lead to
+similar conclusions and interpretations. For example, the mean squared
+error optimal bandwidth (computed by <code>rdhonest</code> and discussed
+below) turns out to have the same asymptotic formula as the one used by
+<span class="citation" data-cites="ik12restud">Imbens and Kalyanaraman
+(2012)</span>, with <span class="math inline">\(M\)</span> in our
+setting taking the place of the second derivative (or difference in
+second derivatives) in <span class="citation"
+data-cites="ik12restud">Imbens and Kalyanaraman (2012)</span>. Indeed,
+one can loosely think of the honest CI formulation used by
+<code>rdhonest</code> as a “decision theoretically kosher” version of
+pointwise-in-the-underlying distribution smoothness formulations. Key
+practical differences are:</p>
+<ul>
+<li><p>The honest CI formulation used by <code>rdhonest</code> can be
+used in finite samples, thereby allowing for discrete
+covariates.</p></li>
+<li><p>The honest CI formulation treats <span
+class="math inline">\(M\)</span> as a <em>bound</em> on the second
+derivative, rather than an exact value of the second derivative. This
+precludes higher order bias correction or estimation of <span
+class="math inline">\(M\)</span> without further assumptions (such as
+the global polynomial rule-of-thumb used by <code>rdhonest</code>). If
+one makes assumptions on higher order derivatives, this is done in the
+honest CI framework by formulating a bound <span
+class="math inline">\(M_{\text{higher}}\)</span> on this derivative and
+optimally using this bound to form estimates and CIs.</p></li>
+</ul>
+<p>See Section 4 of <span class="citation"
+data-cites="armstrong_simple_2020">Armstrong and Kolesár (2020)</span>
+for further discussion.</p>
+<h2 id="choice-of-bandwidth">Choice of Bandwidth</h2>
+<p>If the bandwidth is unspecified (as in the above example)
+<code>rdhonest</code> computes the bandwidth that optimizes a given
+criterion for the smoothness class characterized by the bound <span
+class="math inline">\(M\)</span> on the second derivative of the
+regression function. The criterion can be set using the option
+<code>opt_criterion()</code>. Options are <code>MSE</code> for mean
+squared error, <code>FLCI</code> for two-sided CI length and
+<code>OCI</code> for excess length of a one-sided CI, with
+<code>MSE</code> set as the default.</p>
+<p>The optimization is done using an initial estimate of the conditional
+variance. Because <code>rdhonest</code> reports a robust standard error
+and a bias-aware CI based on this standard error, the variance estimate
+used to optimize the CI will be different than the one used for the
+reported standard error and CI.</p>
+<p>The fact that different criteria lead to different point estimates is
+potentially irksome: we may want to report a point estimate that
+optimizes <code>MSE</code>, while using the <code>FLCI</code> option to
+report a CI that is as small as possible. This can be easily done by
+rerunning the <code>rdhonest</code> command with both options, but one
+may be hesitant to report a CI that is not centered at the reported
+point estimate. Fortunately, a result from <span class="citation"
+data-cites="armstrong_simple_2020">Armstrong and Kolesár (2020)</span>
+shows that, under standard RD asymptotics, MSE and CI length lead to
+very similar bandwidths, and that using the MSE optimal bandwidth to
+compute a bias-aware CI is still highly efficient. Let’s see how much we
+can reduce the length of our CI by choosing the bandwidth to minimize CI
+length:</p>
+<pre class='stata'>. * same specification as before, but choose the bandwidth to minimize CI length
+. rdhonest voteshare margin, kernel("uni") opt_criterion("FLCI")
+Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
+Honest inference: SHARP Regression Discontinuity
+──────────────────────────────────────────────────────────────────────────────
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+──────────────────────────────────────────────────────────────────────────────
+ 5.14231308    .951187869        1.57124452      1.5754211         8.70920506
+──────────────────────────────────────────────────────────────────────────────
+ 95% One-sided Conf. intervals: (1.60665797 , Inf), (-Inf,  8.67796819)
+ Bandwidth (optimized): 6.18426502 
+ Number of effective observations: 750        
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: FLCI
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .00612847  
+ Smoothness constant M (rule of thumb): .142810807 
+──────────────────────────────────────────────────────────────────────────────
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+</pre>
+<p>The bandwidth, point estimate, and CI are all very similar to the
+ones based on the MSE optimal bandwidth above. In this case, the MSE
+optimal bandwidth actually leads to a slightly shorter CI than the CI
+optimal bandwidth. This is due to different variance estimates being
+used to compute the bandwidth and the CI, as described above.</p>
+<p>The <code>rdhonest</code> package also includes an option to specify
+the bandwidth directly, through the option <code>h()</code>. However,
+this may lead to a bandwidth that is far from optimal for the smoothness
+constant <span class="math inline">\(M\)</span> specified through
+<code>m()</code>, or through the default rule-of-thumb. Rather than
+specifying the bandwidth directly, we recommend specifying the
+smoothness constant <span class="math inline">\(M\)</span> through the
+<code>m()</code> option, and letting the <code>rdhonest</code> command
+compute the optimal bandwidth. Since the optimal bandwidth depends
+directly on <span class="math inline">\(M\)</span>, this is equivalent
+to checking sensitivity of results to the bandwidth. We discuss this
+below.</p>
+<p>An exception to this practice arises if the optimal bandwidth leads
+to a very small number of effective observations, which may lead to poor
+finite-sample performance of the CI due to failure of the normal
+approximation. One may then want to use the option <code>h()</code> to
+specify a larger bandwidth.</p>
+<h2 id="sensitivity-analysis">Sensitivity Analysis</h2>
+<p>As shown in <span class="citation"
+data-cites="ArKo18optimal">Armstrong and Kolesár (2018)</span>, it is
+impossible to avoid specifying the smoothness constant <span
+class="math inline">\(M\)</span>, either explicitly or using auxiliary
+assumptions, such as the assumptions described in <span class="citation"
+data-cites="armstrong_simple_2020">Armstrong and Kolesár (2020)</span>
+relating a global polynomial to local smoothness that motivate the
+rule-of-thumb used by <code>rdhonest</code> as a default. We therefore
+recommend varying <span class="math inline">\(M\)</span> as a form of
+sensitivity analysis. Since we let <code>rdhonest</code> compute the
+optimal bandwidth for each value of <span
+class="math inline">\(M\)</span>, this is equivalent to reporting
+specifications with different bandwidths.</p>
+<p>Let’s try some other choices of <span
+class="math inline">\(M\)</span> in our original specification. We’ll
+start with the default <span class="citation"
+data-cites="armstrong_simple_2020">Armstrong and Kolesár (2020)</span>
+rule-of-thumb, and then consider more optimistic (smaller) choices of
+<span class="math inline">\(M\)</span>, and more pessimistic (larger)
+choices of <span class="math inline">\(M\)</span>.</p>
+<pre class='stata'>. qui rdhonest voteshare margin, kernel("uni")
+
+. scalar M_rot = e(M)
+
+. scalar est_rot = e(est)
+
+. scalar HLCi_rot = e(HLCi)
+
+. scalar h_rot = e(bandwidth)
+
+. 
+. * some other values of M to try
+. scalar M01 = .1*M_rot
+
+. scalar M05 = .5*M_rot
+
+. scalar M2 = 2*M_rot
+
+. scalar M10 = 10*M_rot
+
+. 
+. qui rdhonest voteshare margin, kernel("uni") m(`=M01')
+
+. scalar est01 = e(est)
+
+. scalar HLCi01 = e(HLCi)
+
+. scalar h01 = e(bandwidth)
+
+. 
+. qui rdhonest voteshare margin, kernel("uni") m(`=M05')
+
+. scalar est05 = e(est)
+
+. scalar HLCi05 = e(HLCi)
+
+. scalar h05 = e(bandwidth)
+
+. 
+. qui rdhonest voteshare margin, kernel("uni") m(`=M2')
+
+. scalar est2 = e(est)
+
+. scalar HLCi2 = e(HLCi)
+
+. scalar h2 = e(bandwidth)
+
+. 
+. qui rdhonest voteshare margin, kernel("uni") m(`=M10')
+
+. scalar est10 = e(est)
+
+. scalar HLCi10 = e(HLCi)
+
+. scalar h10 = e(bandwidth)
+
+. 
+. disp _newline "M     | bw    | est.   | lower CI | upper CI "  _newline /// 
+> round(M01,.0001) " | " round(h01,.0001) " | " round(est01,.0001) " | " round(est01-HLCi01,.0001) " | " 
+> round(est01+HLCi01,.0001) _newline  ///
+>  round(M05,.0001) " | " round(h05,.0001) " | " round(est05,.0001) " | " round(est05-HLCi05,.0001) " | "
+>  round(est05+HLCi05,.0001) _newline  ///
+>  round(M_rot,.0001) " | " round(h_rot,.0001) " | " round(est_rot,.0001) " | " round(est_rot-HLCi_rot,.0
+> 001) " | " round(est_rot+HLCi_rot,.0001) _newline ///
+>  round(M2,.0001) " | " round(h2,.0001) " | " round(est2,.0001) " | " round(est2-HLCi2,.0001) " | " roun
+> d(est2+HLCi2,.0001) _newline ///
+>  round(M10,.0001) " | " round(h10,.0001) " | " round(est10,.0001) " | " round(est10-HLCi10,.0001) " | "
+>  round(est10+HLCi10,.0001) 
+
+M     | bw    | est.   | lower CI | upper CI 
+.0143 | 15.0777 | 7.7854 | 5.5526 | 10.0181
+.0714 | 7.9692 | 6.0282 | 3.0281 | 9.0283
+.1428 | 6.012 | 4.7982 | 1.283 | 8.3134
+.2856 | 4.5821 | 5.2085 | 1.4933 | 8.9236
+1.4281 | 2.4064 | 10.7135 | 5.8504 | 15.5766
+</pre>
+<p>Note that we have used the postestimation <code>e(HLCi)</code> to get
+the half-length of the bias-aware CI, which we add and subtract from the
+point estimate to get our bias-aware CI.</p>
+<p>In this case, the finding of a positive effect size is quite robust:
+it persists even when we take <span class="math inline">\(M\)</span> to
+be 10 times the rule-of-thumb value, which corresponds to a bandwidth of
+about 2.4.</p>
+<h2 id="kernel">Kernel</h2>
+<p>While we have been using the uniform kernel so far,
+<code>rdhonest</code> also includes other kernel options, which can be
+specified using the <code>kernel()</code> option. The default is the
+triangular kernel:</p>
+<pre class='stata'>. rdhonest voteshare margin
+Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
+Honest inference: SHARP Regression Discontinuity
+──────────────────────────────────────────────────────────────────────────────
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+──────────────────────────────────────────────────────────────────────────────
+ 5.84973224    .88800705         1.36588331      2.69443541        9.00502906
+──────────────────────────────────────────────────────────────────────────────
+ 95% One-sided Conf. intervals: (2.71504707 , Inf), (-Inf,  8.98441741)
+ Bandwidth (optimized): 7.71506984 
+ Number of effective observations: 764.559585 
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: triangular
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .009560868 
+ Smoothness constant M (rule of thumb): .142810807 
+──────────────────────────────────────────────────────────────────────────────
+  Dependent variable: voteshare                               
+    Running variable: margin                                  
+</pre>
+<p>This is numerically equivalent to a weighted least squares
+regression, with weights decreasing linearly from <span
+class="math inline">\(1\)</span> at the cutoff to <span
+class="math inline">\(0\)</span> when the running variable is equal to
+the bandwidth:</p>
+<pre class='stata'>. scalar bw = e(bandwidth)
+
+. gen kern_wgt = (1-abs(margin/bw))*((1-abs(margin/bw))>0)
+
+. 
+. reg voteshare treat margin treatxmargin [weight=kern_wgt], robust
+(analytic weights assumed)
+(sum of wgt is 462.4894459116331)
+
+Linear regression                               Number of obs     =        936
+                                                F(3, 932)         =      58.63
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1573
+                                                Root MSE          =     11.346
+
+─────────────┬────────────────────────────────────────────────────────────────
+             │               Robust
+   voteshare │      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+─────────────┼────────────────────────────────────────────────────────────────
+       treat │   5.849732   1.396805     4.19   0.000     3.108485    8.590979
+      margin │   .6235424   .2295346     2.72   0.007     .1730779    1.074007
+treatxmargin │   .1217772   .3545124     0.34   0.731     -.573958    .8175123
+       _cons │   46.31878   .9083813    50.99   0.000     44.53607    48.10149
+─────────────┴────────────────────────────────────────────────────────────────
+</pre>
+<p>As before, we obtain the same point estimates, but different CIs due
+to <code>rdhonest</code> explicitly taking into account bias.</p>
+<p>The triangular kernel is used as a default due to its simplicity and
+high efficiency (as shown by <span class="citation"
+data-cites="armstrong_simple_2020">Armstrong and Kolesár (2020)</span>,
+it is 97.28% efficient relative to the optimal kernel derived by <span
+class="citation" data-cites="gao_2018">Gao (2018)</span>, whereas the
+uniform kernel is 91.65% efficient). Indeed, here we see that the
+bias-aware CI based on the triangular kernel is somewhat shorter than
+the one based on the uniform kernel.</p>
+<h2 id="discrete-running-variable">Discrete Running Variable</h2>
+<p>For sharp RD, the <code>rdhonest</code> command gives valid CIs for
+discrete as well as continuous running variables. This is because the
+worst-case bias calculation holds in finite samples, following <span
+class="citation" data-cites="ArKo18optimal">Armstrong and Kolesár
+(2018)</span>. In particular, it does not require asymptotic
+approximations that use assumptions on the running variable.
+Furthermore, if observations near the cutoff are omitted in a “doughnut
+design,” the <code>rdhonest</code> command automatically takes into
+account additional bias from extrapolating the regression function to
+the cutoff point.</p>
+<h2 id="estimation-weights">Estimation Weights</h2>
+<p>The estimators used by <code>rdhonest</code> are <em>linear
+estimators</em>: they can be written as a linear combination of the
+outcome <span class="math inline">\(y_i\)</span> with weights <span
+class="math inline">\(w_i\)</span> depending on the entire sample of the
+running variable <span class="math inline">\(x_i\)</span>:</p>
+<p><span class="math display">\[
+\text{estimate} = \sum_{i=1}^n w_i y_i
+\]</span></p>
+<p>We refer to these as <em>estimation weights</em>. The estimation
+weights can be saved as a new variable using the
+<code>savewgtest()</code> option:</p>
+<pre class='stata'>. * triangular kernel
+. qui rdhonest voteshare margin, savewgtest(est_wgt)
+</pre>
+<p>We can then plot the weights <span class="math inline">\(w_i\)</span>
+against the running variable <span
+class="math inline">\(x_i\)</span>:</p>
+<pre class='stata'>. scatter est_wgt margin
+</pre>
+
+<p><img src="estimation_weight_graph.png" /></p>
+<p>Plots of this form were popularized by <span class="citation"
+data-cites="gelman_why_2017">Gelman and Imbens (2017)</span>. Such plots
+can be used to assess which values of the running variable are
+influential in our estimate. In particular, we see that the weights are
+nonzero only for observations in the discontinuity sample, where the
+running variable is close to the cutoff point (<span
+class="math inline">\(0\)</span> in this case).</p>
+<p>The estimation weights also play an important role in the calculation
+of worst-case bias used to form the bias-aware CI. To give an intuitive
+description of this, recall that the worst-case bias is calculated using
+a bound on error from a Taylor approximation at the cutoff. Choosing an
+estimator with estimation weights <span
+class="math inline">\(w_i\)</span> that are zero for <span
+class="math inline">\(x_i\)</span> far away from the cutoff (which can
+be done by choosing a small enough bandwidth) ensures that the
+approximation error is not too large. We give a more detailed discussion
+of how the estimation weights are used to calculate the maximum bias in
+the next section. This section can be skipped by readers not interested
+in technical details.</p>
+<h2 id="calculating-maximum-bias">Calculating Maximum Bias</h2>
+<p>As discussed above, <code>rdhonest</code> computes bias-aware CIs
+based on the maximum bias under the assumption that the conditional
+expectation of the outcome variable given the running variable has
+second derivative bounded by the smoothness constant <span
+class="math inline">\(M\)</span> on either side of the cutoff. This
+section describes the formula for maximum bias. It can be skipped by
+readers not interested in technical details.</p>
+<p>For a generic running variable <span
+class="math inline">\(x_i\)</span> and outcome variable <span
+class="math inline">\(y_i\)</span>, the smoothness class used by
+<code>rdhonest</code> amounts to the following specification, assuming
+for simplicity that the cutoff point is <span
+class="math inline">\(0\)</span>:</p>
+<p><span class="math display">\[
+y_i = \tau \cdot I(x_i&gt;0) + \beta_1 + \beta_2 x_i + \beta_3
+I(x_i&gt;0)\cdot x_i + \text{rem}(x_i) + u_i.
+\]</span></p>
+<p>The remainder term <span class="math inline">\(\text{rem}(x)\)</span>
+has second derivative bounded by <span class="math inline">\(M\)</span>,
+and satisfies <span
+class="math inline">\(\text{rem}(0)=\text{rem}&#39;(0)=0\)</span> (since
+the function and its first derivative are incorporated into the
+parameters <span class="math inline">\(\tau\)</span> and <span
+class="math inline">\(\beta\)</span>). Assuming <span
+class="math inline">\(u_i\)</span> is mean zero conditional on the <span
+class="math inline">\(x_i\)</span>s, the bias of a local linear
+estimator with estimation weights <span
+class="math inline">\(w_i\)</span>, conditional on the <span
+class="math inline">\(x_i\)</span>’s, is given by</p>
+<p><span class="math display">\[
+\sum_{i=1}^n w_i \text{rem}(x_i)
+\]</span></p>
+<p>(this follows by unbiasedness of the local linear estimator under the
+“correct specification” where <span
+class="math inline">\(\text{rem}(x_i)=0\)</span>). A result in <span
+class="citation" data-cites="armstrong_simple_2020">Armstrong and
+Kolesár (2020)</span> shows that, when the weights <span
+class="math inline">\(w_i\)</span> are formed from a local linear
+estimator with a nonnegative kernel, the magnitude of this bias term is
+maximized when <span class="math inline">\(\text{rem}(x_i)=-(M/2)
+x_i^2\cdot \text{sign}(x_i)\)</span>:</p>
+<p><span class="math display">\[
+\text{max. bias} = - (M/2) \sum_{i=1}^n w_i x_i^2\cdot \text{sign}(x_i).
+\]</span></p>
+<p>We can use this to calculate maximum bias manually, and check that
+this matches with the quantity used by <code>rdhonest</code> to compute
+a bias-aware CI. The <code>rdhonest</code> command stores the maximum
+bias in <code>e(bias)</code>.</p>
+<pre class='stata'>. * worst-case bias from the previous rdhonest command
+. disp e(bias)
+.88800705
+
+. 
+. * calculate worst-case bias manually using estimation weights saved in est_wgt
+. gen worst_case_bias_summand = -(e(M)/2)*est_wgt*(margin^2)*sign(margin)
+
+. qui summarize worst_case_bias_summand
+
+. disp r(sum)
+.88800705
+</pre>
+<h2 id="asymptotic-approximation-to-ci-length-the-2.18-rule">Asymptotic
+Approximation to CI Length: the 2.18 Rule</h2>
+<p>How much wider is the bias-aware CI relative to a CI that uses the
+“bias-unaware” critical value 1.96 for a nominal 95% CI? Of course, we
+can easily check this for a given data set using <code>rdhonest</code>,
+as we’ve already done. To provide a more general answer to this
+question, <span class="citation"
+data-cites="armstrong_simple_2020">Armstrong and Kolesár (2020)</span>
+provide an asymptotic formula that holds when the running variable is
+continuous with a positive density. In particular, if the MSE optimal
+bandwidth is used and the running variable is continuously distributed
+with a positive density, one can approximate the bias-aware 95% CI
+computed by <code>rdhonest</code> by replacing the conventional critical
+value 1.96 with the number 2.18. Thus, the bias-aware CI is wider by a
+factor of approximately <span class="math inline">\(2.18/1.96\approx
+1.11\)</span>.</p>
+<p>Let’s see how this works with our running example:</p>
+<pre class='stata'>. * compute honest CI
+. qui rdhonest voteshare margin, kernel("uni")
+
+. disp "[ " e(est) - e(HLCi) " , " e(est) + e(HLCi) " ]"
+[ 1.2829887 , 8.3133511 ]
+
+. 
+. * compute asymptotic approximation using 2.18 rule
+. disp "[ " e(est) - 2.18*e(se) " , " e(est) + 2.18*e(se) " ]"
+[ 1.3725038 , 8.2238359 ]
+</pre>
+<p>The approximation is reasonably accurate in this case, leading to a
+slightly smaller CI, but not by much. The accuracy of this approximation
+might be expected given that the running variable is fairly well-behaved
+in this dataset. However, given that <code>rdhonest</code> computes
+worst-case bias exactly in finite-samples, there is no need to use
+asymptotic approximations to compute worst-case bias.</p>
+<h1 id="fuzzy-rd">Fuzzy RD</h1>
+<p>We’ll illustrate the application of the <code>rdhonest</code> command
+to fuzzy RD using the data from <span class="citation"
+data-cites="battistin_retirement_2009">Battistin et al.
+(2009)</span>.</p>
+<pre class='stata'>. clear all
+
+. macro drop _all
+
+. webuse set "https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/data"
+(prefix now "https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/data")
+
+. webuse rcp
+(Battistin, E., Brugiavini, A., Rettore, E., &amp; Weber, G. (2009))
+
+. gen log_cn = log(cn)
+</pre>
+<p>The outcome variable <code>log_cn</code> is consumption in logs, the
+treatment <code>retired</code> is an indicator for retirement and the
+running variable <code>elig_year</code> is the number of years since
+being eligible to retire. The cutoff is 0.</p>
+<h2 id="estimate-and-ci-1">Estimate and CI</h2>
+<p>For fuzzy RD, the syntax is
+<code>rdhonest depvar (treat = runvar)</code>. As with the sharp RD
+example, we’ll begin by using the uniform kernel.</p>
+<pre class='stata'>. rdhonest log_cn (retired=elig_year), kernel("uni")
+Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
+Honest inference: FUZZY Regression Discontinuity
+──────────────────────────────────────────────────────────────────────────────
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+──────────────────────────────────────────────────────────────────────────────
+ -.154754788   .094148696        .09951997       -.412793464       .103283889
+──────────────────────────────────────────────────────────────────────────────
+ 95% One-sided Conf. intervals: (-.412599268, Inf), (-Inf,  .103089693)
+ First-stage estimate: .323809965 
+ Bandwidth (optimized): 5          
+ Number of effective observations: 5018       
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .000763565 
+ Smoothness constant M (first-stage, rule of thumb): .008178929 
+ Smoothness constant M (reduced-form, rule of thumb): .002849524 
+──────────────────────────────────────────────────────────────────────────────
+  Dependent variable: log_cn                                  
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+</pre>
+<p>The estimate is the ratio of local linear estimators for the
+discontinuity at the cutoff in a reduced form and first stage
+regression. With the uniform kernel, this is numerically equivalent to
+running an instrumental variables regression controlling for a linear
+trend on either side of the cutoff, with an indicator for eligibility as
+the instrument:</p>
+<pre class='stata'>. scalar bw = e(bandwidth)
+
+. gen eligible = (elig_year>0)
+
+. gen eligiblexelig_year = eligible*elig_year
+
+. ivreg log_cn (retired=eligible) elig_year eligiblexelig_year if abs(elig_year&lt;=bw), robust
+
+Instrumental variables (2SLS) regression        Number of obs     =     19,245
+                                                F(3, 19241)       =     229.84
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0525
+                                                Root MSE          =      .4489
+
+───────────────────┬────────────────────────────────────────────────────────────────
+                   │               Robust
+            log_cn │      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+───────────────────┼────────────────────────────────────────────────────────────────
+           retired │  -.3194117    .044604    -7.16   0.000    -.4068394    -.231984
+         elig_year │   .0123859   .0005108    24.25   0.000     .0113847    .0133871
+eligiblexelig_year │  -.0136842   .0069804    -1.96   0.050    -.0273664   -1.94e-06
+             _cons │   9.912645   .0099964   991.62   0.000     9.893051    9.932239
+───────────────────┴────────────────────────────────────────────────────────────────
+Instrumented:  retired
+Instruments:   elig_year eligiblexelig_year eligible
+────────────────────────────────────────────────────────────────────────────────────
+</pre>
+<p>As with the sharp RD example, the point estimate is the same, but the
+confidence interval differs since the <code>rdhonest</code> command uses
+a bias-aware critical value that takes into account possible
+approximation error. Here, we have two reduced form IV equations with
+possible specification error, one for the outcome variable <span
+class="math inline">\(\log (\text{cn}_i)\)</span> and a first-stage
+equation for the treatment variable <span
+class="math inline">\(\text{retired}_i\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+\log (\text{cn}_i) =
+&amp;\tau_{\text{outcome}} \cdot \text{eligible}_i
++ \beta_1
++ \beta_2 \text{elig\_year}_i
++ \beta_3 \text{eligible}_i\cdot \text{elig\_year}_i  \\
+&amp; +
+\text{rem}_{\text{outcome}}(\text{elig\_year}_i) + u_i  \\
+\text{retired}_i =
+&amp;\tau_{\text{first-stage}} \cdot \text{eligible}_i
++ \gamma_1 + \gamma_2 \text{elig\_year}_i + \gamma_3
+\text{eligible}_i\cdot \text{elig\_year}_i  \\
+&amp;+ \text{rem}_{\text{first-stage}}(\text{elig\_year}_i) + v_i
+\end{align*}\]</span></p>
+<p>The fuzzy RD parameter is</p>
+<p><span class="math display">\[
+\tau_{\text{FRD}} =
+\frac{\tau_{\text{outcome}}}{\tau_{\text{first-stage}}}
+\]</span></p>
+<p>The <code>rdhonest</code> command takes into account the largest
+possible asymptotic bias of the estimate over a smoothness class for the
+reduced form outcome equation as well as the first stage equation. The
+smoothness class is the same one used for sharp RD: we assume that the
+remainder term <span class="math inline">\(\text{rem}()\)</span> comes
+from a first-order Taylor approximation at the cutoff (in this case
+<span class="math inline">\(0\)</span>), where the second derivative is
+bounded by a smoothness constant <span class="math inline">\(M\)</span>.
+The smoothness constant <span
+class="math inline">\(M_{\text{outcome}}\)</span> for the reduced form
+outcome equation is allowed to differ from the smoothness constant <span
+class="math inline">\(M_{\text{first-stage}}\)</span> for the
+first-stage equation. These can be specified through the option
+<code>m(M_outcome M_firststage)</code>. If no options are specified,
+then <code>rdhonest</code> applies the rule-of-thumb from <span
+class="citation" data-cites="armstrong_simple_2020">Armstrong and
+Kolesár (2020)</span> to each of the equations (reduced form outcome
+equation and first-stage equation) separately to specify <span
+class="math inline">\(M_{\text{outcome}}\)</span> and <span
+class="math inline">\(M_{\text{first-stage}}\)</span>.</p>
+<h2 id="sensitivity-analysis-and-choice-of-bandwidth">Sensitivity
+Analysis and Choice of Bandwidth</h2>
+<p>As with sharp RD, the <code>rdhonest</code> command optimizes the
+bandwidth for a given criterion specified by
+<code>opt_criterion()</code> if no bandwith is specified, with MSE as
+the default optimality criterion. For the same reasons described above
+for sharp RD, we recommend varying <span
+class="math inline">\(M_{\text{outcome}}\)</span> and <span
+class="math inline">\(M_{\text{first-stage}}\)</span> and letting
+<code>rdhonest</code> optimize the bandwidth, rather than setting the
+bandwidth directly (unless the optimized value leads to a very small
+number of effective observations such that normal approximation may not
+work well). Note that while, in principle, one could further improve
+efficiency by using different bandwidths for the first-stage and reduced
+form outcome equations, this option is not currently supported by the
+<code>rdhonest</code> package.</p>
+<p>Let’s try some other values of <span
+class="math inline">\(M_{\text{outcome}}\)</span> and <span
+class="math inline">\(M_{\text{first-stage}}\)</span>. We’ll start with
+the rule-of-thumb values used by default in the specification above, and
+multiply them by <span class="math inline">\(1/2\)</span> and <span
+class="math inline">\(2\)</span>. We can extract these using
+<code>e(M)</code> for the outcome and <code>e(M_fs)</code> for the first
+stage.</p>
+<pre class='stata'>. qui rdhonest log_cn (retired=elig_year), kernel("uni")
+
+. scalar M_outcome_rot = e(M)
+
+. scalar M_firststage_rot = e(M_fs)
+
+. * scalar est_rot = e(est)
+. * scalar HLCi_rot = e(HLCi)
+. * scalar h_rot = e(bandwidth)
+. 
+. scalar M_outcome_05 = .5*M_outcome_rot
+
+. scalar M_firststage_05 = .5*M_firststage_rot
+
+. scalar M_outcome_2 = 2*M_outcome_rot
+
+. scalar M_firststage_2 = 2*M_firststage_rot
+
+. 
+. qui rdhonest log_cn (retired=elig_year), kernel("uni") m(`=M_outcome_rot' `=M_firststage_rot')
+
+. scalar est_rot = e(est)
+
+. scalar HLCi_rot = e(HLCi)
+
+. scalar h_rot = e(bandwidth)
+
+. 
+. qui rdhonest log_cn (retired=elig_year), kernel("uni") m(`=M_outcome_05' `=M_firststage_05')
+
+. scalar est05 = e(est)
+
+. scalar HLCi05 = e(HLCi)
+
+. scalar h05 = e(bandwidth)
+
+. 
+. qui rdhonest log_cn (retired=elig_year), kernel("uni") m(`=M_outcome_2' `=M_firststage_2')
+
+. scalar est2 = e(est)
+
+. scalar HLCi2 = e(HLCi)
+
+. scalar h2 = e(bandwidth)
+
+. 
+. disp _newline "M_outcome | M_firststage | bw | est.   | lower CI | upper CI "  _newline /// 
+> round(M_outcome_05,.0001) "     | " round(M_firststage_05,.0001) "        | " round(h05,.0001) "  | " r
+> ound(est05,.0001) " | " round(est05-HLCi05,.0001) " | " round(est05+HLCi05,.0001) _newline  ///
+> round(M_outcome_rot,.0001) "     | " round(M_firststage_rot,.0001) "        | " round(h_rot,.0001) "  |
+>  " round(est_rot,.0001) " | " round(est_rot-HLCi_rot,.0001) " | " round(est_rot+HLCi_rot,.0001) _newlin
+> e  ///
+> round(M_outcome_2,.0001) "     | " round(M_firststage_2,.0001) "        | " round(h2,.0001) "  | " roun
+> d(est2,.0001) "  | " round(est2-HLCi2,.0001) "  | " round(est2+HLCi2,.0001)
+
+M_outcome | M_firststage | bw | est.   | lower CI | upper CI 
+.0014     | .0041        | 7  | -.0772 | -.2716 | .1172
+.0028     | .0082        | 5  | -.1548 | -.4128 | .1033
+.0057     | .0164        | 4  | -.244  | -.609  | .121
+</pre>
+<h2 id="bias-and-variance-calculations-for-fuzzy-rd">Bias and Variance
+Calculations for Fuzzy RD</h2>
+<p>For fuzzy RD, the point estimate is given by <span
+class="math inline">\(\hat\tau_{\text{FRD}} =
+\frac{\hat\tau_{\text{outcome}}}{\hat\tau_{\text{first-stage}}}\)</span>
+where <span class="math inline">\(\hat\tau_{\text{outcome}}\)</span> and
+<span class="math inline">\(\hat\tau_{\text{first-stage}}\)</span> are
+local linear estimates of the discontinuity <span
+class="math inline">\(\tau_{\text{outcome}}\)</span> in the reduced form
+outcome equation and the discontinuity <span
+class="math inline">\(\tau_{\text{first-stage}}\)</span> in the first
+stage respectively. The <code>rdhonest</code> command uses the delta
+method approximation</p>
+<p><span class="math display">\[
+\hat\tau_{\text{FRD}} - \tau_{\text{FRD}}
+\approx \hat\tau_{\text{outcome}} - \tau_{\text{outcome}}
+- \tau_{\text{FRD}} (\hat\tau_{\text{FRD}} - \tau_{\text{FRD}})
+\]</span></p>
+<p>The bias and variance are then computed in the same way as sharp RD.
+For example, the maximum bias is computed as</p>
+<p><span class="math display">\[
+\text{max. bias}_{\text{outcome}}
++ |\tau_{\text{FRD}}| \cdot \text{max. bias}_{\text{first-stage}}
+\]</span></p>
+<p>where <span class="math inline">\(\text{max.
+bias}_{\text{outcome}}\)</span> and <span
+class="math inline">\(\text{max. bias}_{\text{first-stage}}\)</span> are
+the maximum bias for each of the reduced form equations, computed in the
+same way as for sharp RD. Since <span
+class="math inline">\(\tau_{\text{FRD}}\)</span> is unknown,
+<code>rdhonest</code> uses an initial value specified by the option
+<code>t0()</code> to calculate bias and variance for bandwidth
+optimization for the estimate (the default is <span
+class="math inline">\(0\)</span>). Then, the point estimate <span
+class="math inline">\(\hat\tau_{\text{FRD}}\)</span> is used in the
+above formula to compute maximum bias when constructing the CI. Thus,
+the CI is asymptotically valid regardless of the initial value specified
+by <code>t0()</code>, but the bandwidth is optimal only if a consistent
+estimate of <span class="math inline">\(\tau_{\text{FRD}}\)</span> is
+plugged into <code>t0()</code>. See <span class="citation"
+data-cites="armstrong_simple_2020">Armstrong and Kolesár (2020)</span>
+for details.</p>
+<p>Note that the default option <code>t0(0)</code> leads to an
+asymptotically efficient bandwidth choice only when <span
+class="math inline">\(\tau_{\text{FRD}}=0\)</span>. One can obtain an
+asymptotically efficient estimate by rerunning the command with
+<code>t0(`=e(est)')</code>:</p>
+<pre class='stata'>. qui rdhonest log_cn (retired=elig_year), kernel("uni")
+
+. 
+. rdhonest log_cn (retired=elig_year), kernel("uni") t0(`=e(est)')
+Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M 
+
+Honest inference: FUZZY Regression Discontinuity
+──────────────────────────────────────────────────────────────────────────────
+ Estimate      Maximum Bias      Std. Error      [ 95% Conf.      intervals ]
+──────────────────────────────────────────────────────────────────────────────
+ -.243983953   .078178872        .126823328      -.533125871       .045157965
+──────────────────────────────────────────────────────────────────────────────
+ 95% One-sided Conf. intervals: (-.530768636, Inf), (-Inf,   .04280073)
+ First-stage estimate: .309048375 
+ Bandwidth (optimized): 4          
+ Number of effective observations: 3677       
+
+ Parameters:
+ Cutoff: 0          
+ Kernel: uniform
+ Optimization criterion: MSE
+ Standard error estimation method: NN
+ Maximum leverage for estimated parameter: .000989375 
+ Smoothness constant M (first-stage, rule of thumb): .008178929 
+ Smoothness constant M (reduced-form, rule of thumb): .002849524 
+──────────────────────────────────────────────────────────────────────────────
+  Dependent variable: log_cn                                  
+    Running variable: elig_year                               
+  Treatment variable: retired                                 
+</pre>
+<p>While this may lead to a some improvement in CI length, this may come
+at the expense of finite sample performance, due to the extra
+uncertainty introduced by using the initial estimate to compute the
+bias-variance tradeoff. This is similar to the tradeoff between
+asymptotic optimality and finite sample performance with feasible
+generalized least squares or two-step generalized method of moments. For
+this reason, the default implementation simply uses <span
+class="math inline">\(0\)</span> for the <code>t0()</code> option.</p>
+<h2 id="discrete-running-variables-and-weak-first-stage">Discrete
+Running Variables and Weak First Stage</h2>
+<p>The delta method approximation described above relies on asymptotics.
+This is not an issue for discrete running variables per se, since the
+formulas for <span class="math inline">\(\text{max.
+bias}_{\text{outcome}}\)</span> and <span
+class="math inline">\(\text{max. bias}_{\text{first-stage}}\)</span>
+that the <code>rdhonest</code> command plugs into this delta method
+approximation are valid in finite samples, including a discrete running
+variable. However, the delta method approximation will break down if the
+estimate of <span class="math inline">\(\tau_{\text{FRD}}\)</span> is
+inconsistent, which will be relevant when the number of support points
+of the running variable is small, or in “doughnut designs,” where
+observations with the running variable near the cutoff are discarded.
+Furthermore, this approximation will not work under “weak instrument”
+asymptotics where <span
+class="math inline">\(\tau_{first-stage}\)</span> is zero or small
+relative to the sample size.</p>
+<p>To compute honest CIs with better finite sample performance in
+settings where such concerns are relevant, one can apply an
+Anderson-Rubin approach with honest CIs for sharp RD, as proposed by
+<span class="citation" data-cites="noack_bias-aware_2019">Noack and
+Rothe (2019)</span>. In particular, to test the null hypothesis <span
+class="math inline">\(H_0:\tau_{\text{FRD}}=\tau_{\text{null}}\)</span>
+using this method, one forms the outcome <span
+class="math inline">\(\text{outcome}_i - \tau_{\text{null}} \cdot
+\text{treat}_i\)</span> and runs <code>rdhonest</code> with <span
+class="math inline">\(M\)</span> set to <span
+class="math inline">\(M_{\text{outcome}}+|\tau_{\text{null}}|\cdot
+M_{first-stage}\)</span> using the <code>m()</code> option. One can then
+do this for a grid of values of <span
+class="math inline">\(\tau_{\text{null}}\)</span> to form a CI, taking
+care to set <span class="math inline">\(M\)</span> to <span
+class="math inline">\(M_{\text{outcome}}+|\tau_{\text{null}}|\cdot
+M_{first-stage}\)</span> for each value of <span
+class="math inline">\(\tau_{\text{null}}\)</span> in the grid. The CI is
+formed by collecting the values of <span
+class="math inline">\(\tau_{\text{null}}\)</span> in the grid for which
+the test fails to reject. <span class="citation"
+data-cites="noack_bias-aware_2019">Noack and Rothe (2019)</span> provide
+an R package that does this automatically. To implement this
+functionality in the RDHonest package, one can code this grid and loop
+manually (please cite <span class="citation"
+data-cites="noack_bias-aware_2019">Noack and Rothe (2019)</span> in
+addition to <span class="citation" data-cites="ArKo18optimal">Armstrong
+and Kolesár (2018)</span> if you are computing such an interval).</p>
+<h1 id="extensions">Extensions</h1>
+<p>This section discusses some options that are not directly supported
+by <code>RDHonest-vStata</code>. Some of these options are implemented
+in the R package or packages written by other authors, or can be
+implemented in the RDHonest package using some additional coding.</p>
+<h2 id="clustered-standard-errors">Clustered Standard Errors</h2>
+<p>Clustered standard errors are now included in the R package. While
+not yet available in the Stata package, one can run the
+<code>rdhonest</code> command to compute the worst-case bias. One can
+then run an equivalent regression using the <code>regress</code> command
+(restricting to a discontinuity sample or using weights corresponding to
+the bandwidth used by <code>rdhonest</code>) to get the same point
+estimate along with an option for clustering to obtain a cluster robust
+standard error. Note that this will give different results from the R
+package if the optimal bandwidth is used, since the R package uses a
+variance estimate that allows for dependence when computing the optimal
+bandwidth.</p>
+<h2 id="additional-regressors">Additional Regressors</h2>
+<p>One may wish to include additional regressors, which can be
+interpreted as making a smoothness assumption on a partialled out
+outcome regressions, as discussed in Appendix B.1 of <span
+class="citation" data-cites="ArKo18optimal">Armstrong and Kolesár
+(2018)</span>. Support for additional regressors is in progress.</p>
+<h2 id="other-smoothness-classes">Other Smoothness Classes</h2>
+<p>The smoothness class used by <code>RDHonest-vStata</code> assumes
+that the second derivative of the conditional expectation function on
+either side of the cutoff is bounded by <span
+class="math inline">\(M\)</span>. This is a <em>Hölder</em> smoothness
+class of order 2. Alternatively, once can use impose only an upper bound
+on the magnitude of the Taylor approximation, which leads to the
+<em>Taylor</em> or <em>Sacks-Ylvisaker</em> smoothness class. If the
+Taylor approximation comes from a second derivative bound, then this
+will be conservative, which is why the <code>rdhonest</code> Stata
+command uses the Hölder smoothness class. However, the
+Taylor/Sacks-Ylvisaker smoothness class is available in the R version of
+the package.</p>
+<p>An alternative smoothness class based on an assumption that maximum
+error from a global polynomial approximation is taken away from the
+discontinuity point is used in Section IV.B of <span class="citation"
+data-cites="KoRo18">Kolesár and Rothe (2018)</span>. This class is not
+implemented in the RDHonest Stata package, but is available in the
+RDHonest R package. Note that the second derivative bound used by
+<code>rdhonest</code> corresponds to the smoothness class used in
+Section IV.A of <span class="citation" data-cites="KoRo18">Kolesár and
+Rothe (2018)</span>.</p>
+<p>One may also want to consider higher or lower order smoothness
+(bounding a different derivative), or shape constraints. <span
+class="citation" data-cites="kwon_inference_2020">Kwon and Kwon
+(2020)</span> consider the case of an monotonicity and bounds on the
+first derivative.</p>
+<p>Formulas for minimax affine estimators using arbitrary convex
+smoothness classes based on convex programming are given in <span
+class="citation" data-cites="donoho94">Donoho (1994)</span> and <span
+class="citation" data-cites="ArKo18optimal">Armstrong and Kolesár
+(2018)</span>. They can be implemented on a case-by-case basis using
+convex programming.</p>
+<h2 id="multiple-bandwidths">Multiple Bandwidths</h2>
+<p>The <code>rdhonest</code> command does not support different
+bandwidths on either side of the cutoff. This is motivated in part by
+calculations in Section D.1 of the supplemental appendix of <span
+class="citation" data-cites="armstrong_simple_2020">Armstrong and
+Kolesár (2020)</span>, which show that there is little further
+efficiency gain from using different bandwidths on either side of the
+cutoff unless there is a very large jump in the conditional variance at
+the cutoff.</p>
+<p>For fuzzy RD, the <code>rdhonest</code> command uses the same
+bandwidth for the first stage and reduced form outcome regressions. If
+the smoothness relative to conditional variance is substantially
+different in these regressions, one may wish to use different
+bandwidths. While this is not supported directly, one can run the first
+stage and reduced form outcome regressions as sharp RD specifications to
+obtain the maximum bias for each regression, which can then be plugged
+into the asymptotic formula given above. However, the variance formula
+will depend on the covariance of these estimates, and will need to be
+coded manually.</p>
+<h2 id="fully-optimal-weights">Fully Optimal Weights</h2>
+<p>Efficiency results in <span class="citation"
+data-cites="armstrong_simple_2020">Armstrong and Kolesár (2020)</span>
+show that the default triangular kernel used by <code>rdhonest</code> is
+97.28% efficient among all possible weights in typical asymptotic
+settings. Nonetheless, one may gain some efficiency by numerically
+optimizing the weights, particularly with small samples and irregular
+design points.</p>
+<p>Fully optimal weights were implemented by <span class="citation"
+data-cites="ArKo18optimal">Armstrong and Kolesár (2018)</span> for the
+Taylor class and are available in the R version of this package. For the
+Hölder class considered here, they are implemented by <span
+class="citation" data-cites="imbens_optimized_2019">Imbens and Wager
+(2019)</span> and available in the accompanying software package.</p>
+<h2 id="efficiency-bounds">Efficiency Bounds</h2>
+<p><span class="citation" data-cites="ArKo18optimal">Armstrong and
+Kolesár (2018)</span> derive efficiency bounds showing that the form of
+CI used by <code>rdhonest</code> (fixed length bias-aware CIs with
+optimized length) are near-optimal among all CIs. These finite-sample
+bounds depend on the design points, and can be computed on a
+case-by-case basis (although absolute bounds are also given). For the
+Taylor class, these efficiency bounds can be computed using the R
+version of this package. Asymptotic evaluations of these bounds with a
+continuous running variable do not depend on the distribution of the
+data; see <span class="citation" data-cites="ArKo18optimal">Armstrong
+and Kolesár (2018)</span> and <span class="citation"
+data-cites="armstrong_simple_2020">Armstrong and Kolesár
+(2020)</span>.</p>
+<h2 id="weak-instruments-in-fuzzy-rd">Weak Instruments in Fuzzy RD</h2>
+<p>As discussed above, <code>rdhonest</code> can be used to compute a
+bias-aware version of an Anderson-Rubin style CI in fuzzy RD as proposed
+by <span class="citation" data-cites="noack_bias-aware_2019">Noack and
+Rothe (2019)</span>, although this requires manually looping over a grid
+of null values. The R package provided by <span class="citation"
+data-cites="noack_bias-aware_2019">Noack and Rothe (2019)</span> does
+this automatically.</p>
+<h1 class="unnumbered" id="references">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
+<div id="ref-ArKo18optimal" class="csl-entry" role="doc-biblioentry">
+Armstrong, Timothy B., and Michal Kolesár. 2018. <span>“Optimal
+Inference in a Class of Regression Models.”</span> <em>Econometrica</em>
+86 (2): 655–83. <a
+href="https://doi.org/10.3982/ECTA14434">https://doi.org/10.3982/ECTA14434</a>.
+</div>
+<div id="ref-armstrong_simple_2020" class="csl-entry"
+role="doc-biblioentry">
+———. 2020. <span>“Simple and Honest Confidence Intervals in
+Nonparametric Regression.”</span> <em>Quantitative Economics</em> 11
+(1): 1–39. <a
+href="https://doi.org/10.3982/QE1199">https://doi.org/10.3982/QE1199</a>.
+</div>
+<div id="ref-battistin_retirement_2009" class="csl-entry"
+role="doc-biblioentry">
+Battistin, Erich, Agar Brugiavini, Enrico Rettore, and Guglielmo Weber.
+2009. <span>“The <span>Retirement</span> <span>Consumption</span>
+<span>Puzzle</span>: <span>Evidence</span> from a
+<span>Regression</span> <span>Discontinuity</span>
+<span>Approach</span>.”</span> <em>The American Economic Review</em> 99
+(5): 2209–26. <a
+href="http://www.jstor.org/stable/25592556">http://www.jstor.org/stable/25592556</a>.
+</div>
+<div id="ref-donoho94" class="csl-entry" role="doc-biblioentry">
+Donoho, David L. 1994. <span>“Statistical Estimation and Optimal
+Recovery.”</span> <em>The Annals of Statistics</em> 22 (1): 238–70. <a
+href="https://doi.org/10.1214/aos/1176325367">https://doi.org/10.1214/aos/1176325367</a>.
+</div>
+<div id="ref-gao_2018" class="csl-entry" role="doc-biblioentry">
+Gao, Wayne Yuan. 2018. <span>“Minimax Linear Estimation at a Boundary
+Point.”</span> <em>Journal of Multivariate Analysis</em> 165 (May):
+262–69.
+</div>
+<div id="ref-gelman_why_2017" class="csl-entry" role="doc-biblioentry">
+Gelman, Andrew, and Guido Imbens. 2017. <span>“Why
+<span>High</span>-<span>Order</span> <span>Polynomials</span>
+<span>Should</span> <span>Not</span> <span>Be</span> <span>Used</span>
+in <span>Regression</span> <span>Discontinuity</span>
+<span>Designs</span>.”</span> <em>Journal of Business &amp; Economic
+Statistics</em>, August, 1–10. <a
+href="https://doi.org/10.1080/07350015.2017.1366909">https://doi.org/10.1080/07350015.2017.1366909</a>.
+</div>
+<div id="ref-ik12restud" class="csl-entry" role="doc-biblioentry">
+Imbens, Guido, and Karthik Kalyanaraman. 2012. <span>“Optimal Bandwidth
+Choice for the Regression Discontinuity Estimator.”</span> <em>The
+Review of Economic Studies</em> 79 (3): 933–59. <a
+href="http://restud.oxfordjournals.org/content/79/3/933.short">http://restud.oxfordjournals.org/content/79/3/933.short</a>.
+</div>
+<div id="ref-imbens_optimized_2019" class="csl-entry"
+role="doc-biblioentry">
+Imbens, Guido, and Stefan Wager. 2019. <span>“Optimized
+<span>Regression</span> <span>Discontinuity</span>
+<span>Designs</span>.”</span> <em>The Review of Economics and
+Statistics</em> 101 (2): 264–78. <a
+href="https://doi.org/10.1162/rest_a_00793">https://doi.org/10.1162/rest_a_00793</a>.
+</div>
+<div id="ref-KoRo18" class="csl-entry" role="doc-biblioentry">
+Kolesár, Michal, and Christoph Rothe. 2018. <span>“Inference in
+Regression Discontinuity Designs with a Discrete Running
+Variable.”</span> <em>American Economic Review</em> 108 (8): 2277–2304.
+<a
+href="https://doi.org/10.1257/aer.20160945">https://doi.org/10.1257/aer.20160945</a>.
+</div>
+<div id="ref-kwon_inference_2020" class="csl-entry"
+role="doc-biblioentry">
+Kwon, Koohyun, and Soonwoo Kwon. 2020. <span>“Inference in
+<span>Regression</span> <span>Discontinuity</span> <span>Designs</span>
+Under <span>Monotonicity</span>.”</span> <em>arXiv:2011.14216 [Econ,
+Stat]</em>, November. <a
+href="http://arxiv.org/abs/2011.14216">http://arxiv.org/abs/2011.14216</a>.
+</div>
+<div id="ref-lee08" class="csl-entry" role="doc-biblioentry">
+Lee, David S. 2008. <span>“Randomized Experiments from Non-Random
+Selection in u.s. House Elections.”</span> <em>Journal of
+Econometrics</em> 142 (2): 675–97.
+</div>
+<div id="ref-noack_bias-aware_2019" class="csl-entry"
+role="doc-biblioentry">
+Noack, Claudia, and Christoph Rothe. 2019.
+<span>“Bias-<span>Aware</span> <span>Inference</span> in
+<span>Fuzzy</span> <span>Regression</span> <span>Discontinuity</span>
+<span>Designs</span>.”</span> <em>arXiv:1906.04631 [Econ, Stat]</em>,
+June. <a
+href="http://arxiv.org/abs/1906.04631">http://arxiv.org/abs/1906.04631</a>.
+</div>
+</div>
+</body>
+</html>
