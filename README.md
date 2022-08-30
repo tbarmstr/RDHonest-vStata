@@ -2,7 +2,7 @@
 
 This Stata package calculates honest and nearly-optimal one- and two-sided confidence intervals in fuzzy and sharp regression discontinuity designs based on local linear regression, see [RDHonest](https://github.com/kolesarm/RDHonest) package for an R version.
 
-See the [vignette](http://htmlpreview.github.io/?https://github.com/tbarmstr/RDHonest-vStata/blob/main/vignette/rdhonest_stata_vignette.html) for a description of the package, and the package manual available through `help rdhonest` once the package is installed.
+See the [vignette](https://htmlpreview.github.io/?https://github.com/tbarmstr/RDHonest-vStata/blob/main/vignette/rdhonest_stata_vignette.html) for a description of the package, and the package manual available through `help rdhonest` once the package is installed.
 
 ## Structure
 
@@ -21,42 +21,9 @@ See the [vignette](http://htmlpreview.github.io/?https://github.com/tbarmstr/RDH
   - [`lee08.dta`](data/lee08.dta): from Lee (2008)
   - [`rcp.dta`](data/rcp.dta): from Battistin, Brugiavini, Rettore and Weber (2009)
   - [`rebp.dta`](data/rebp.dta): from Lalive (2008)
+  
+- subfolder [`vignette`](vignette) contains the vignette
 
-## Example
-
-All the illustrative data sets used below can be found in the [`data`](data) directory; [`rdhonest_test.do`](tests/rdhonest_test.do) contains more examples.
-
-### Sharp RD
-
-Using data from [Lee (2008)](https://doi.org/10.1016/j.jeconom.2007.05.004), run the following sharp RD analysis
-
-```stata
-use "data/lee08.dta", clear
-
-* default options: triangular kernel + Armstrong and Kolesár (2020) rule of thumb for M + MSE optimal bandwidth
-rdhonest voteshare margin
-
-* specify some options: user specified M=0.1 + uniform kernel + save estimation weights
-rdhonest voteshare margin, m(0.1) kernel("uni") savew("wgt")
-```
-
-### Fuzzy RD
-
-Using data from [Battistin, Brugiavini, Rettore, and Weber (2009)](https://www.aeaweb.org/articles?id=10.1257/aer.99.5.2209), run the following fuzzy RD analysis
-
-```stata
-use "data/rcp.dta", clear
-
-* default options: triangular kernel + Armstrong and Kolesár (2020) rule of thumb for M + bandwidth optimal for MSE when fuzzy RD parameter is zero
-rdhonest cn (retired=elig_year)
-
-* save parameter estimate from previous command and use it to compute optimal bandwidth
-local param_est = e(est)
-rdhonest cn (retired=elig_year), t0(`param_est')
-
-* specify some options: user specified M for reduced form and first-stage + uniform kernel
-rdhonest cn (retired=elig_year), m(4 0.4) kernel("uni")
-```
 
 ## Installation
 
@@ -75,32 +42,9 @@ capture ado uninstall rdhonest
 net install rdhonest, from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/")
 ```
 
-To intall [`rcp.dta`](data/rcp.dta) for testing purposes at the same time, use
+### Manual Installation
 
-```stata
-net install rdhonest, all from("https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/")
-```
-
-the data set will be installed in the **current working directory**. One can use
-
-```stata
-net set other dirname
-```
-
-before `net install` to specify the location where ancillary data will be installed. For more information, refer to the Stata users' manual of the command [`net`](https://www.stata.com/manuals/rnet.pdf).
-
-Alternatively, one can use
-
-```stata
-* Set data directory
-webuse set "https://raw.githubusercontent.com/tbarmstr/RDHonest-vStata/master/data"
-* Load data into Stata
-webuse dataname
-```
-
-to access all five of the listed data sets in [`data`](data) directly from this repository.
-
-- manually install: to download the development version of these packages from GitHub, download the files
+To download the development version of these packages from GitHub, download the files
 [`rdhonest.ado`](rdhonest.ado), [`rdhonest.sthlp`](reg_ss.sthlp), and put them into Stata's personal `ado` directory,
 typically
   - `c:\ado\personal` on Windows
