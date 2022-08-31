@@ -24,7 +24,7 @@ net install rdhonest, from("https://raw.githubusercontent.com/tbarmstr/RDHonest-
 ### Manual Installation
 
 To download the development version of these packages from GitHub, download the files
-[`rdhonest.ado`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/rdhonest.ado), [`rdhonest.sthlp`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/rdhonest.sthlp), and put them into Stata's personal `ado` directory,
+[`rdhonest.ado`](rdhonest.ado), [`rdhonest.sthlp`](rdhonest.sthlp), and put them into Stata's personal `ado` directory,
 typically
 
 - `c:\ado\personal` on Windows
@@ -38,20 +38,20 @@ For more information on how to use personal ado files, please refer to [Stata Of
 ## Structure
 
 - the master folder contains the up-to-date version of the Stata package, including
-  - codes: [`rdhonest.ado`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/rdhonest.ado)
-  - help file: [`rdhonest.sthlp`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/rdhonest.sthlp)
-  - Stata installation files: [`rdhonest.pkg`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/rdhonest.pkg) and [`stata.toc`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/stata.toc)
+  - codes: [`rdhonest.ado`](rdhonest.ado)
+  - help file: [`rdhonest.sthlp`](rdhonest.sthlp)
+  - Stata installation files: [`rdhonest.pkg`](rdhonest.pkg) and [`stata.toc`](stata.toc)
 
 - subfolder [`tests`](https://github.com/tbarmstr/RDHonest-vStata/tree/main/tests) contains testing documentations:
-  - testing script: [`rdhonest_test.do`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/tests/rdhonest_test.do)
-  - log file [`rdhonest_test.pdf`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/tests/rdhonest_test.log)
+  - testing script: [`rdhonest_test.do`](tests/rdhonest_test.do)
+  - log file [`rdhonest_test.log`](tests/rdhonest_test.log)
 
 - subfolder [`data`](https://github.com/tbarmstr/RDHonest-vStata/tree/main/data) contains 5 exemplary data sets, including
-  - [`cghs.dta`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/data/cghs.dta): from Oreopoulos (2006)
-  - [`headst.dta`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/data/headst.dta): from Ludwig and Miller (2007)
-  - [`lee08.dta`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/data/lee08.dta): from Lee (2008)
-  - [`rcp.dta`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/data/rcp.dta): from Battistin, Brugiavini, Rettore and Weber (2009)
-  - [`rebp.dta`](https://github.com/tbarmstr/RDHonest-vStata/blob/main/data/rebp.dta): from Lalive (2008)
+  - [`cghs.dta`](data/cghs.dta): from Oreopoulos (2006)
+  - [`headst.dta`](data/headst.dta): from Ludwig and Miller (2007)
+  - [`lee08.dta`](data/lee08.dta): from Lee (2008)
+  - [`rcp.dta`](data/rcp.dta): from Battistin, Brugiavini, Rettore and Weber (2009)
+  - [`rebp.dta`](data/rebp.dta): from Lalive (2008)
   
 - subfolder [`vignette`](https://github.com/tbarmstr/RDHonest-vStata/tree/main/vignette) contains the vignette
 
