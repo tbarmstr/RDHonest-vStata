@@ -269,10 +269,6 @@ Armstrong, T. B., & Kolesár, M. (2018). Optimal inference in a class of regress
 {phang}
 Armstrong, T. B., & Kolesár, M. (2020). Simple and honest confidence intervals in nonparametric regression. {it:Quantitative Economics}, 11(1), 1-39. {browse "https://doi.org/10.3982/QE1199":doi:10.3982/QE1199}{p_end}
 
-{marker IK2012}{...}
-{phang}
-Imbens, G., & Kalyanaraman, K. (2012). Optimal bandwidth choice for the regression discontinuity estimator. {it:The Review of economic studies}, 79(3), 933-959. {browse "https://doi.org/10.1093/restud/rdr043":doi:10.1093/restud/rdr043}{p_end}
-
 {marker KR2018}{...}
 {phang}
 Kolesár, M., & Rothe, C. (2018). Inference in regression discontinuity designs with a discrete running variable. {it:American Economic Review}, 108, 2277–2304. {browse "https://doi.org/10.1257/aer.20160945":doi:10.1257/aer.20160945}{p_end}
