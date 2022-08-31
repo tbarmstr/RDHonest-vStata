@@ -67,8 +67,6 @@ Please open issues and leave feedback, use click on the [`Issues`](https://githu
 
   Armstrong, T. B., & Kolesár, M. (2020). Simple and honest confidence intervals in nonparametric regression. *Quantitative Economics*, 11(1), 1-39. [doi:10.3982/QE1199](https://doi.org/10.3982/QE1199)
 
-  Imbens, G., & Kalyanaraman, K. (2012). Optimal bandwidth choice for the regression discontinuity estimator. *The Review of economic studies*, 79(3), 933-959. [doi:10.1093/restud/rdr043](https://doi.org/10.1093/restud/rdr043)
-
   Kolesár, M., & Rothe, C. (2018). Inference in regression discontinuity designs with a discrete running variable. *American Economic Review*, 108, 2277–2304. [doi:10.1257/aer.20160945](https://www.aeaweb.org/articles?id=10.1257/aer.20160945)
 
 - Data references:
