@@ -13,10 +13,12 @@ bibliography: np-testing-library.bib
 
 # Introduction
 
-The `RDHonest-vStata` package implements estimates and confidence intervals (CIs) from @ArKo18optimal and @armstrong_simple_2020 for regression discontinuity (RD) in Stata.  This vignette describes some of the functionality.
+The `RDHonest-vStata` package implements estimates and confidence intervals (CIs) from @ArKo18optimal and @armstrong_simple_2020 for regression discontinuity (RD) in Stata.  This vignette describes some of the functionality.  Section @sec:sharp-rd discusses sharp RD.  Section @sec:fuzzy-rd discusses fuzzy RD.  Section @sec:extensions discusses some extensions that are not currently implemented in the `RDHonest-vStata` package along with references to other software packages that implement them when applicable.
 
 
-# Sharp RD
+
+
+# Sharp RD {#sec:sharp-rd}
 
 To begin, we'll illustrate using elections data from @lee08.
 
@@ -30,7 +32,7 @@ webuse lee08
 The running variable `margin` is margin of victory of the Democratic candidate in the previous election in percentage points.  The outcome variable `voteshare` is the Democratic candidate's share of the vote in the next election, in percentage points.  The cutoff is 0.
 
 
-## Estimate and CI
+## Estimate and CI {#sec:estimate}
 
 The `rdhonest` command implements honest CIs based on local linear estimates.  For illustration, let's start with the uniform kernel.
 
@@ -93,7 +95,7 @@ Key practical differences are:
 
 - The honest CI formulation used by `rdhonest` can be used in finite samples, thereby allowing for discrete covariates.
 
-- The honest CI formulation treats $M$ as a *bound* on the second derivative, rather than an exact value of the second derivative.  This precludes higher order bias correction or estimation of $M$ without further assumptions (such as the global polynomial rule-of-thumb used by `rdhonest`).  If one makes assumptions on higher order derivatives, this is done in the honest CI framework by formulating a bound $M_{\text{higher}}$ on this derivative and optimally using this bound to form estimates and CIs.
+- The honest CI formulation treats $M$ as a *bound* on the second derivative, rather than an exact value of the second derivative.  This precludes higher order bias correction without further assumptions on higher derivatives.  If one makes assumptions on higher order derivatives, this is done in the honest CI framework by formulating a bound $M_{\text{higher}}$ on this derivative and optimally using this bound to form estimates and CIs.
 
 See Section 4 of @armstrong_simple_2020 for further discussion.
 
@@ -285,7 +287,7 @@ The accuracy of this approximation might be expected given that the running vari
 However, given that `rdhonest` computes worst-case bias exactly in finite-samples, there is no need to use asymptotic approximations to compute worst-case bias.
 
 
-# Fuzzy RD
+# Fuzzy RD {#sec:fuzzy-rd}
 
 We'll illustrate the application of the `rdhonest` command to fuzzy RD using the data from @battistin_retirement_2009.
 
@@ -424,7 +426,7 @@ The CI is formed by collecting the values of $\tau_{\text{null}}$ in the grid fo
 
 
 
-# Extensions
+# Extensions {#sec:extensions}
 
 This section discusses some options that are not directly supported by `RDHonest-vStata`.  Some of these options are implemented in the R package or packages written by other authors, or can be implemented in the RDHonest package using some additional coding.
 
