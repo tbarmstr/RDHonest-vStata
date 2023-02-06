@@ -115,6 +115,11 @@ program Estimate, eclass byable(recall) sortpreserve
 		local `vargroup' `there'
 	}
 
+	// sort by cluster id for clustering
+	if (`cluster_ind') {
+		sort `cluster'
+	}
+
 	* input control =============================
 
 	/* specification errors */
@@ -201,9 +206,10 @@ program Estimate, eclass byable(recall) sortpreserve
 		if (`prevar_ind') sigma2 = st_data(.,("`pvariance'"));
 		if (!`prevar_ind') sigma2 = J(rows(Y),cols(Y)^2,.);
 		if (`cluster_ind') cluster = st_data(.,("`cluster'"));
-		if (!`cluster_ind') cluster = J(rows(Y),1,1);
+		if (!`cluster_ind') cluster = J(rows(Y),1,.);
 		if (`weight_ind') weight = st_data(.,("`wgtvar'")); 
 		if (!`weight_ind') weight = J(rows(Y),1,1);
+		rho = J(1,cols(Y)^2,.);
 
 		// select sample
 		id = select(ID,sample:==1);
@@ -213,9 +219,9 @@ program Estimate, eclass byable(recall) sortpreserve
 		sigma2 = select(sigma2,sample:==1)
 		cluster = select(cluster,sample:==1)
 		weight = select(weight,sample:==1)
-	  
+
 		// initialize data frame and map Y and X in
-		df = RDDataPrep(id,X,Y,`c',sigma2,weight,cluster,rdclass)
+		df = RDDataPrep(id,X,Y,`c',sigma2,weight,cluster,rho,rdclass)
 
 		// initialize options
 		m=(`=subinstr("`m'"," ",",",.)')
@@ -244,6 +250,7 @@ program Estimate, eclass byable(recall) sortpreserve
 							order, ///
 							t0,
 							nolog)  
+
 
 		// return
 		ret = RDResults()
@@ -318,7 +325,7 @@ program Estimate, eclass byable(recall) sortpreserve
 	local title "Honest inference: {res:`=upper("`e(rd)'")'} Regression Discontinuity"
 	eret local title `title'
 
-	Display, `noparameter' fRD(`fRD') opt_bw(`bw_opted') opt_m(`m_opted')
+	Display, `noparameter' fRD(`fRD') opt_bw(`bw_opted') opt_m(`m_opted') cluster_ind(`cluster_ind')
 end
 
 
@@ -470,7 +477,7 @@ end
 
 program Display
 
-	syntax , [NOPARAMeter fRD(real 0) opt_bw(real 0) opt_m(real 0) *]
+	syntax , [NOPARAMeter fRD(real 0) opt_bw(real 0) opt_m(real 0) cluster_ind(real 0)*]
 	
 	local C1 "_col(2)"
 	local C2 "_col(16)"
@@ -577,6 +584,11 @@ program Display
 		di `C1' as text %21s "Treatment variable: " _continue
 		DisplayVar `e(treat)'
 	}
+
+	if (`cluster_ind'){
+		di `C1' as text %21s "Clustered by: " _continue
+		DisplayVar `e(cluster)'
+	}
 	
 	if ("`e(savewgtest)'"!="NA"){
 		di
@@ -615,6 +627,7 @@ mata:
 		/* variables */
 		real matrix X,Y,sigma2
 		real vector cluster, weight, m, p, ID
+		real vector rho
 		real scalar cutoff
 		string rdclass
 
@@ -623,7 +636,7 @@ mata:
 	}
 
 	void RDData::setup(real vector ID, real matrix X, real matrix Y, real scalar c, ///
-		real matrix sigma2, real vector weight, real vector cluster, string rdclass) {
+		real matrix sigma2, real vector weight, real vector cluster, real vector rho, string rdclass) {
 
 		real matrix s
 
@@ -644,8 +657,8 @@ mata:
 		/* supplied weights */ 
 		if(length(cluster)!=length(X)) _error("length of supplied cluster ID does not match data")
 		  
-		/* sort data */
-		s = sort((this.X, this.m, this.p, this.weight, this.cluster, this.Y, this.sigma2, this.ID),1)
+		/* sort data: by cluster id and X */
+		s = sort((this.X, this.m, this.p, this.weight, this.cluster, this.Y, this.sigma2, this.ID),(5,1))
 		this.X = s[.,1];  this.m = s[.,2]; this.p = s[.,3]
 		this.weight= s[.,4] ;  this.cluster = s[.,5] 
 		this.Y = s[.,(6..(cols(Y)+5))] ; this.sigma2 = s[.,((cols(Y)+6)..(cols(sigma2)+cols(Y)+5))];
@@ -653,16 +666,18 @@ mata:
 
 		/* class */
 		this.rdclass = rdclass 
+
+		this.rho = rho
 	}
 
 	class RDData scalar RDDataPrep(real vector ID, real matrix X, real matrix Y, real scalar c , ///
 								   real matrix sigma2, real vector weight, ///
-								   real vector cluster, string rdclass) {
+								   real vector cluster, real vector rho, string rdclass) {
 		
 		/* constructs df */	
 		class RDData scalar df  // create an instance of RDData
 		
-		df.setup(ID,X,Y,c,sigma2,weight,cluster,rdclass)
+		df.setup(ID,X,Y,c,sigma2,weight,cluster,rho,rdclass)
 	  
 		return(df)
 	}
@@ -726,18 +741,23 @@ mata:
 		real scalar eo /* effective observations */
 		real vector p , m /* below and above indicator */
 
-		real matrix wgt  /* OLS weight on Y_i that gives theta */				  
+		real matrix wgt  /* OLS weight on Y_i that gives theta */
+
+		real matrix res /* residuals */		
+		real matrix clu_setup /*clustering set up*/		  
 	}
 
 	class LPRegOutput scalar LPReg (real matrix X, real matrix Y, real matrix sigma2, 
-									real matrix weight, real scalar h, string kernel,
-									real scalar order, string se_method, real scalar j) {
+									real matrix weight, real matrix cluster, real scalar h, 
+									string kernel, real scalar order, string se_method, 
+									real scalar j, real vector rho) {
 
 		real scalar effObs
-		real matrix R, Gamma, beta, hsigma2, dsigma2, nsigma2, var
+		real matrix R, Gamma, beta, res, hsigma2, dsigma2, nsigma2, var, clu_setup, Vaug
 		/* weight: obs weights */ 
 		/* wt: OLS weights give theta */
 		/* W: kern weights plus obs weights */
+		/* cluster_res: cluster selected by non-missing residual */
 		real vector wgt, w, wgt_unif
 		real vector p, m
 		
@@ -765,49 +785,72 @@ mata:
 			output.w = w
 			output.eo = 0
 			output.wgt = J(rows(X),1,0)
+			output.res = J(rows(Y),1,0)
 			output.p = p
 			output.m = m
+			output.clu_setup = panelsetup(cluster,1)
 		}
 		else{
-		wgt = ((invsym(Gamma) * (w :* R)')[1,.])'
-		/* To compute effective observations, rescale against uniform kernel*/
-		/* use weight rather than kernel + weight */
-		wgt_unif = ((invsym(quadcross(R,weight:* R)) * (weight :* R)')[1,.])'
+			wgt = ((invsym(Gamma) * (w :* R)')[1,.])'
+			/* To compute effective observations, rescale against uniform kernel*/
+			/* use weight rather than kernel + weight */
+			wgt_unif = ((invsym(quadcross(R,weight:* R)) * (weight :* R)')[1,.])'
 
-		/* estimates from using OLS weights */
-		/* squared residuals allowing for Y being multi-variates */
-		beta = (invsym(Gamma) * (w :* R)' )* Y
-		hsigma2 = (Y - R*beta) 	
-		hsigma2=hsigma2[.,(J(1, cols(hsigma2), (1..cols(hsigma2))))]:*
-		hsigma2[.,( vec(J(cols(hsigma2),1, (1..cols(hsigma2))))')]
+			/* estimates from using OLS weights */
+			/* squared residuals allowing for Y being multi-variates */
+			beta = (invsym(Gamma) * (w :* R)' )* Y
+			res = (Y - R*beta)
 
-		/* Robust variance-based formula */
-		// supplied_var: use use-supplied squared residuals to compute EHW variance 
-		if(strpos(se_method,"supplied_var") > 0) {
-			var = wgt:^2:*sigma2
-		}
+			/* Robust variance-based formula */
+			// supplied_var: use use-supplied squared residuals to compute EHW variance 
+			if ( max((cluster:==.)) ) {
+				if(strpos(se_method,"supplied_var") > 0) {
+					var = colsum(wgt:^2:*sigma2)
+					output.sigma2 = sigma2
+				}
 
-		if(strpos(se_method,"EHW") > 0 | strpos(se_method,"ehw") > 0) {
-			var = wgt:^2:*hsigma2
-		}
+				if(strpos(se_method,"EHW") > 0 | strpos(se_method,"ehw") > 0) {
+					hsigma2=res[.,(J(1, cols(res), (1..cols(res))))]:*
+					res[.,( vec(J(cols(res),1, (1..cols(res))))')]
+					var = colsum(wgt:^2:*hsigma2)
+					output.sigma2 = hsigma2
+				}
 
-		if(strpos(se_method,"NN") > 0 | strpos(se_method,"nn") > 0 ) {
-			nsigma2 = sigmann(X,Y,j,weight)
-			var = wgt:^2:*nsigma2
-		}
+				if(strpos(se_method,"NN") > 0 | strpos(se_method,"nn") > 0 ) {
+					nsigma2 = sigmann(X,Y,j,weight)
+					var = colsum(wgt:^2:*nsigma2)
+					output.sigma2 = nsigma2
+				}
+			}
+			else {
+				clu_setup = panelsetup(cluster,1)
+				if(strpos(se_method,"supplied_var") > 0) {
+					output.sigma2 = sigma2
+					var = colsum(wgt:^2:*sigma2) :+ rho*( sum(panelsum(wgt,clu_setup):^2) - sum(wgt:^2) )
+				}
+				
+				else {
+					hsigma2=res[.,(J(1, cols(res), (1..cols(res))))]:*
+					res[.,( vec(J(cols(res),1, (1..cols(res))))')]
+					output.sigma2 = hsigma2
+					Vaug = panelsum(wgt:*res, clu_setup)
+					var = vec( cross(Vaug,Vaug) )'
+				}
+			}
+			
+			/* catch error when no variance is provided */
+			if( max((var:==.)) ) _error("No variance was computed by LPReg")
 
-		/* catch error when no variance is provided */
-		if( max((var:==.)) ) _error("No variance was computed by LPReg")
-
-		/* return output */
-		output.theta = beta[1,.]
-		output.sigma2 = hsigma2
-		output.var = colsum(var)
-		output.w = w
-		output.eo = length(X)*sum(wgt_unif:^2)/sum(wgt:^2) 
-		output.wgt = wgt
-		output.p = p
-		output.m = m
+			/* return output */
+			output.theta = beta[1,.]
+			output.var = var
+			output.w = w
+			output.eo = length(X)*sum(wgt_unif:^2)/sum(wgt:^2) 
+			output.wgt = wgt
+			output.res = res
+			output.p = p
+			output.m = m
+			output.clu_setup = clu_setup
 		}
 		
 		//printf("var is %9.4f ",output.var)
@@ -840,10 +883,14 @@ mata:
 
 		/* variable declarations */
 		real scalar plugin /* to be implemented later */
-		real matrix Y, X, w, sigma2, Xm, Xp, weight
+		real matrix Y, X, w, sigma2, Xm, Xp, weight, cluster
+		real vector rho
 		
 		class RDLPregOutput scalar output
 		class LPRegOutput scalar r1
+
+		/* set rho */
+		rho = df.rho
 
 		/* set kernel weights */
 		w = (h <= 0 ? (0 :* df.X) : (EqKernWeight(df.X:/h,kernel,0,0)):*df.weight)
@@ -852,6 +899,7 @@ mata:
 		kernel weights */
 		X = select(df.X,w :> 0) ; Y = select(df.Y,w :> 0)
 		sigma2 = select(df.sigma2,w :> 0) ; weight = select(df.weight,w :> 0) 
+		cluster = select(df.cluster,w :> 0)
 
 		Xm = select(X,X :< 0) ; Xp = select(X,X :>= 0)
 		if ((length(Xm) < 3*order | length(Xp) < 3*order) & !no_warning) {
@@ -867,9 +915,8 @@ mata:
 			printf("{red}with positive weights, for the running variable. \n")
 		}
 
-
 		/* regression */
-		r1 = LPReg(X, Y, sigma2, weight, h, kernel, order, se_method, j)
+		r1 = LPReg(X, Y, sigma2, weight, cluster, h, kernel, order, se_method, j, rho)
 	  
 		/* output */
 		output.estimate = r1.theta[1]
@@ -883,7 +930,9 @@ mata:
 		output.m = r1.m
 		output.var = r1.var
 		output.wgt = r1.wgt
-		
+		output.res = r1.res
+		output.clu_setup = r1.clu_setup
+
 		if (df.rdclass == "frd") {	
 			output.fs = r1.theta[2]
 			output.estimate = r1.theta[1]/r1.theta[2]
@@ -895,6 +944,7 @@ mata:
 		return(output)
 		
 	}
+
 
 	// 4. Rule of thumb choosing M =============================
 
@@ -1057,15 +1107,22 @@ mata:
 		return(cons * ((varp + varm)/(f0 * N * ((m2p - m2m)^2 + rm + rp)))^(1/5))
 	}
 
-	class RDData scalar RDPrelimVar(class RDData scalar df, real matrix kernC,| string se_initial) {
+	// 5.1 build preliminary variance estimation
+
+	class RDPrelimVarOutput{
+		real vector p , m, moul /* below and above indicator */
+		real matrix res, sigma2 /* residuals */
+	}
+
+	class RDPrelimVarOutput scalar RDPrelimEst(class RDData scalar df, real matrix kernC, string se_initial) {
 		
 		real matrix X, Xp, Xm
 		class RDLPregOutput scalar r1
-		real scalar h1, hmin, lm, lp, varm, varp 
+		class RDPrelimVarOutput scalar output
+		real scalar h1, hmin 
 		class RDData scalar drf 
-		
-		/* set defaults: EHW and IK bandwidth*/
-		if(args()==2) se_initial = "IKEHW"
+		real matrix clu_setup
+		real vector moul
 
 		/* concatenate Xm and Xp and compute "rule of thumb" bandwidth */
 		X = df.X
@@ -1086,37 +1143,93 @@ mata:
 		if (strpos(se_initial,"Silverman") > 0) {	
 			if (cols(df.Y) == 1) {
 				r1 = RDLPreg(df,h1,"uni",0,"EHW")
-				
-				/* variance adjustment on either side */
-				lp = sum(r1.p)
-				lm = sum(r1.m)
-				
-				varp = sum(r1.sigma2:*r1.p)*1/(lp-1)
-				varm = sum(r1.sigma2:*r1.m)*1/(lm-1)
-				
-				df.sigma2 = (df.X:<0):*varm + (df.X:>=0):*varp
 			} 
 			else {	
 				_error("This method for preliminary variance estimation is not supported.")
 			}
 		}
 		else if (strpos(se_initial,"IKEHW") > 0) {
-			h1 = IKBW_fit(drf, kernC)	
+			h1 = IKBW_fit(drf, kernC)
 			r1 = RDLPreg(df,max((h1,hmin)),"tri",1,"EHW")
-			
-			lp = sum(r1.p)
-			lm = sum(r1.m)
-			
-			varp = colsum(r1.sigma2:*r1.p)/lp
-			varm = colsum(r1.sigma2:*r1.m)/lm
-
-			df.sigma2 = (df.X:<0):*J(rows(df.X),1,varm) + (df.X:>=0):*J(rows(df.X),1,varp)	
 		}
 		else {
 			_error("Unknown method for estimating initial variance.")
 		}
 
+		if ( max((df.cluster:!=.)) ){
+			moul = moulton_est(r1.res, r1.clu_setup)
+		}
+
+		/* output */
+		output.p = r1.p
+		output.m = r1.m
+		output.res = r1.res
+		output.sigma2 = r1.sigma2
+		output.moul = moul
+
+		return(output)
+	}
+
+	class RDData scalar RDPrelimVar(class RDData scalar df, real matrix kernC,| string se_initial) {
+		
+		real matrix X, Xp, Xm
+		real vector moul
+		real scalar lm, lp, varm, varp
+		class RDPrelimVarOutput scalar r1
+		
+		/* set defaults: EHW and IK bandwidth*/
+		if(args()==2) se_initial = "IKEHW"
+
+		/* concatenate Xm and Xp and compute "rule of thumb" bandwidth */
+		X = df.X
+		
+		Xp = select(df.X,df.X:>=0) ; Xm = select(df.X,df.X:<0)
+		r1 = RDPrelimEst(df, kernC, se_initial)
+					 
+		if (strpos(se_initial,"Silverman") > 0) {	
+			if (cols(df.Y) == 1) {
+				/* variance adjustment on either side */
+				lp = sum(r1.p)
+				lm = sum(r1.m)
+
+				varp = sum(r1.sigma2:*r1.p)*1/(lp-1)
+				varm = sum(r1.sigma2:*r1.m)*1/(lm-1)
+				
+				df.sigma2 = (df.X:<0):*varm + (df.X:>=0):*varp
+			}
+		}
+		else if (strpos(se_initial,"IKEHW") > 0) {
+			lp = sum(r1.p)
+			lm = sum(r1.m)
+
+			varp = colsum(r1.sigma2:*r1.p)/lp
+			varm = colsum(r1.sigma2:*r1.m)/lm
+			
+			df.sigma2 = (df.X:<0):*J(rows(df.X),1,varm) + (df.X:>=0):*J(rows(df.X),1,varp)	
+		}
+		df.rho = r1.moul
+		
 		return(df)
+	}
+
+	// 5.2 Moulton estimate of rho for clustering ==============
+	real vector moulton_est(real matrix res, real matrix clu_setup) {
+
+		real scalar den
+		real matrix res_aug
+		real vector moul
+
+		den = sum( panelsum(J(rows(res),1,1),clu_setup):^2 ) - rows(res)
+		
+		if (den > 0){
+			res_aug = panelsum(res,clu_setup)
+			moul = vec(cross(res_aug,res_aug)-cross(res,res)):/den
+		}
+		else{
+			moul = J(cols(res)^2,1,0)
+		}
+
+		return (moul')
 	}
 
 	// 6. compute optimal h=====================================
@@ -1183,8 +1296,6 @@ mata:
 		return(h)
 	}
 
-
-
 	// 7. main function: RDHonest_fit===========================
 
 	/* declare a class for results */
@@ -1210,10 +1321,12 @@ mata:
 			//printf("Bandwidth (h) missing or invalid, running RDOptBW_fit \n")
 			h = RDOptBW_fit(df, opt, kernC)
 		}
-			
+
 		/* run RD local polinomial regression */
-		r1 = RDLPreg(df, h, opt.kernel, opt.order, opt.se_method, 1, opt.j)
 		// Suppress warnings about too few observations 
+
+		r1 = RDLPreg(df, h, opt.kernel, opt.order, opt.se_method, 1, opt.j)
+
 		wp = select(r1.wgt,r1.p:==1)
 		wm = select(r1.wgt,r1.m:==1)
 		XX = select(df.X,r1.kw:>0)
@@ -1253,7 +1366,7 @@ mata:
 		results.h = h
 		results.eo = r1.eo
 		results.estimate = r1.estimate
-		results.fs = r1.fs 
+		results.fs = r1.fs
 
 		return(results)
 	}
@@ -1268,7 +1381,7 @@ mata:
 		struct RDResults scalar results
 		class RDLPregOutput scalar regoutput 
 		real matrix kw, wgt, tempID, Sample, est_w
-		
+
 		/* initial se estimate */
 		if ( max((df.sigma2:==.))
 		& (strpos(opt.se_method,"supplied_var") > 0 | opt.h == 0)) {
@@ -1281,8 +1394,8 @@ mata:
 		if(max(opt.m) < 0) {
 		printf("Using Armstrong and Kolesar (2020) rule of thumb for smoothness constant M \n")
 		opt.m = MROT_fit(df.X,df.Y)	
-		}    
-
+		}
+		
 		/* optimal bandwidth */
 		results =  NPRDHonest_fit(df, opt,kernC, 0)
 
