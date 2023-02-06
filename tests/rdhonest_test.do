@@ -37,8 +37,12 @@ cap drop wgt /*for the dofile to run*/
 // 1.2.2 tri kernel + optimal h + without M + est_w saved as wgt 
 rdhonest voteshare margin, kernel("tri") savew(wgt)
 
-// 1.3 display option tests and by option tests
-// 1.3.1 by option (psuedo categories)
+// 1.3 clustering
+gen id = _n
+rdhonest voteshare margin, se_method("EHW") cl(id)
+
+// 1.4 display option tests and by option tests
+// 1.4.1 by option (psuedo categories)
 qui{
 	gen random = runiform()
 	gen bygrp = 1 if random<0.5
@@ -48,10 +52,10 @@ qui{
 bys bygrp: rdhonest voteshare margin, m(0.1) kernel("uni") h(10)
 bys bygrp: rdhonest voteshare margin, m(0.1) kernel("uni") h(10) savew(wgt)
 
-// 1.3.2 hide parameters
+// 1.4.2 hide parameters
 rdhonest voteshare margin, m(0.1) kernel("uni") h(10) noparam
 
-// 1.3.3 show iteration log
+// 1.4.3 show iteration log
 rdhonest voteshare margin, m(0.1) kernel("tri") iterl
 
 ********************************************************************************
