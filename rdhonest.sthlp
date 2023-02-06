@@ -63,11 +63,11 @@ For fuzzy RD estimation: {p_end}
 {synopt:{opt beta(#)}}determine quantile of excess length to optimize if {cmd:opt_criterion()} is specifed as {cmd:OCI}; default is {cmd:c(0.8)}{p_end}
 {synopt:{opt j(#)}}set number of nearest neighbors used if {cmd:se_method()} is specified as {cmd:NN}; default is {cmd:c(3)}{p_end}
 {synopt:{opt pvar:iance(varlist)}}supply preliminary conditional variance{p_end}
-{p2coldent:* {opt t0(#)}}set initial estimate of the treatment effect for calculating the optimal bandwidth; default is {cmd:c(0)}{p_end}
+{p2coldent:* {opt t0(#)}}set initial estimate of the treatment effect for calculating the optimal bandwidth; default is {cmd:t0(0)}{p_end}
 
 {syntab:Other}
 {synopt:{opt cl:uster(varlist)}}supply list of clustering variables{p_end}
-{synopt:{opt w:eight(varname)}}supply the weighting variable{p_end}
+{synopt:{opt w:gtvar(varname)}}supply the weighting variable{p_end}
 
 {syntab:Reporting}
 {synopt:{opt savew:gtest(newvar)}}save the estimated weights as a new variable named {help newvar}; when combined with by, only save the estimated weights for the last by-group{p_end}
@@ -163,7 +163,7 @@ If {opt pvar:iance(varlist)} is specified, any input for {opt se_method()} will 
 {opt cl:uster(varlist)} supplies the list of clustering variables.{p_end}
 
 {phang}
-{opt w:eight(varname)} supplies the weighting variable.{p_end}
+{opt w:gtvar(varname)} supplies the weighting variable.{p_end}
 
 {dlgtab:Reporting}
 

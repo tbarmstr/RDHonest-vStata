@@ -61,7 +61,7 @@ program Estimate, eclass byable(recall) sortpreserve
 		/// pinf(integer 0) /// =1 if user wants to do inference at cutoff point instead of RD
 		PVARiance(varlist) /// 
 		CLuster(varlist) /// clustering variables 
-		Weight(varname) /// weighting variables
+		Wgtvar(varname) /// weighting variables
 		SAVEWgtest(string) ///
 		NOPARAMeter /// not show paramaters used
 		ITERLog /// show iteration log
@@ -88,10 +88,10 @@ program Estimate, eclass byable(recall) sortpreserve
 	local cluster_ind `="`cluster'" != ""'
 	
 	// Indicator: weights of obs provided, weight_ind=1
-	local weight_ind `="`weight'" != ""'	
+	local weight_ind `="`wgtvar'" != ""'	
 
 	marksample touse
-	markout `touse' `devpar' `covar' `runvar' `treat' `pvariance' `cluster' `weight', strok
+	markout `touse' `devpar' `covar' `runvar' `treat' `pvariance' `cluster' `wgtvar', strok
 
 	set more off // set more off
 
@@ -202,7 +202,7 @@ program Estimate, eclass byable(recall) sortpreserve
 		if (!`prevar_ind') sigma2 = J(rows(Y),cols(Y)^2,.);
 		if (`cluster_ind') cluster = st_data(.,("`cluster'"));
 		if (!`cluster_ind') cluster = J(rows(Y),1,1);
-		if (`weight_ind') weight = st_data(.,("`weight'")); 
+		if (`weight_ind') weight = st_data(.,("`wgtvar'")); 
 		if (!`weight_ind') weight = J(rows(Y),1,1);
 
 		// select sample
