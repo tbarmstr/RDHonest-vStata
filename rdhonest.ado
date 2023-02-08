@@ -1551,7 +1551,7 @@ mata:
 		ind[k] = 0
 		Jk = sum(weight:*ind)
 		/* compute mean of Y with positive indices */
-		YTemp = (sort((ind,weight:*Y),-1))[1..Jk,2..(cols(Y)+1)]:/Jk
+		YTemp = (sort((ind,weight:*Y),-1))[1..sum(ind),2..(cols(Y)+1)]:/Jk
 		sigma2[k,.] = vec(quadcross(Jk/(Jk+weight[k]) :* (Y[k,.] - colsum(YTemp)), (Y[k,.] - colsum(YTemp))))'
 		}					
 		return (sigma2)				
