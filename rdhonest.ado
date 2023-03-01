@@ -91,7 +91,7 @@ program Estimate, eclass byable(recall) sortpreserve
 	local weight_ind `="`wgtvar'" != ""'	
 
 	marksample touse
-	markout `touse' `devpar' `covar' `runvar' `treat' `pvariance' `cluster' `wgtvar', strok
+	markout `touse' `depvar' `covar' `runvar' `treat' `pvariance' `cluster' `wgtvar', strok
 
 	set more off // set more off
 
