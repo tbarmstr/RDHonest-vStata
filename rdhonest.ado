@@ -1519,14 +1519,14 @@ mata:
 
 		if (length(s)==1) {
 			/* avoid error when trying to join a nonexistent vector with one that exists */
-			d = (sort(abs(X[(k+1)..min((k+j,n))]:-X[k]),1))[j]
+			d = (sort(abs(X[(k+1)..min((k+j,n))]:-X[k]),1))[min((j,n-k))]
 		}
 		else if (k == n) {
 			/* avoid error when trying to join a nonexistent vector with one that exists */
-			d = (sort(abs((X[s[1..length(s)-1]]):-X[k]),1))[j]
+			d = (sort(abs((X[s[1..length(s)-1]]):-X[k]),1))[min((j,length(s)-1))]
 		}
 		else {
-			d = (sort(abs((X[s[1..length(s)-1]]\X[(k+1)..min((k+j,n))]):-X[k]),1))[j]
+			d = (sort(abs((X[s[1..length(s)-1]]\X[(k+1)..min((k+j,n))]):-X[k]),1))[min((j,n-k))]
 		}
 		
 		ind = (abs(X :- X[k]) :<= d)
