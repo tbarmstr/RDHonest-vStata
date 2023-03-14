@@ -234,6 +234,10 @@ If {opt pvar:iance(varlist)} is specified, any input for {opt se_method()} will 
 {synopt:{cmd:e(effObs)}}effective number of observations used for estimation{p_end}
 {synopt:{cmd:e(Leverage)}}maximum leverage for estimation {cmd:e(est)}{p_end}
 {synopt:{cmd:e(cutoff)}}RD cutoff of the running variable{p_end}
+{synopt:{cmd:e(lslope)}}local linear slope estimation, below cutoff{p_end}
+{synopt:{cmd:e(rslope)}}local linear slope estimation, above cutoff{p_end}
+{synopt:{cmd:e(lintercept)}}local linear intercept estimation, below cutoff{p_end}
+{synopt:{cmd:e(rintercept)}}local linear intercept estimation, above cutoff{p_end}
 
 {synoptset 20 tabbed}{...}
 {p2col 5 20 24 2: Macros}{p_end}

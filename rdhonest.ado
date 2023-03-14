@@ -410,6 +410,12 @@ program Estimate, eclass byable(recall) sortpreserve
 	eret scalar Leverage = Leverage
 	eret scalar cutoff = `c'
 
+	// local linear fitting parameter estimation
+	eret scalar lslope = lslope
+	eret scalar rslope = rslope
+	eret scalar lintercept = lintercept
+	eret scalar rintercept = lintercept + lslope * `c'
+
 	local title "Honest inference: {res:`=upper("`e(rd)'")'} Regression Discontinuity"
 	eret local title `title'
 
@@ -815,6 +821,7 @@ mata:
 	class LPRegOutput {
 		/* contains output from LPReg */
 		real vector theta /* estimates */
+		real matrix betafull /* full estimators */
 		real matrix sigma2 /* squared residuals */
 		real vector var /* sampling variance of theta */
 		real vector w /* kern weights plus obs weight */
@@ -855,6 +862,7 @@ mata:
 		if(h == 0| det(Gamma)==0) {
 			//printf("{red}Error: bandwidth too small or singular matrix.\n")
 			output.theta = J(1,cols(Y),0)
+			output.betafull = J(4,cols(Y),0)
 			output.sigma2 = J(rows(Y),cols(Y)^2,0)
 			output.var = J(1,cols(Y)^2,0)
 			output.w = w
@@ -896,6 +904,7 @@ mata:
 
 		/* return output */
 		output.theta = beta[1,.]
+		output.betafull = beta
 		output.sigma2 = hsigma2
 		output.var = colsum(var)
 		output.w = w
@@ -917,6 +926,11 @@ mata:
 		real scalar fs /* 1st stage estimate (for T) */
 		real scalar estimate /* treatment effect */
 		real vector kw /* kernel weight */
+
+		/*store local linear fitting model estimation*/
+		real scalar lintercept /* below-cutoff intercept */
+		real scalar lslope /*below-cutoff slope */
+		real scalar rslope /*above-cutoff slope */
 	}
 
 	class RDLPregOutput scalar RDLPreg(class RDData scalar df, real scalar h,
@@ -968,6 +982,18 @@ mata:
 	  
 		/* output */
 		output.estimate = r1.theta[1]
+		if (order == 0) {
+			output.betafull = r1.betafull[.,1]
+			output.rslope = 0
+			output.lintercept = r1.betafull[2,1]
+			output.lslope = 0
+		}
+		if (order > 0) {
+			output.betafull = r1.betafull[.,1]
+			output.rslope = r1.betafull[2,1]
+			output.lintercept = r1.betafull[3,1]
+			output.lslope = r1.betafull[4,1]
+		}
 		output.w = r1.w
 		output.kw = w
 		output.se = sqrt(r1.var[1])
@@ -984,7 +1010,19 @@ mata:
 			output.estimate = r1.theta[1]/r1.theta[2]
 			output.se = sqrt(quadcross(
 					   (1,-output.estimate,-output.estimate,output.estimate^2)',r1.var')
-					   /output.fs^2)		
+					   /output.fs^2)	
+
+			output.betafull = r1.betafull[.,1]:/r1.betafull[.,2]
+			if (order == 0) {
+				output.rslope = 0
+				output.lintercept = r1.betafull[2,1]/r1.betafull[2,2]
+				output.lslope = 0
+			}
+			if (order > 0) {
+				output.rslope = r1.betafull[2,1]/r1.betafull[2,2]
+				output.lintercept = r1.betafull[3,1]/r1.betafull[3,2]
+				output.lslope = r1.betafull[4,1]/r1.betafull[4,2]
+			}	
 		}
 
 		return(output)
@@ -1286,6 +1324,7 @@ mata:
 	struct RDResults {
 		real scalar estimate, fs, leverage
 		real scalar bias, sd, lower, upper, hl, eo, h, naive
+		real scalar rslope, lslope, lintercept
 	}
 
 	// 7.1 NPRDHonest_fit
@@ -1349,6 +1388,9 @@ mata:
 		results.eo = r1.eo
 		results.estimate = r1.estimate
 		results.fs = r1.fs 
+		results.rslope = r1.rslope
+		results.lslope = r1.lslope
+		results.lintercept = r1.lintercept
 
 		return(results)
 	}
@@ -1397,12 +1439,17 @@ mata:
 		st_numscalar("uEqLimit",results.estimate + results.hl)
 		// smoothness Constant 
 		st_numscalar("M1",opt.m[1])
-
+		
 		if (df.rdclass=="frd"){		
 		st_numscalar("fs",results.fs)
 		st_numscalar("M1",opt.m[1])
 		st_numscalar("M2",opt.m[2])		
 		}
+		
+		// local linear fitting parameter estimations
+		st_numscalar("lslope",results.lslope)
+		st_numscalar("rslope",results.rslope)
+		st_numscalar("lintercept",results.lintercept)
 
 		/* generate a variable from the option savewgtest */
 		if (args()== 6) {
