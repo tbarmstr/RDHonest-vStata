@@ -411,10 +411,12 @@ program Estimate, eclass byable(recall) sortpreserve
 	eret scalar cutoff = `c'
 
 	// local linear fitting parameter estimation
+	eret scalar lest = lintercept
+	eret scalar rest = lintercept + estimate
 	eret scalar lslope = lslope
 	eret scalar rslope = rslope
-	eret scalar lintercept = lintercept
-	eret scalar rintercept = lintercept + lslope * `c' + estimate
+	eret scalar lintercept = lintercept - lslope * `c'
+	eret scalar rintercept = lintercept + estimate - rslope * `c'
 
 	local title "Honest inference: {res:`=upper("`e(rd)'")'} Regression Discontinuity"
 	eret local title `title'
